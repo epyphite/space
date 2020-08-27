@@ -1,0 +1,87 @@
+package commands
+
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
+	"path/filepath"
+
+	explorer "github.com/epyphite/space/NASA"
+	"github.com/epyphite/space/NASA/pkg/models"
+	"github.com/epyphite/space/NASA/pkg/utils"
+	"github.com/spf13/cobra"
+)
+
+var rootCmd = &cobra.Command{
+	Use:   "nasaExplorer",
+	Short: "nasaExplorer",
+	Long:  ``,
+	RunE:  nasaExplorer,
+}
+var cfgFile string
+var services []string
+
+func init() {
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "Define a configuration file location")
+	rootCmd.PersistentFlags().StringArrayVar(&services, "services", nil, "Define the services you wish to run")
+}
+
+//Execute will run the desire module command.
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+func nasaExplorer(cmd *cobra.Command, args []string) error {
+
+	execName, _ := os.Executable()
+	execName = filepath.Base(execName)
+	options := models.Config{}
+	var err error
+	if cfgFile != "" {
+		options, err = utils.LoadConfiguration(cfgFile)
+		if err != nil {
+			log.Println("Error reading configuration file ", err)
+			return err
+		}
+	}
+	options.APIKey = os.Getenv("NASA_KEY")
+
+	for _, service := range services {
+		var file []byte
+		filename := fmt.Sprintf("%s.json", service)
+		switch service {
+		case "Apod":
+			apodRet, err := explorer.GetLatestApod(options)
+			if err != nil {
+				fmt.Println(err)
+			}
+			file, _ = json.MarshalIndent(apodRet, "", " ")
+			_ = ioutil.WriteFile(filename, file, 0644)
+
+		case "EonetLatest":
+			eonetRet, err := explorer.GetEonetLatestEvent(options)
+			if err != nil {
+				fmt.Println(err)
+			}
+			file, _ = json.MarshalIndent(eonetRet, "", " ")
+			_ = ioutil.WriteFile(filename, file, 0644)
+
+		case "NeoAll":
+			options.SaveOnError = true
+			options.MaxPages = 10
+			neoRet, err := explorer.GetNeoAll(options)
+			if err != nil {
+				fmt.Println(err)
+			}
+			file, _ = json.MarshalIndent(neoRet, "", " ")
+			_ = ioutil.WriteFile(filename, file, 0644)
+		}
+
+	}
+
+	return err
+}
