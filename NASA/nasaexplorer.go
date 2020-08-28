@@ -1,7 +1,8 @@
-package nasaExplorer
+package nasaexplorer
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -118,5 +119,48 @@ func GetNeoAll(configuration models.Config) ([]*modules.NeoWBroseResponse, error
 		neoResponse = append(neoResponse, res)
 	}
 	return neoResponse, err
+
+}
+
+//GetAllTLECollection will save the required TLE pages
+func GetAllTLECollection(configuration models.Config) ([]*modules.TLECollectionResponse, error) {
+	var config models.Config
+	config = configuration
+	var lteCollection []*modules.TLECollectionResponse
+	if config == (models.Config{}) {
+		config = models.Config{APIKey: os.Getenv("NASA_KEY")}
+	}
+
+	if config.BaseURL == "" {
+		config.BaseURL = "https://data.ivanstanojevic.me"
+	}
+
+	c := client.NewClient(config)
+	ctx := context.Background()
+
+	tleOptions := modules.TLECollectionRequest{Prefix: "api/tle"}
+
+	res, err := c.GetTLECollection(ctx, &tleOptions)
+
+	lteCollection = append(lteCollection, res)
+	for res.View.Next != "" {
+		page, _ := strconv.Atoi(utils.GetVarURL(res.View.Next, "page"))
+		if page >= config.MaxPages {
+			break
+		}
+		tleOptions := modules.TLECollectionRequest{Prefix: "api/tle", Page: page}
+		res, err = c.GetTLECollection(ctx, &tleOptions)
+
+		if err != nil {
+			log.Println("Error retrieving the next page")
+			if config.SaveOnError == true {
+				break
+			}
+			return nil, err
+		}
+		lteCollection = append(lteCollection, res)
+		fmt.Println(len(lteCollection))
+	}
+	return lteCollection, err
 
 }

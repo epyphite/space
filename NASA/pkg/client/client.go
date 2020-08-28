@@ -196,3 +196,34 @@ func (c *RestClient) GetAPOD(ctx context.Context, options *modules.ApodRequest) 
 	}
 	return &res, err
 }
+
+//GetTLECollection will save the required TLE pages
+func (c *RestClient) GetTLECollection(ctx context.Context, options *modules.TLECollectionRequest) (*modules.TLECollectionResponse, error) {
+
+	var url string
+	var page int
+	var err error
+
+	page = options.Page
+	if page > 0 {
+		url = fmt.Sprintf("%s/%s?page=%d", c.BaseURL, options.Prefix, page)
+	} else {
+		url = fmt.Sprintf("%s/%s", c.BaseURL, options.Prefix)
+	}
+
+	fmt.Println(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("Error processing URL %s, \n Error: %s", url, err)
+	}
+
+	req = req.WithContext(ctx)
+	res := modules.TLECollectionResponse{}
+	err = c.sendRequest(req, &res)
+
+	if err != nil {
+		fmt.Println("Error on TLE Module: ", err)
+	}
+	return &res, err
+
+}
