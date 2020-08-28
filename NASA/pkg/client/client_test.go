@@ -14,6 +14,24 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestGetTLECollection(t *testing.T) {
+	config := models.Config{APIKey: os.Getenv("NASA_KEY")}
+	config.BaseURL = "https://data.ivanstanojevic.me"
+
+	TLEOptions := modules.TLECollectionRequest{Prefix: "api/tle"}
+
+	c := NewClient(config)
+	ctx := context.Background()
+
+	res, err := c.GetTLECollection(ctx, &TLEOptions)
+
+	assert.Nil(t, err, "expecting nil error")
+	assert.NotNil(t, res, "expecting non-nil result")
+	file, _ := json.MarshalIndent(res, "", " ")
+
+	_ = ioutil.WriteFile("test_TestGetTLECollection.json", file, 0644)
+}
+
 func TestGetApod(t *testing.T) {
 
 	config := models.Config{APIKey: os.Getenv("NASA_KEY")}

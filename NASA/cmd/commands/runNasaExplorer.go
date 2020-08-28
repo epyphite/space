@@ -49,7 +49,14 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 		}
 	}
 	options.APIKey = os.Getenv("NASA_KEY")
+	if options.APIKey == "" {
+		log.Println("API for Nasa Services not set, please specify before continuing.")
+		return fmt.Errorf("APIKey not Set")
+	}
 
+	if options.MaxPages == 0 {
+		options.MaxPages = 10
+	}
 	for _, service := range services {
 		var file []byte
 		filename := fmt.Sprintf("%s.json", service)
@@ -71,13 +78,19 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 			_ = ioutil.WriteFile(filename, file, 0644)
 
 		case "NeoAll":
-			options.SaveOnError = true
-			options.MaxPages = 10
 			neoRet, err := explorer.GetNeoAll(options)
 			if err != nil {
 				fmt.Println(err)
 			}
 			file, _ = json.MarshalIndent(neoRet, "", " ")
+			_ = ioutil.WriteFile(filename, file, 0644)
+
+		case "TLECollection":
+			lteRet, err := explorer.GetAllTLECollection(options)
+			if err != nil {
+				fmt.Println(err)
+			}
+			file, _ = json.MarshalIndent(lteRet, "", " ")
 			_ = ioutil.WriteFile(filename, file, 0644)
 		}
 
