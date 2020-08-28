@@ -39,3 +39,7 @@ versioning:
 build/nasaExplorer-linux:
 	cd cmd/ && ${FLAGS_LINUX} go build -o ${BUILD_FOLDER}/dist/linux/bin/nasaExplorer .
 
+distribute:
+	./upload_github.sh ${VERSION} ${TIME}
+
+
