@@ -10,6 +10,8 @@ import (
 	client "github.com/epyphite/space/NASA/pkg/client"
 	models "github.com/epyphite/space/NASA/pkg/models"
 	modules "github.com/epyphite/space/NASA/pkg/models/modules"
+	parser "github.com/epyphite/space/NASA/pkg/parser"
+
 	"github.com/epyphite/space/NASA/pkg/utils"
 )
 
@@ -165,7 +167,7 @@ func GetAllTLECollection(configuration models.Config) ([]*modules.TLECollectionR
 
 }
 
-//GetAllTLECollection will save the required TLE pages
+//GetTLEMember will save the required TLE pages
 func GetTLEMember(configuration models.Config, satID int) (*modules.TLEMember, error) {
 	var config models.Config
 	config = configuration
@@ -185,5 +187,30 @@ func GetTLEMember(configuration models.Config, satID int) (*modules.TLEMember, e
 	res, err := c.GetTLEMember(ctx, &tleOptions)
 
 	return res, err
+
+}
+
+//GetTLEMemberDetails will save the required TLE pages
+func GetTLEMemberDetails(configuration models.Config, satID int) (*modules.TLEMemberFormat, error) {
+	var config models.Config
+	config = configuration
+	if config == (models.Config{}) {
+		config = models.Config{APIKey: os.Getenv("NASA_KEY")}
+	}
+
+	if config.BaseURL == "" {
+		config.BaseURL = "https://data.ivanstanojevic.me"
+	}
+
+	c := client.NewClient(config)
+	ctx := context.Background()
+
+	tleOptions := modules.TLERecordRequest{Prefix: "api/tle", ID: satID}
+
+	res, err := c.GetTLEMember(ctx, &tleOptions)
+
+	resMember := parser.ParseTLEMember(res)
+
+	return resMember, err
 
 }
