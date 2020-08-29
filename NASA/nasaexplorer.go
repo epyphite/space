@@ -2,7 +2,9 @@ package nasaexplorer
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
@@ -11,6 +13,7 @@ import (
 	models "github.com/epyphite/space/NASA/pkg/models"
 	modules "github.com/epyphite/space/NASA/pkg/models/modules"
 	parser "github.com/epyphite/space/NASA/pkg/parser"
+	"github.com/epyphite/space/NASA/pkg/srv"
 
 	"github.com/epyphite/space/NASA/pkg/utils"
 )
@@ -211,6 +214,19 @@ func GetTLEMemberDetails(configuration models.Config, satID int) (*modules.TLEMe
 
 	resMember := parser.ParseTLEMember(res)
 
-	return resMember, err
+	// Added to Orbital Element
+	var OE srv.OrbitalElement
 
+	OE.Anomaly = resMember.Line2.MeanAnomaly
+	OE.Inclination = resMember.Line2.OrbitInclination
+	OE.Ascension = resMember.Line2.RAAN
+	OE.Eccentricity = resMember.Line2.Eccentricity
+	OE.Motion = resMember.Line2.MeanMotion
+	OE.Perigee = resMember.Line2.ArgumentPerigee
+	OE.CalculateSemiMajorAxis()
+	OE.CalculateTrueAnomaly()
+	var file []byte
+	file, _ = json.MarshalIndent(OE, "", " ")
+	_ = ioutil.WriteFile("OE.json", file, 0644)
+	return resMember, err
 }
