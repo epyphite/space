@@ -1,5 +1,7 @@
 package constants
 
+import "github.com/epyphite/space/NASA/pkg/utils"
+
 var (
 	_Kilo  = 1000
 	_FKilo = float64(_Kilo)
@@ -79,4 +81,6 @@ var (
 
 	neptuneRadiusMean  = 24622 * _Kilo
 	neptuneRadiusPolar = 24341 * _Kilo
+	// 4.1 s, 56 minutes, 23 hours
+	earthSiderealDay = utils.TimeDelta(23, 56, 4.1)
 )
