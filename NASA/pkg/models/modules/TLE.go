@@ -11,12 +11,8 @@ type TLECollectionRequest struct {
 }
 
 type TLERecordRequest struct {
-	ID     int64  `json:"id"`
+	ID     int    `json:"id"`
 	Prefix string `json:"prefix"`
-}
-
-type TLERecordResponse struct {
-	Record TLEMember `json:"record"`
 }
 
 type TLECollectionResponse struct {

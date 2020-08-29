@@ -225,5 +225,27 @@ func (c *RestClient) GetTLECollection(ctx context.Context, options *modules.TLEC
 		fmt.Println("Error on TLE Module: ", err)
 	}
 	return &res, err
+}
 
+//GetTLEMember TLE Member call
+func (c *RestClient) GetTLEMember(ctx context.Context, options *modules.TLERecordRequest) (*modules.TLEMember, error) {
+	var url string
+	var err error
+
+	url = fmt.Sprintf("%s/%s/%d", c.BaseURL, options.Prefix, options.ID)
+
+	fmt.Println(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("Error processing URL %s, \n Error: %s", url, err)
+	}
+
+	req = req.WithContext(ctx)
+	res := modules.TLEMember{}
+	err = c.sendRequest(req, &res)
+
+	if err != nil {
+		fmt.Println("Error on TLE Member: ", err)
+	}
+	return &res, err
 }
