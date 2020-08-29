@@ -5,9 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 
 	models "github.com/epyphite/space/NASA/pkg/models"
 	modules "github.com/epyphite/space/NASA/pkg/models/modules"
@@ -45,7 +46,7 @@ func (c *RestClient) sendRequest(req *http.Request, v interface{}) error {
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	req.Header.Set("Accept", "application/json; charset=utf-8")
 	//req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APIKey))
-	fmt.Printf("Making Rquest to ->  %s \n", req.URL)
+	log.Debugf("Making Rquest to ->  %s \n", req.URL)
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return fmt.Errorf("SendRequest -> on making request to %s - %s ", req.URL, err)
@@ -62,7 +63,7 @@ func (c *RestClient) sendRequest(req *http.Request, v interface{}) error {
 	}
 
 	if err = json.NewDecoder(res.Body).Decode(&v); err != nil {
-		fmt.Println(err)
+		log.Debugln(err)
 		return err
 	}
 
@@ -83,7 +84,7 @@ func (c *RestClient) GetEonetEvent(ctx context.Context, options *modules.EonetRe
 	res := modules.EonetEventResponse{}
 	err = c.sendRequest(req, &res)
 	if err != nil {
-		log.Println("Error on NeoW  Module: ", err)
+		log.Errorln("Error on NeoW  Module: ", err)
 	}
 	return &res, err
 }
@@ -100,7 +101,7 @@ func (c *RestClient) GetEonetCategory(ctx context.Context, options *modules.Eone
 	res := modules.EonetCategoryResponse{}
 	err = c.sendRequest(req, &res)
 	if err != nil {
-		log.Println("Error on NeoW  Module: ", err)
+		log.Errorln("Error on NeoW  Module: ", err)
 	}
 	return &res, err
 }
@@ -123,7 +124,7 @@ func (c *RestClient) GetNeoBrowse(ctx context.Context, options *modules.NeoWBrow
 	res := modules.NeoWBroseResponse{}
 	err = c.sendRequest(req, &res)
 	if err != nil {
-		log.Println("Error on NeoW  Module: ", err)
+		log.Errorln("Error on NeoW  Module: ", err)
 	}
 	return &res, err
 }
@@ -140,7 +141,7 @@ func (c *RestClient) GetNeoLookUp(ctx context.Context, options *modules.NeoLookU
 	res := modules.NearEarthObject{}
 	err = c.sendRequest(req, &res)
 	if err != nil {
-		log.Println("Error on NeoW  Module: ", err)
+		log.Errorln("Error on NeoW  Module: ", err)
 	}
 	return &res, err
 }
@@ -166,7 +167,7 @@ func (c *RestClient) GetNeoWFeed(ctx context.Context, options *modules.NeoWFeedR
 	err = c.sendRequest(req, &res)
 
 	if err != nil {
-		log.Println("Error on NeoW  Module: ", err)
+		log.Errorln("Error on NeoW  Module: ", err)
 	}
 	return &res, err
 }
@@ -192,7 +193,7 @@ func (c *RestClient) GetAPOD(ctx context.Context, options *modules.ApodRequest) 
 	err = c.sendRequest(req, &res)
 
 	if err != nil {
-		fmt.Println("Error on APOD Module: ", err)
+		log.Debugln("Error on APOD Module: ", err)
 	}
 	return &res, err
 }
@@ -211,7 +212,7 @@ func (c *RestClient) GetTLECollection(ctx context.Context, options *modules.TLEC
 		url = fmt.Sprintf("%s/%s", c.BaseURL, options.Prefix)
 	}
 
-	fmt.Println(url)
+	log.Debugln(url)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("Error processing URL %s, \n Error: %s", url, err)
@@ -222,7 +223,7 @@ func (c *RestClient) GetTLECollection(ctx context.Context, options *modules.TLEC
 	err = c.sendRequest(req, &res)
 
 	if err != nil {
-		fmt.Println("Error on TLE Module: ", err)
+		log.Debugln("Error on TLE Module: ", err)
 	}
 	return &res, err
 }
@@ -234,7 +235,7 @@ func (c *RestClient) GetTLEMember(ctx context.Context, options *modules.TLERecor
 
 	url = fmt.Sprintf("%s/%s/%d", c.BaseURL, options.Prefix, options.ID)
 
-	fmt.Println(url)
+	log.Debugln(url)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("Error processing URL %s, \n Error: %s", url, err)
@@ -245,7 +246,7 @@ func (c *RestClient) GetTLEMember(ctx context.Context, options *modules.TLERecor
 	err = c.sendRequest(req, &res)
 
 	if err != nil {
-		fmt.Println("Error on TLE Member: ", err)
+		log.Debugln("Error on TLE Member: ", err)
 	}
 	return &res, err
 }

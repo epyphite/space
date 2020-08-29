@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 
 	explorer "github.com/epyphite/space/NASA"
 	"github.com/epyphite/space/NASA/pkg/models"
@@ -48,13 +49,13 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 	if cfgFile != "" {
 		options, err = utils.LoadConfiguration(cfgFile)
 		if err != nil {
-			log.Println("Error reading configuration file ", err)
+			log.Errorln("Error reading configuration file ", err)
 			return err
 		}
 	}
 	options.APIKey = os.Getenv("NASA_KEY")
 	if options.APIKey == "" {
-		log.Println("API for Nasa Services not set, please specify before continuing.")
+		log.Errorln("API for Nasa Services not set, please specify before continuing.")
 		return fmt.Errorf("APIKey not Set")
 	}
 
@@ -66,9 +67,9 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 		var file []byte
 
 		filename := fmt.Sprintf("%s.json", strconv.Itoa(tleSatelite))
-		lteRet, err := explorer.GetTLEMember(options, tleSatelite)
+		lteRet, err := explorer.GetTLEMemberDetails(options, tleSatelite)
 		if err != nil {
-			fmt.Println(err)
+			log.Errorln(err)
 		}
 		file, _ = json.MarshalIndent(lteRet, "", " ")
 		_ = ioutil.WriteFile(filename, file, 0644)
@@ -81,7 +82,7 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 		case "Apod":
 			apodRet, err := explorer.GetLatestApod(options)
 			if err != nil {
-				fmt.Println(err)
+				log.Errorln(err)
 			}
 			file, _ = json.MarshalIndent(apodRet, "", " ")
 			_ = ioutil.WriteFile(filename, file, 0644)
@@ -89,7 +90,7 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 		case "EonetLatest":
 			eonetRet, err := explorer.GetEonetLatestEvent(options)
 			if err != nil {
-				fmt.Println(err)
+				log.Errorln(err)
 			}
 			file, _ = json.MarshalIndent(eonetRet, "", " ")
 			_ = ioutil.WriteFile(filename, file, 0644)
@@ -97,7 +98,7 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 		case "NeoAll":
 			neoRet, err := explorer.GetNeoAll(options)
 			if err != nil {
-				fmt.Println(err)
+				log.Errorln(err)
 			}
 			file, _ = json.MarshalIndent(neoRet, "", " ")
 			_ = ioutil.WriteFile(filename, file, 0644)
@@ -105,7 +106,7 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 		case "TLECollection":
 			lteRet, err := explorer.GetAllTLECollection(options)
 			if err != nil {
-				fmt.Println(err)
+				log.Errorln(err)
 			}
 			file, _ = json.MarshalIndent(lteRet, "", " ")
 			_ = ioutil.WriteFile(filename, file, 0644)
