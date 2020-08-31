@@ -7,3 +7,8 @@ It's an effort to povide GOLANG SDK and include into the ResilientOne engine.
 
 The NASA open API offers a variety of open data protocols, the majority in JSON format.
 Our goal is to be able to offer a Golang library to access those and integrate them with our application Eco System.
+
+## Launch API
+
+Launch API goal is to provide a REST and GRPC interface to our Launch Mass design and payload mass configuration systems.
+It will also hold in future efforts a Web Inteface to manipulate and plot data.
