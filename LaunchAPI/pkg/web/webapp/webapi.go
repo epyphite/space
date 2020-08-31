@@ -113,3 +113,22 @@ func (a *MainWebAPI) About(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "Application/json")
 	w.Write(js)
 }
+
+//RocketGetALL will get all Rocket data loaded
+func (a *MainWebAPI) RocketGetALL(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.Header().Set("Allow", "GET")
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	response, err := a.storage.RocketGetAll()
+
+	js, err := json.MarshalIndent(response, "", " ")
+	if err != nil {
+		log.Println()
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "Application/json")
+	w.Write(js)
+}
