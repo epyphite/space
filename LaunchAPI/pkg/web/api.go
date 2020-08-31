@@ -59,6 +59,9 @@ func (W *APIOne) New() http.Handler {
 
 	api.HandleFunc("/liveness", app.Liveness)
 	api.HandleFunc("/about", app.About)
+
+	//Rocket Section
+	api.HandleFunc("/rocket/getAll", app.RocketGetALL)
 	return &app
 
 }
