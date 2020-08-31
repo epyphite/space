@@ -12,3 +12,14 @@ Our goal is to be able to offer a Golang library to access those and integrate t
 
 Launch API goal is to provide a REST and GRPC interface to our Launch Mass design and payload mass configuration systems.
 It will also hold in future efforts a Web Inteface to manipulate and plot data.
+You can visit the growing demo at:
+
+```bash
+https://space.epyphite.com/api/v1/about
+```
+
+or
+
+```bash
+https://space.epyphite.com/api/v1/about
+```
