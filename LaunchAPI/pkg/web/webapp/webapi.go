@@ -30,19 +30,6 @@ type MainWebAPI struct {
 	Store   *sessions.CookieStore
 }
 
-//ResponseFileStatus for file and hash status reply
-type ResponseFileStatus struct {
-	FileName string
-	Status   string
-	Hash     string
-}
-
-type JResponseFileStatus struct {
-	ResponseCode string
-	Message      string
-	FileStatus   []ResponseFileStatus
-}
-
 //GetFileContentType will get the mime type of the file by reading its first 512 bytes (according to the standard)
 func GetFileContentType(buffer []byte) (string, error) {
 	// Use the net/http package's handy DectectContentType function. Always returns a valid
