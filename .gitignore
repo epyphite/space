@@ -1,3 +1,4 @@
 *.json
 .env
 build/
+LaunchAPI/test/
