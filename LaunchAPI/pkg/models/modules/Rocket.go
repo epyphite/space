@@ -2,31 +2,37 @@ package models
 
 //Rocket Characteristics and Payload
 type Rocket struct {
-	ID                                        string
-	Name                                      string
-	Description                               string
-	Stages                                    int
-	ThrustToWeightRatio                       []float64
-	LiftOffMass                               float64
-	RocketMass                                float64
-	MaxRocketBodyDiameter                     float64
-	FairingMass                               float64
-	AssumedPayloadMass                        float64
-	SecondStageToRocketMassRatio              float64
-	TransferOrbitStageToRocketMassRatio       float64
-	FirstStageDrytoWetMassRatio               float64
-	SecondStageDrytoWetMassRatio              float64
-	TransferOrbitStageDryToWetMassRatio       float64
-	UnusedPropellantOf1stStage                float64
-	UnusedPropellantOf2ndStage                float64
-	UnusedPropellantOfTransferOrbitStage      float64
-	FirstStageIspSeaLevelOrAtTheStartAltitude float64
-	FirstStageIspVacuum                       float64
-	SecondStageIsp                            float64
-	TransferOrbitStageIsp                     float64
-	SpecificImpulseVariation                  float64
-	Engine                                    []EngineSpecs
+	ID                                   string
+	Name                                 string
+	Description                          string
+	ThrustToWeightRatioOne               float64       `json:"thrusttoweightratioone"`
+	ThrustToWeightRatio                  float64       `json:"thrusttoweightratio`
+	RocketMass                           float64       `json:"rocketmass"`
+	MaxRocketBodyDiameter                float64       `json:"maxrocketbodydiameter"`
+	FairingMass                          float64       `json:"fairingmass"`
+	FairingJettisonVelocity              float64       `json:"fairingjettisonvelocity"`
+	JettisonedBattery                    float64       `json:"jettisonedbattery"`
+	AssumedPayloadMass                   float64       `json:"assumedpayloadmass"`
+	SecondStageToRocketMassRatio         float64       `json:"secondstagetorocketmassratio"`
+	TransferOrbitStageToRocketMassRatio  float64       `json:"transferorbitstagetorocketmassratio"`
+	FirstStageDryToWetMassRatio          float64       `json:"firststagedrytowetmassratio"`
+	SecondStageDryToWetMassRatio         float64       `json:"secondstagedrytowetmassratio"`
+	TransferOrbitStageDryToWetMassRatio  float64       `json:"transferorbitstagedrytowetmassratio"`
+	UnusedPropellantOfFirstStage         float64       `json:"unusedpropellantoffirststage"`
+	UnusedPropellantOfSecondStage        float64       `json:"unusedpropellantofsecondstage"`
+	UnusedPropellantOfTransferOrbitStage float64       `json:"unusedpropellantoftransferorbitstage"`
+	FirstStageIspStartAltitude           float64       `json:"firststageispstartaltitude"`
+	FirstStageIspVacuum                  float64       `json:"firststageispvacuum"`
+	SecondStageIsp                       float64       `json:"secondstageisp"`
+	TransferOrbitStageIsp                float64       `json:"transferorbitstageisp"`
+	FirstStageFuel                       float64       `json:"firststagefuel"`
+	FirstStageCycle                      float64       `json:"firststagecycle"`
+	SecondStageFuel                      float64       `json:"secondstagefuel"`
+	SecondStageCycle                     float64       `json:"secondstagecycle"`
+	ThirdStageFuel                       float64       `json:"thirdstagefuel"`
+	ThirdStageCycle                      float64       `json:"thirdstagecycle"`
+	SpacePort                            SpacePort     `json:"spaceport"`
+	Orbit                                Orbit         `json:"orbit"`
+	AirLaunch                            bool          `json:"airlaunch"`
+	Engine                               []EngineSpecs `json:"engine"`
 }
-
-// Name, ThrustToWeightRatioFirst,ThrustToWeightRatioSecond, LiftOffMass,RocketMass,MaxRocketBodyDiameter,FairingMass,AssumedPayloadMass,SecondStageToRocketMassRatio,TransferOrbitStageToRocketMassRatio,FirstStageDrytoWetMassRatio,SecondStageDrytoWetMassRatio,TransferOrbitStageDryToWetMassRatio,UnusedPropellantOf1stStage,UnusedPropellantOf2ndStage,UnusedPropellantOfTransferOrbitStage,FirstStageIspSeaLevelOrAtTheStartAltitude,FirstStageIspVacuum,SecondStageIsp,TransferOrbitStageIsp,SpecificImpulseVariation
-//["NASA Saturn V",			1.165,0.78,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, "Apollo lunar program launcher"],

@@ -1,12 +1,16 @@
 package storage
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"time"
 
+	modules "github.com/epyphite/space/LaunchAPI/pkg/models/modules"
 	"github.com/epyphite/ulid"
+	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
 	bolt "go.etcd.io/bbolt"
 )
@@ -48,6 +52,7 @@ func (bc *Client) OpenBoltDb(dataDir string, dataDbName string) *Client {
 //Seed is good for creating basic buckets
 func (bc *Client) Seed() {
 	bc.initializeBucket()
+	bc.PopulateFromDisk()
 }
 
 //CloseDB will close the FD to the boltdb file
@@ -119,4 +124,76 @@ func (bc *Client) initializeBucket() {
 			fmt.Printf("%s", err.Error())
 		}
 	*/
+}
+
+//PopulateFromDisk data from initial pre set
+func (bc *Client) PopulateFromDisk() {
+	jsonFile, err := os.Open("RocketData.json")
+	// if we os.Open returns an error then handle it
+	if err != nil {
+		log.Errorln(err)
+		return
+	}
+	log.Infoln("Successfully Opened Rocket.json")
+	// defer the closing of our jsonFile so that we can parse it later on
+	defer jsonFile.Close()
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var RocketData []modules.Rocket
+	json.Unmarshal(byteValue, &RocketData)
+
+	for _, rocket := range RocketData {
+		u2, err := uuid.NewV4()
+
+		if err != nil {
+			log.Errorf("Could not Generate UUID for %s \n", rocket.Name)
+		}
+		rocket.ID = u2.String()
+
+		err = bc.RocketDataAdd(rocket)
+		if err != nil {
+			log.Errorln("Error inserting Rocket Data", err)
+		}
+	}
+
+}
+
+//RocketDataAdd will add Rocket information
+func (bc *Client) RocketDataAdd(rocket modules.Rocket) error {
+
+	rocketBytes, err := json.Marshal(rocket)
+
+	if err != nil {
+		return fmt.Errorf("could not marshal config proto: %v", err)
+	}
+	err = bc.boltDB.Update(func(tx *bolt.Tx) error {
+		err = tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("Rocket")).Put([]byte(rocket.ID), rocketBytes)
+		if err != nil {
+			log.Errorf("%s \n", err.Error())
+			return fmt.Errorf("could not set Rocket: %v", err)
+		}
+		return nil
+	})
+	return err
+}
+
+//RocketGetAll Get all database registered Rocket
+func (bc *Client) RocketGetAll() ([]*modules.Rocket, error) {
+	var rockets []*modules.Rocket
+
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+		// Assume bucket exists and has keys
+
+		b := tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("Rocket"))
+
+		c := b.Cursor()
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			var rocket modules.Rocket
+			json.Unmarshal(v, &rocket)
+			rockets = append(rockets, &rocket)
+		}
+		return nil
+	})
+	return rockets, err
 }
