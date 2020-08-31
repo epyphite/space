@@ -1,14 +1,12 @@
 package constants
 
 var (
-	IPV4         int64 = 0
-	IPV6         int64 = 1
-	ARP          int64 = 2
-	EXTERNAL_IP  int64 = 0
-	INTERNAL_IP  int64 = 1
-	Webport            = "8001"
-	Webaddress         = "0.0.0.0"
-	Ismaster           = true
-	Databasename       = "space.db"
-	ContentDir         = "./dist/"
+	//Webport where the application will listen by default
+	Webport = "8001"
+	//Webaddress address the application will listenby default
+	Webaddress = "0.0.0.0"
+	//Databasename is the embdded database file
+	Databasename = "space.db"
+	//ContentDir content folder for miscelaneous upload
+	ContentDir = "./dist/"
 )
