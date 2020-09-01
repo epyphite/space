@@ -1,16 +1,18 @@
 package models
 
+//Orbit model Package fro name of the common orbits
 type Orbit struct {
-	ID               string
-	Name             string
-	Description      string
-	OrbitPerigee     float64
-	OrbitApogee      float64
-	OrbitInclination float64
-	PerigeeVelocity  float64
-	ApogeeVelocity   float64
-	OrbitalPeriod    float64
-	OrbitalVelocity  float64
-	DeltaV           float64
-	ExtraVelocity    float64
+	ID                              string  `json:"id"`
+	Name                            string  `json:"name"`
+	Description                     string  `json:"description"`
+	OrbitPerigee                    float64 `json:"orbitperigee"`
+	OrbitApogee                     float64 `json:"orbitapogee"`
+	OrbitInclination                float64 `json:"orbitinclination"`
+	PerigeeVelocity                 float64 `json:"perigeevelocity"`
+	ApogeeVelocity                  float64 `json:"apogeevelocity"`
+	OrbitalPeriod                   float64 `json:"orbitalperiod"`
+	OrbitalVelocity                 float64 `json:"orbitalvelocity"`
+	DeltaV                          float64 `json:"deltav"`
+	ExtraVelocity                   float64 `json:"extravelocity"`
+	ExtraSpeedForFlightToThePlanets float64 `json:"extraspeedforflighttotheplanets"`
 }

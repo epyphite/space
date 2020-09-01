@@ -6,7 +6,7 @@ type Rocket struct {
 	Name                                 string
 	Description                          string
 	ThrustToWeightRatioOne               float64       `json:"thrusttoweightratioone"`
-	ThrustToWeightRatio                  float64       `json:"thrusttoweightratio`
+	ThrustToWeightRatio                  float64       `json:"thrusttoweightratio"`
 	RocketMass                           float64       `json:"rocketmass"`
 	MaxRocketBodyDiameter                float64       `json:"maxrocketbodydiameter"`
 	FairingMass                          float64       `json:"fairingmass"`

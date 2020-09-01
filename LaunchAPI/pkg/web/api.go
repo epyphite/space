@@ -62,6 +62,15 @@ func (W *APIOne) New() http.Handler {
 
 	//Rocket Section
 	api.HandleFunc("/rocket/getAll", app.RocketGetALL)
+
+	//Orbit Section
+	api.HandleFunc("/orbit/getAll", app.OrbitGetALL)
+
+	//SpacePorts Section
+	api.HandleFunc("/spaceport/getAll", app.SpacePortGetALL)
+
+	//Engines Section
+	api.HandleFunc("/engine/getAll", app.EngineGetALL)
 	return &app
 
 }
