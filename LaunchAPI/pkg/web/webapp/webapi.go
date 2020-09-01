@@ -132,3 +132,60 @@ func (a *MainWebAPI) RocketGetALL(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "Application/json")
 	w.Write(js)
 }
+
+//SpacePortGetALL will get all Rocket data loaded
+func (a *MainWebAPI) SpacePortGetALL(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.Header().Set("Allow", "GET")
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	response, err := a.storage.SpacePortGetAll()
+
+	js, err := json.MarshalIndent(response, "", " ")
+	if err != nil {
+		log.Println()
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "Application/json")
+	w.Write(js)
+}
+
+//OrbitGetALL will get all Rocket data loaded
+func (a *MainWebAPI) OrbitGetALL(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.Header().Set("Allow", "GET")
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	response, err := a.storage.OrbitGetAll()
+
+	js, err := json.MarshalIndent(response, "", " ")
+	if err != nil {
+		log.Println()
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "Application/json")
+	w.Write(js)
+}
+
+//EngineGetALL will get all Rocket data loaded
+func (a *MainWebAPI) EngineGetALL(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.Header().Set("Allow", "GET")
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	response, err := a.storage.EngineGetAll()
+
+	js, err := json.MarshalIndent(response, "", " ")
+	if err != nil {
+		log.Println()
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "Application/json")
+	w.Write(js)
+}
