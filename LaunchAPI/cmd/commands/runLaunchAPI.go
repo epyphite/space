@@ -22,10 +22,12 @@ var rootCmd = &cobra.Command{
 var cfgFile string
 var services []string
 var tleSatelite int
+var clearDB bool
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "Define a configuration file location")
 	rootCmd.PersistentFlags().StringArrayVar(&services, "services", nil, "Define the services you wish to run")
+	rootCmd.PersistentFlags().BoolVar(&clearDB, "cleardb", false, "Clear db will clear the DB upon start")
 }
 
 //Execute will run the desire module command.
@@ -58,6 +60,13 @@ func launchAPI(cmd *cobra.Command, args []string) error {
 	options.WebAddress = "0.0.0.0"
 	options.WebPort = "8000"
 	options.DatabaseName = "Space.db"
+	if clearDB == true {
+		err := os.Remove("./data/" + options.DatabaseName)
+		if err != nil {
+			log.Errorln("Could not delete database ", err)
+		}
+	}
+
 	webagent, err := web.NewWebAgent(options)
 	if err != nil {
 		log.Fatalln("Error on newebagent call ", err)
