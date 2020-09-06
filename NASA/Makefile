@@ -1,5 +1,5 @@
 TIME=$(shell date +"%Y%m%d.%H%M%S")
-VERSION=0.1.alpha
+VERSION=0.2.alpha
 BINARY_NAME=nasaExplorer
 
 BINARY_NAME_SERVER=nasaExplorer

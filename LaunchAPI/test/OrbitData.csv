@@ -1,0 +1,10 @@
+name, orbitperigee, orbitapogee, orbitinclination, extraspeedforflighttotheplanets,description
+"LEO",  200,     0,-1,  0,"Low Earth orbit",
+"ISS",   409,   418,51.6,0,"International Space Station orbit",
+"SSO",   500,     0, 98, 0,"Sun-synchronous orbit",
+"MEO",   20200,   0, 55, 0,"Medium Earth orbit (GPS satellites)",
+"GTO",   200, 35786, -1, 0,"Geosynchronous transfer orbit",
+"GEO",   35786,   0, -1, 0,"Geosynchronous equatorial orbit",
+"Moon",  200,     0, -1, 3100,"Trans-Lunar injection orbit",
+"Mars",  200,     0, -1, 3613,"Trans-Mars injection orbit",
+"Venus", 200,     0, -1, 3506,"Trans-Venus injection orbit"
