@@ -7,6 +7,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
+	"github.com/epyphite/space/LaunchAPI/pkg/constants"
 	"github.com/epyphite/space/LaunchAPI/pkg/models"
 	"github.com/epyphite/space/LaunchAPI/pkg/utils"
 	web "github.com/epyphite/space/LaunchAPI/pkg/web"
@@ -23,6 +24,7 @@ var cfgFile string
 var services []string
 var tleSatelite int
 var clearDB bool
+var webServer bool
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "Define a configuration file location")
@@ -57,11 +59,11 @@ func launchAPI(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("APIKey not Set")
 	}
 
-	options.WebAddress = "0.0.0.0"
-	options.WebPort = "8000"
-	options.DatabaseName = "Space.db"
+	options.WebAddress = constants.Webaddress
+	options.WebPort = constants.Webport
+	options.DatabaseName = constants.Databasename
 	if clearDB == true {
-		err := os.Remove("./data/" + options.DatabaseName)
+		err := os.Remove(constants.ContentDir + options.DatabaseName)
 		if err != nil {
 			log.Errorln("Could not delete database ", err)
 		}

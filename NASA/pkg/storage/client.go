@@ -48,7 +48,6 @@ func (bc *Client) OpenBoltDb(dataDir string, dataDbName string) *Client {
 //Seed is good for creating basic buckets
 func (bc *Client) Seed() {
 	bc.initializeBucket()
-	bc.PopulateFromDisk()
 }
 
 //CloseDB will close the FD to the boltdb file
@@ -74,22 +73,7 @@ func (bc *Client) initializeBucket() {
 		if err != nil {
 			return fmt.Errorf("could not create nodes bucket: %v", err)
 		}
-		_, err = root.CreateBucketIfNotExists([]byte("Orbit"))
-		if err != nil {
-			return fmt.Errorf("could not create nodes bucket: %v", err)
-		}
-		_, err = root.CreateBucketIfNotExists([]byte("SpacePort"))
-		if err != nil {
-			return fmt.Errorf("could not create nodes bucket: %v", err)
-		}
-		_, err = root.CreateBucketIfNotExists([]byte("FuelType"))
-		if err != nil {
-			return fmt.Errorf("could not create nodes bucket: %v", err)
-		}
-		_, err = root.CreateBucketIfNotExists([]byte("FuelCycle"))
-		if err != nil {
-			return fmt.Errorf("could not create objectStore bucket: %v", err)
-		}
+
 		return err
 
 	})

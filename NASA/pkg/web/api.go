@@ -7,10 +7,10 @@ import (
 
 	"github.com/gorilla/handlers"
 
-	constants "github.com/epyphite/space/LaunchAPI/pkg/constants"
-	models "github.com/epyphite/space/LaunchAPI/pkg/models"
-	"github.com/epyphite/space/LaunchAPI/pkg/storage"
-	webapi "github.com/epyphite/space/LaunchAPI/pkg/web/webapp"
+	constants "github.com/epyphite/space/NASA/pkg/constants"
+	models "github.com/epyphite/space/NASA/pkg/models"
+	"github.com/epyphite/space/NASA/pkg/storage"
+	webapi "github.com/epyphite/space/NASA/pkg/web/webapp"
 )
 
 //APIOne main structure
@@ -59,18 +59,10 @@ func (W *APIOne) New() http.Handler {
 
 	api.HandleFunc("/liveness", app.Liveness)
 	api.HandleFunc("/about", app.About)
+	api.HandleFunc("/tle/getall", app.GetAllTLECollection)
+	api.HandleFunc("/apod/get", app.GetAPOD)
+	api.HandleFunc("/NEO/getall", app.GetNeoAll)
 
-	//Rocket Section
-	api.HandleFunc("/rocket/getAll", app.RocketGetALL)
-
-	//Orbit Section
-	api.HandleFunc("/orbit/getAll", app.OrbitGetALL)
-
-	//SpacePorts Section
-	api.HandleFunc("/spaceport/getAll", app.SpacePortGetALL)
-
-	//Engines Section
-	api.HandleFunc("/engine/getAll", app.EngineGetALL)
 	return &app
 
 }

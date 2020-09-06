@@ -45,7 +45,7 @@ func (W *APIOne) New() http.Handler {
 	//STAGE 2 Open Database
 	DBClient := storage.Client{}
 	//Include datbase separators
-	DB := DBClient.OpenBoltDb("./data", W.webConfig.DatabaseName)
+	DB := DBClient.OpenBoltDb(constants.ContentDir, W.webConfig.DatabaseName)
 	DB.Seed()
 
 	app, err := webapi.NewApp(W.webConfig, DB)

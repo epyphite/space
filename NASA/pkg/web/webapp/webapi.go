@@ -10,10 +10,33 @@ import (
 
 	"github.com/gorilla/sessions"
 
+	explorer "github.com/epyphite/space/NASA"
 	models "github.com/epyphite/space/NASA/pkg/models"
+	"github.com/epyphite/space/NASA/pkg/models/modules"
 	"github.com/epyphite/space/NASA/pkg/storage"
 	c1 "github.com/epyphite/space/NASA/pkg/web/constants"
 )
+
+//JResponseNEO create a trscture to respond json
+type JResponseNEO struct {
+	ResponseCode string
+	Message      string
+	ResponseData []*modules.NeoWBroseResponse
+}
+
+//JResponseAPOD create a trscture to respond json
+type JResponseAPOD struct {
+	ResponseCode string
+	Message      string
+	ResponseData *modules.ApodResponse
+}
+
+//JResponseTLE create a trscture to respond json
+type JResponseTLE struct {
+	ResponseCode string
+	Message      string
+	ResponseData []*modules.TLECollectionResponse
+}
 
 //JResponse create a trscture to respond json
 type JResponse struct {
@@ -60,7 +83,7 @@ func (a *MainWebAPI) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func getSession(w http.ResponseWriter, r *http.Request) *sessions.Session {
-	session, err := c1.Store.Get(r, "spaceLaunch-session")
+	session, err := c1.Store.Get(r, "nasa-session")
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return nil
@@ -103,7 +126,7 @@ func (a *MainWebAPI) About(w http.ResponseWriter, r *http.Request) {
 
 	response.Message = "Version 1"
 	response.ResponseCode = "200"
-	response.ResponseData = (c1.AboutText)
+	response.ResponseData = c1.AboutText
 	js, err := json.Marshal(response)
 	if err != nil {
 		log.Println()
@@ -114,16 +137,20 @@ func (a *MainWebAPI) About(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-//RocketGetALL will get all Rocket data loaded
-func (a *MainWebAPI) RocketGetALL(w http.ResponseWriter, r *http.Request) {
+//GetAllTLECollection just keeps the connection alive
+func (a *MainWebAPI) GetAllTLECollection(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	response, err := a.storage.RocketGetAll()
 
-	js, err := json.MarshalIndent(response, "", " ")
+	lteRet, err := explorer.GetAllTLECollection(a.Config)
+	var response JResponseTLE
+	response.Message = "Version 1"
+	response.ResponseCode = "200"
+	response.ResponseData = lteRet
+	js, err := json.Marshal(response)
 	if err != nil {
 		log.Println()
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -133,16 +160,20 @@ func (a *MainWebAPI) RocketGetALL(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-//SpacePortGetALL will get all Rocket data loaded
-func (a *MainWebAPI) SpacePortGetALL(w http.ResponseWriter, r *http.Request) {
+//GetAPOD just keeps the connection alive
+func (a *MainWebAPI) GetAPOD(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	response, err := a.storage.SpacePortGetAll()
 
-	js, err := json.MarshalIndent(response, "", " ")
+	lteRet, err := explorer.GetLatestApod(a.Config)
+	var response JResponseAPOD
+	response.Message = "Version 1"
+	response.ResponseCode = "200"
+	response.ResponseData = lteRet
+	js, err := json.Marshal(response)
 	if err != nil {
 		log.Println()
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -152,35 +183,20 @@ func (a *MainWebAPI) SpacePortGetALL(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-//OrbitGetALL will get all Rocket data loaded
-func (a *MainWebAPI) OrbitGetALL(w http.ResponseWriter, r *http.Request) {
+//GetNeoAll just keeps the connection alive
+func (a *MainWebAPI) GetNeoAll(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	response, err := a.storage.OrbitGetAll()
 
-	js, err := json.MarshalIndent(response, "", " ")
-	if err != nil {
-		log.Println()
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.Header().Set("Content-Type", "Application/json")
-	w.Write(js)
-}
-
-//EngineGetALL will get all Rocket data loaded
-func (a *MainWebAPI) EngineGetALL(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		w.Header().Set("Allow", "GET")
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
-	response, err := a.storage.EngineGetAll()
-
-	js, err := json.MarshalIndent(response, "", " ")
+	neoRet, err := explorer.GetNeoAll(a.Config)
+	var response JResponseNEO
+	response.Message = "Version 1"
+	response.ResponseCode = "200"
+	response.ResponseData = neoRet
+	js, err := json.Marshal(response)
 	if err != nil {
 		log.Println()
 		http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -11,8 +11,10 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	explorer "github.com/epyphite/space/NASA"
+	"github.com/epyphite/space/NASA/pkg/constants"
 	"github.com/epyphite/space/NASA/pkg/models"
 	"github.com/epyphite/space/NASA/pkg/utils"
+	webapi "github.com/epyphite/space/NASA/pkg/web"
 	"github.com/spf13/cobra"
 )
 
@@ -25,11 +27,13 @@ var rootCmd = &cobra.Command{
 var cfgFile string
 var services []string
 var tleSatelite int
+var webServer bool
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "Define a configuration file location")
 	rootCmd.PersistentFlags().StringArrayVar(&services, "services", nil, "Define the services you wish to run")
 	rootCmd.PersistentFlags().IntVar(&tleSatelite, "satid", -1, "Define a tle Satelite")
+	rootCmd.PersistentFlags().BoolVar(&webServer, "webServer", false, "Start Web Server")
 
 }
 
@@ -62,49 +66,23 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 	if options.MaxPages == 0 {
 		options.MaxPages = 10
 	}
+	options.WebAddress = constants.Webaddress
+	options.WebPort = constants.Webport
+	options.DatabaseName = constants.Databasename
 
-	if tleSatelite != -1 {
-		var file []byte
-
-		filename := fmt.Sprintf("%s.json", strconv.Itoa(tleSatelite))
-		lteRet, err := explorer.GetTLEMemberDetails(options, tleSatelite)
+	if webServer == true {
+		webagent, err := webapi.NewWebAgent(options)
 		if err != nil {
-			log.Errorln(err)
+			log.Fatalln("Error on newebagent call ", err)
 		}
-		file, _ = json.MarshalIndent(lteRet, "", " ")
-		_ = ioutil.WriteFile(filename, file, 0644)
-	}
+		webagent.StartServer()
+	} else {
 
-	for _, service := range services {
-		var file []byte
-		filename := fmt.Sprintf("%s.json", service)
-		switch service {
-		case "Apod":
-			apodRet, err := explorer.GetLatestApod(options)
-			if err != nil {
-				log.Errorln(err)
-			}
-			file, _ = json.MarshalIndent(apodRet, "", " ")
-			_ = ioutil.WriteFile(filename, file, 0644)
+		if tleSatelite != -1 {
+			var file []byte
 
-		case "EonetLatest":
-			eonetRet, err := explorer.GetEonetLatestEvent(options)
-			if err != nil {
-				log.Errorln(err)
-			}
-			file, _ = json.MarshalIndent(eonetRet, "", " ")
-			_ = ioutil.WriteFile(filename, file, 0644)
-
-		case "NeoAll":
-			neoRet, err := explorer.GetNeoAll(options)
-			if err != nil {
-				log.Errorln(err)
-			}
-			file, _ = json.MarshalIndent(neoRet, "", " ")
-			_ = ioutil.WriteFile(filename, file, 0644)
-
-		case "TLECollection":
-			lteRet, err := explorer.GetAllTLECollection(options)
+			filename := fmt.Sprintf("%s.json", strconv.Itoa(tleSatelite))
+			lteRet, err := explorer.GetTLEMemberDetails(options, tleSatelite)
 			if err != nil {
 				log.Errorln(err)
 			}
@@ -112,6 +90,44 @@ func nasaExplorer(cmd *cobra.Command, args []string) error {
 			_ = ioutil.WriteFile(filename, file, 0644)
 		}
 
+		for _, service := range services {
+			var file []byte
+			filename := fmt.Sprintf("%s.json", service)
+			switch service {
+			case "Apod":
+				apodRet, err := explorer.GetLatestApod(options)
+				if err != nil {
+					log.Errorln(err)
+				}
+				file, _ = json.MarshalIndent(apodRet, "", " ")
+				_ = ioutil.WriteFile(filename, file, 0644)
+
+			case "EonetLatest":
+				eonetRet, err := explorer.GetEonetLatestEvent(options)
+				if err != nil {
+					log.Errorln(err)
+				}
+				file, _ = json.MarshalIndent(eonetRet, "", " ")
+				_ = ioutil.WriteFile(filename, file, 0644)
+
+			case "NeoAll":
+				neoRet, err := explorer.GetNeoAll(options)
+				if err != nil {
+					log.Errorln(err)
+				}
+				file, _ = json.MarshalIndent(neoRet, "", " ")
+				_ = ioutil.WriteFile(filename, file, 0644)
+
+			case "TLECollection":
+				lteRet, err := explorer.GetAllTLECollection(options)
+				if err != nil {
+					log.Errorln(err)
+				}
+				file, _ = json.MarshalIndent(lteRet, "", " ")
+				_ = ioutil.WriteFile(filename, file, 0644)
+			}
+
+		}
 	}
 
 	return err
