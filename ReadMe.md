@@ -23,5 +23,3 @@ or
 ```bash
 https://space.epyphite.com/api/v1/about
 ```
-
-## Launch WEB
