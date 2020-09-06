@@ -22,6 +22,9 @@ function CalculateTargetVelocity()
 		var Intermediate_angle = Math.abs(Orbit_Inclination) > Math.abs(Spaceport_latitude) ?
 				(Rad2Deg(Math.asin(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))))) :
 				(90.-Rad2Deg(Math.asin(1.-(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))))));
+
+
+
 		elIntermediate_angle.textContent = Intermediate_angle.toFixed(2);
 
 		var earth_radius = 6371.;
