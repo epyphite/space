@@ -6,7 +6,7 @@ BINARY_NAME_SERVER=nasaExplorer
 
 
 BASE_FOLDER = $(shell pwd)
-BUILD_FOLDER  = $(shell pwd)/../build
+BUILD_FOLDER  = $(shell pwd)/build
 
 
 FLAGS_LINUX   = CGO_LDFLAGS="-L./LIB -Wl,-rpath -Wl,\$ORIGIN/LIB" CGO_ENABLED=1 GOOS=linux GOARCH=amd64  
@@ -18,12 +18,8 @@ FLAGS_ARM = CGO_ENABLED=1 GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=0 CC=arm-lin
 GOFLAGS_WINDOWS = -ldflags -H=windowsgui
 
 
-
-## Linting
-lint:
-	@echo "[lint] Running linter on codebase"
-	@golint ./...
-
+clean:
+	rm -rvf build/dist/
 
 ## Make linux packages
 package-linux:
@@ -31,15 +27,27 @@ package-linux:
 	cd build/dist/ && zip -9 linux-dist.zip -r linux/
 
 
-versioning:
-	./version.sh ${VERSION} ${TIME}
-
 ## Linux Build
 
 build/nasaExplorer-linux:
-	cd cmd/ && ${FLAGS_LINUX} go build -o ${BUILD_FOLDER}/dist/linux/bin/nasaExplorer .
+	cd NASA/cmd/ && ${FLAGS_LINUX} go build -o ${BUILD_FOLDER}/dist/linux/bin/nasaExplorer .
+
+
+build/LaunchAPI-linux: 
+	${FLAGS_LINUX} go build -o ${BUILD_FOLDER}/dist/linux/bin/LaunchAPI LaunchAPI/cmd/main.go
+	cp -R LaunchAPI/data ${BUILD_FOLDER}/dist/linux/bin/
+
+
 
 distribute:
 	./upload_github.sh ${VERSION} ${TIME}
 
 
+build/launchapi-container:
+	docker build -t launchapi -f Dockerfile-LaunchApi .
+
+build/nasaapi-container:
+	docker build -t nasaapi -f Dockerfile-NasaApi .
+
+build/launchweb-container:
+	docker build -t lalaunchwebunchapi -f Dockerfile-LaunchWeb .

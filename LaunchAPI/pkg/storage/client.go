@@ -18,6 +18,7 @@ import (
 type Client struct {
 	Database string
 	boltDB   *bolt.DB
+	dataDir  string
 }
 
 //OpenBoltDb main structure to open
@@ -37,6 +38,7 @@ func (bc *Client) OpenBoltDb(dataDir string, dataDbName string) *Client {
 
 	Client.Database = databaseFileName
 	Client.boltDB, err = bolt.Open(databaseFileName, 0600, nil)
+	Client.dataDir = dataDir
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -150,7 +152,7 @@ func readJSONFile(filename string) ([]byte, error) {
 func (bc *Client) importOrbitDataFromDisk() {
 	log.Infoln("Import Orbit information")
 
-	byteValue, err := readJSONFile("OrbitData.json")
+	byteValue, err := readJSONFile(bc.dataDir + "OrbitData.json")
 	if err != nil {
 		log.Errorln("Error importing file ", err)
 		return
@@ -171,7 +173,7 @@ func (bc *Client) importOrbitDataFromDisk() {
 func (bc *Client) importSpacePortFromDisk() {
 	log.Infoln("Import Space Port information")
 
-	byteValue, err := readJSONFile("SpacePort.json")
+	byteValue, err := readJSONFile(bc.dataDir + "SpacePort.json")
 	if err != nil {
 		log.Errorln("Error importing file ", err)
 		return
@@ -192,7 +194,7 @@ func (bc *Client) importSpacePortFromDisk() {
 
 func (bc *Client) importRocketFromDisk() {
 	log.Infoln("Importing Rocket Information")
-	byteValue, err := readJSONFile("RocketData.json")
+	byteValue, err := readJSONFile(bc.dataDir + "RocketData.json")
 	if err != nil {
 		log.Errorln("Error importing file ", err)
 		return
@@ -218,7 +220,7 @@ func (bc *Client) importRocketFromDisk() {
 
 func (bc *Client) importEngineDataFromDisk() {
 	log.Infoln("Importing Engine Information")
-	byteValue, err := readJSONFile("engineSpecs.json")
+	byteValue, err := readJSONFile(bc.dataDir + "engineSpecs.json")
 	if err != nil {
 		log.Errorln("Error importing file ", err)
 		return

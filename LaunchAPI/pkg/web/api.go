@@ -55,7 +55,7 @@ func (W *APIOne) New() http.Handler {
 		return nil
 	}
 
-	api := app.Mux.PathPrefix("/api/v1").Subrouter()
+	api := app.Mux.PathPrefix("/launchapi/api/v1").Subrouter()
 
 	api.HandleFunc("/liveness", app.Liveness)
 	api.HandleFunc("/about", app.About)

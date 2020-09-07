@@ -5,7 +5,13 @@ services:
     - NASA_KEY="DONOTFORGET"
     image: launchapi:latest
     ports:
-      - "8000:8000"
+      - "8010:8010"
+  nasaapi:
+    environment:
+    - NASA_KEY="DONOTFORGET"
+    image: nasaapi:latest
+    ports:
+      - "8011:8011"
   nginx:
     image: nginx:1.15-alpine
     ports:
@@ -18,6 +24,7 @@ services:
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     links:
       - launchapi
+      - nasaapi
   certbot:
     image: certbot/certbot
     volumes:
