@@ -20,7 +20,7 @@ export default {
       lineHeight: '24px'
     },
     h5: {
-      fontWeight: 500,
+      fontWeight: 400,
       fontSize: '16px',
       lineHeight: '20px'
     },
@@ -55,14 +55,7 @@ export default {
       textTransform: 'uppercase'
     },
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      '"Nunito Sans"',
-      'Lato',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
+      'Montserrat',
       'sans-serif'
     ].join(',')
   };

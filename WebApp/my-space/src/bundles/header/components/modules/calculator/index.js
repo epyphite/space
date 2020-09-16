@@ -23,12 +23,12 @@ const Text = ({ text }) => {
 
 const Calculator = () => {
   return (
-    <Grid container direction="column">
+    <Grid container justify="center"  direction="column"> 
       <Grid item>
         <TitleText text={'Launcher Calculator'}/>
       </Grid>
-      <Grid item>
-        <Typography>
+      <Grid item  >
+        <Typography style={{paddingTop: 10}}>
           An open source orbital launch vehicle payload calculator by Epyphite
         </Typography>
       </Grid>
