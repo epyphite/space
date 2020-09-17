@@ -1,0 +1,35 @@
+syntax="proto3";
+package orbital.launch.v1;
+
+option go_package="github.com/epyphite/space";
+
+message Orbit {
+    string ID =1;
+    string Description =2;
+    float OrbitPerigee =3;
+    float OrbitApogee =4;
+    float OrbitInclination =5 ;
+    float PerigeeVelocity =6;
+    float ApogeeVelocity =7;
+    float OrbitalPeriod=8;
+    float OrbitalVelocity =9;
+    float DeltaV =10;
+    float ExtraVelocity= 11;
+    float ExtraSpeedForFlightToThePlanets =12;
+}
+
+
+/*
+	Name                            string  `json:"name"`
+	Description                     string  `json:"description"`
+	OrbitPerigee                    float64 `json:"orbitperigee"`
+	OrbitApogee                     float64 `json:"orbitapogee"`
+	OrbitInclination                float64 `json:"orbitinclination"`
+	PerigeeVelocity                 float64 `json:"perigeevelocity"`
+	ApogeeVelocity                  float64 `json:"apogeevelocity"`
+	OrbitalPeriod                   float64 `json:"orbitalperiod"`
+	OrbitalVelocity                 float64 `json:"orbitalvelocity"`
+	DeltaV                          float64 `json:"deltav"`
+	ExtraVelocity                   float64 `json:"extravelocity"`
+    ExtraSpeedForFlightToThePlanets float64 `json:"extraspeedforflighttotheplanets"`
+*/

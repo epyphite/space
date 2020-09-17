@@ -2,3 +2,5 @@
 .env
 build/
 LaunchAPI/test/
+
+.vscode

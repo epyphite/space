@@ -1,0 +1,34 @@
+syntax="proto3";
+
+import "orbit.proto";
+
+package orbital.launch.v1;
+
+option go_package="github.com/epyphite/space";
+
+message OrbitalRequestAll {
+    string version =1;
+}
+
+message OrbitalResponseAll {
+    string version =1;
+    repeated Orbit Orbit=2; 
+}
+
+message OrbitalRequestByID { 
+    string  version =1 ;
+    string  ID = 2;
+}
+
+message OrbitalResponse {
+    string  version =1 ;
+    Orbit  Orbit = 2;
+}
+
+// The launchService service definition.
+service launchService {
+    // Sends a greeting
+    rpc getAllOrbit (OrbitalRequestAll) returns (OrbitalResponseAll) {}
+    rpc getOrbitByID (OrbitalRequestByID) returns (OrbitalResponse) {}
+
+  }

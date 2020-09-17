@@ -15,6 +15,7 @@ import (
 	bolt "go.etcd.io/bbolt"
 )
 
+//Client to the storage API
 type Client struct {
 	Database string
 	boltDB   *bolt.DB

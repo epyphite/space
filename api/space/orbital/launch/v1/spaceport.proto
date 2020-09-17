@@ -1,0 +1,37 @@
+syntax="proto3";
+
+package orbital.launch.v1;
+
+option go_package="github.com/epyphite/space";
+
+message SpacePort {
+    string ID = 1;
+    string Name =2;
+    string Description =3;
+    float LaunchPointAltitude=4;
+    float AdditionalVelocity=5;
+    float SpaceportLatitude=6;
+    float SpaceportLongitude=7;
+    float LaunchAzimuth=8;
+    float EarthRotationVelocity=9;
+    float AuxiliaryAngle=10;
+    float LaunchPointAltitudeOrbitalVelocity=11;
+    float AbsoluteOrbitalVelocity=12;
+}
+
+/*
+type SpacePort struct {
+	ID                                 string  `json:"id"`
+	Name                               string  `json:"name"`
+	Description                        string  `json:"description"`
+	LaunchPointAltitude                float64 `json:"launchpointaltitude"`
+	AdditionalVelocity                 float64 `json:"additionalvelocity"`
+	SpaceportLatitude                  float64 `json:"spaceportlatitude"`
+	SpaceportLongitude                 float64 `json:"spaceportlongitude"`
+	LaunchAzimuth                      float64 `json:"launchazimuth"`
+	EarthRotationVelocity              float64 `json:"earthrotationvelocity"`
+	AuxiliaryAngle                     float64 `json:"auxiliaryangle"`
+	LaunchPointAltitudeOrbitalVelocity float64 `json:"launchpointaltitudeorbitalvelocity"`
+	AbsoluteOrbitalVelocity            float64 `json:"absoluteorbitalvelocity"`
+}
+*/

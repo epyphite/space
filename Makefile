@@ -51,3 +51,10 @@ build/nasaapi-container:
 
 build/launchweb-container:
 	docker build -t lalaunchwebunchapi -f Dockerfile-LaunchWeb .
+
+clean:
+	rm -Rvf build/dist/
+
+gen_proto:
+	./proto-gen.sh ${BUILD_FOLDER}
+
