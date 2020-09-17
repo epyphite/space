@@ -5,7 +5,9 @@ import typography from './typography';
 
 const MuiTheme = createMuiTheme({
   palette: {
-    
+    primary: {
+        main: 'rgb(21, 62, 82)'
+    },
   },
   shape: {
     // borderRadius: '0.5rem'

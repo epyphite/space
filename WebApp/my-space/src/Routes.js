@@ -1,12 +1,14 @@
 import React, { lazy, Suspense, Fragment } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "@material-ui/styles";
 import { PresentationLayout } from "./layout";
+import Ephyphite from "images/Epyphite-White.png";
+import { HEADER_COLOR } from "bundles/utils/color";
 import MuiTheme from "./bundles/theme";
 
-
-const Home = lazy(() => import('bundles/landing'));
+const Home = lazy(() => import("bundles/landing"));
 
 const Routes = () => {
   const location = useLocation();
@@ -14,12 +16,35 @@ const Routes = () => {
   const SuspenseLoading = () => {
     return (
       <Fragment>
-        <div className="d-flex align-items-center flex-column vh-100 justify-content-center text-center py-3">
-          <div className="d-flex align-items-center flex-column px-4"></div>
-          <div className="text-muted font-size-xl text-center pt-3">
-            Loading ...
-          </div>
-        </div>
+        <Grid
+       
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          alignContent="center"
+          style={{height: '100vh', width: '100%', backgroundColor: HEADER_COLOR}}
+        >
+          <Grid item>
+            <div
+              className="d-flex align-items-center flex-column vh-100 justify-content-center text-center py-3"
+            >
+              <div
+                style={{ margin: "auto", width: "50%" }}
+                className="d-flex align-items-center flex-column px-4"
+              >
+                <img
+                  src={Ephyphite}
+                  alt="Space"
+                  style={{ height: 100 }}
+                />
+              </div>
+              <div className="text-muted font-size-xl text-center pt-3">
+               
+              </div>
+            </div>
+          </Grid>
+        </Grid>
       </Fragment>
     );
   };

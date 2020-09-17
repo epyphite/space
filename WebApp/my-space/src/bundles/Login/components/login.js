@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     padding: 9,
     marginTop: 15,
+    '&:hover': {
+        backgroundColor: SECONDARY_COLOR,
+    }
   },
   text: {
     color: "#fff",

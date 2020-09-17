@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import whiteLogo from "images/Epyphite-White.png";
@@ -10,6 +13,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import DoneIcon from "@material-ui/icons/Done";
 import {
   LIGHT_HEADER_COLOR,
   HEADER_COLOR,
@@ -56,15 +60,39 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     backgroundColor: HEADER_COLOR,
-    height: "15%",
+    height: "180px",
   },
-  footer: {
-    position: "fixed",
-    left: 0,
-    bottom: 0,
-    backgroundColor: HEADER_COLOR,
-    height: "15%",
+  completeImg: {
+    marginTop: 50,
+    color: SECONDARY_COLOR,
+    size: 30,
   },
+  completeHeader: {
+    fontSize: 30,
+    fontWeight: 500,
+    marginTop: 40,
+    marginBottom: 40,
+  },
+  iconBorder: {
+    border: 1,
+    borderColor: SECONDARY_COLOR,
+  },
+  circle: {
+    border: `2px solid ${SECONDARY_COLOR}`,
+    backgroundColor: "#FFFFFF",
+    height: "110px",
+    borderRadius: "50%",
+    width: "110px",
+  },
+  login: {
+    marginTop: 100, marginBottom: 30
+  },
+  homepage: {
+    marginTop: 100, marginBottom: 30
+  },
+  signup: {
+    marginTop: 30, marginBottom: 90
+  }
 }));
 
 const ButtonText = ({ classes, children, ...props }) => (
@@ -73,16 +101,57 @@ const ButtonText = ({ classes, children, ...props }) => (
   </Button>
 );
 
-const Menu = ({ classes, history }) => {
+const HomePage = ({ classes }) => {
+  return (
+    <Box
+      alignItems="center"
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+    >
+      <>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignContent="center"
+          alignItems="center"
+          className={classes.circle}
+        >
+          <Grid item>
+            <DoneIcon
+              className={classes.completeImg}
+              style={{ fontSize: "100px", paddingBottom: 48 }}
+            />
+          </Grid>
+        </Grid>
+
+        <Typography align="center" className={classes.completeHeader}>
+          Thank you for registering on Launch Orbital Solutions.
+        </Typography>
+      </>
+    </Box>
+  );
+};
+
+const Menu = ({ classes, history, setPath }) => {
   return (
     <Grid>
-      <ButtonText classes={classes}  onClick={() => history.push('/home')}  color="inherit">
+      <ButtonText classes={classes} onClick={() => setPath("homepage")} color="inherit">
         Home
       </ButtonText>
-      <ButtonText classes={classes} onClick={() => history.push('/home/login')} color="inherit">
+      <ButtonText
+        classes={classes}
+        onClick={() => setPath("login")}
+        color="inherit"
+      >
         Login
       </ButtonText>
-      <ButtonText classes={classes}  onClick={() => history.push('/home/signup')}  color="inherit">
+      <ButtonText
+        classes={classes}
+        onClick={() => setPath("signup")}
+        color="inherit"
+      >
         Sign Up
       </ButtonText>
       <IconButton>
@@ -92,18 +161,27 @@ const Menu = ({ classes, history }) => {
   );
 };
 
-const Header = ({match, history}) => {
+const Header = ({ match, history }) => {
   const classes = useStyles();
+  const [path, setPath] = useState("signup");
+
+  const renderView = () => {
+    if (path == "login") return <Login />;
+
+    if (path == "signup") return <SignUp />;
+
+    return <HomePage classes={classes} />;
+  };
 
   return (
     <React.Fragment>
-      <div style={{ height: '100vh' }}>
+      <div>
         <div style={{ backgroundColor: HEADER_COLOR, height: 20 }}></div>
         <AppBar className={classes.appBar} position="sticky">
           <Toolbar>
             <img alt="brand-logo" width={113} height={32} src={whiteLogo} />
             <Grid className={classes.title}></Grid>
-            <Menu classes={classes} history={history} />
+            <Menu classes={classes} history={history} setPath={setPath} />
           </Toolbar>
         </AppBar>
         <Grid
@@ -119,63 +197,19 @@ const Header = ({match, history}) => {
           </Typography>
         </Grid>
 
-        <Grid container justify="center" alignContent="center" alignItems="center" style={{ marginTop: 50 }}>
-          <Grid item xs={12} sm={8} md={6} lg={4}>
-            <Paper className={classes.paper} elevation={2} >
-               <Route path={`/home/login`} component={Login}/>
-               <Route path={`/home/signup`} component={SignUp}/>
-            </Paper>
-          </Grid>
-        </Grid>
-
         <Grid
           container
           justify="center"
-          alignItems="center"
           alignContent="center"
-          spacing={8}
-          className={classes.footer}
+          alignItems="center"
+          className={classes[path]}
         >
-          <Grid item md={3}></Grid>
-          <Grid item md={4}>
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
-                <Typography
-                  variant="h3"
-                  style={{ color: "#fff", fontWeight: 600 }}
-                >
-                  {" "}
-                  Few Words About Epyphite
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography style={{ color: "#fff", fontWeight: 500 }}>
-                  Our goal is to provide 'just in time' intelligence, data and
-                  quality software solutions to the aerospace sector, driving
-                  innovation, disruption and growth, pushing boundaries of deep
-                  technologies and integrating them for a common and social
-                  goal.
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item md={4}>
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
-                <Typography
-                  variant="h3"
-                  style={{ color: "#fff", fontWeight: 600 }}
-                >
-                  {" "}
-                  Links
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography style={{ color: "#fff", fontWeight: 500 }}>
-                  Terms & Conditions
-                </Typography>
-              </Grid>
-            </Grid>
+          <Grid item xs={12} sm={8} md={6} lg={4}>
+           
+              <Paper className={classes.paper} elevation={2}>
+                {renderView()}
+              </Paper>
+    
           </Grid>
         </Grid>
       </div>

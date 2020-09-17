@@ -15,17 +15,20 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import clsx from "clsx";
 // import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
+import MuiPhoneNumber from 'material-ui-phone-number';
 // import FilterListIcon from "@material-ui/icons/FilterList";
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
+import { ERROR_COLOR } from "bundles/utils/color";
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 var nameRegex = /^[a-zA-Z\-]+$/;
 
 const RequiredIndicator = memo(() => {
-  return <span style={{ color: "#D74A4C" }}>*</span>;
+  return <span style={{ color: ERROR_COLOR }}>*</span>;
 });
 
 const TransformButtonIcon = ({ ...props }) => {
@@ -259,7 +262,7 @@ const InputTextComp = (
             )}>
             {nonValid ? customValidator.label ? customValidator.label :  `Please enter ${input.label}` : input.subTitle}
           </Typography>
-        ) : null}
+        ) :  input.errorMessage && <Typography   className={clsx({[classes.errorText]: true})}> {input.errorMessage}</Typography> }
     </Fragment>
     )
   }
@@ -503,6 +506,78 @@ const SelectFieldComp = (
   );
 };
 
+const validateNumber = (data, countryCode) => {
+
+    const phoneNumber =  parsePhoneNumberFromString(data || '123' , countryCode);
+    return phoneNumber ?  phoneNumber.isValid() && phoneNumber.country.toLowerCase() == countryCode.toLowerCase() : false
+   }
+   
+   const PhoneNumber = ({ input, setFormState, formState, setFormStateValidation }) => {
+     const classes = useStyles();
+   
+     input.defaultValue =
+       formState[input.key] && !input.defaultValue
+         ? formState[input.key]
+         : input.defaultValue;
+   
+     const countryCode = formState[input.key]?.country?.countryCode?.toUpperCase() || 'ng';
+   
+     const valid = validateNumber(formState[input.key]?.value || formState[input.key] , countryCode);
+   
+     return (
+       <Grid
+         container
+         style={{ marginBottom: 12 }}
+         direction={input.labelDirection}>
+         <Grid item xs={!input.labelDirection && 4}>
+           <Typography className={classes.labelText}>
+             {input.label}
+             {input.required ? <RequiredIndicator /> : null}
+           </Typography>
+         </Grid>
+         <Grid item xs={!input.labelDirection && 8}>
+           <Grid container direction="row" item xs={12} spacing={0}>
+             <Grid item xs={12}>
+              <MuiPhoneNumber  
+   
+               country={'ng'}
+               defaultCountry='ng'
+               isValid={( value, country)  => {
+                 if(!formState[input.key]) return true
+   
+                 return valid;
+               }}
+               value={formState[input.key] && formState[input.key].value  || formState[input.key] ||  ''}
+               inputProps={{ style: input.style || {}, ...input.inputProps }} 
+               onChange={ (value, country) => { 
+                 setFormState({ [input.key]: { value, country } } ) 
+                 setFormStateValidation({[input.key]: validateNumber(value, country.countryCode?.toUpperCase())});
+               }}
+               onBlur={input.onBlur} 
+              // helperText={valid ? '' : `Please Enter a valid ${countryCode} Phone  Number`} 
+               variant="outlined" 
+               fullWidth  
+               />
+             </Grid>
+           </Grid>
+           {!valid && formState[input.key] ? (
+           <FormHelperText style={{ marginTop: 0 }}>
+             <Typography
+               className={clsx(
+                 { [classes.errorText]: !valid },
+                 classes.subInputText
+               )}>
+               {valid ? `` : `Please Enter a valid ${countryCode.toUpperCase()} Phone  Number`}
+             </Typography>
+           </FormHelperText>
+         ) : null}
+         </Grid>
+       </Grid>
+      
+     )
+   
+}
+
 const SelectTransform = ({ input, setFormState, formState }) => {
   const classes = useStyles();
   let nonValid = false;
@@ -587,7 +662,17 @@ const renderType = (
           input={input}
           formState={formState}
         />
-      );
+      ); 
+
+      case 'phone':
+        return (
+          <PhoneNumber
+            setFormState={setFormState}
+            input={input}
+            formState={formState}
+            setFormStateValidation={setFormStateValidation}
+          />
+        );
 
     default:
       return (

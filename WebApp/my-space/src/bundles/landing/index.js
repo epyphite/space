@@ -1,10 +1,13 @@
 import React from "react";
 import { Header } from "bundles/Header";
+import { Footer } from "bundles/Footer";
 
 const Landing = ({ match, ...props }) => (
-  <div>
-    <Header {...props} />
-  </div>
+    <div style={{ height: "100vh" }}>
+        <Header {...props} />
+      
+    </div>
+  
 );
 
 export default Landing;
