@@ -11,11 +11,15 @@ import {
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
+import InputAdornment from '@material-ui/core/InputAdornment';
 import clsx from "clsx";
 // import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 // import FilterListIcon from "@material-ui/icons/FilterList";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 var nameRegex = /^[a-zA-Z\-]+$/;
@@ -128,7 +132,9 @@ const InputTextComp = (
   input,
   setFormState = () => "",
   formState = {},
-  setFormStateValidation = () => ""
+  setFormStateValidation = () => "",
+  setPasswordMask = () => '', 
+  passwordMask = false
 ) => {
   let rows = null;
   const multiline = input.type === "textArea" ? true : false;
@@ -201,6 +207,61 @@ const InputTextComp = (
         ) : null}
       </Fragment>
     );
+  }
+
+  if (input.type == 'password') {
+    return (
+      <Fragment>
+        <OutlinedInput
+          fullWidth
+          placeholder={input.placeholder || ''}
+          inputProps={{ style: input.style || {}, ...input.inputProps }}
+          defaultValue={defaultValue || ''}
+          value={formState[input.key] || ''}
+          error={nonValid}
+          disabled={input.disabled}
+          ref={input.ref}
+          multiline={multiline}
+          type={passwordMask ? 'text' : input.type}
+          onChange={e => {
+            input.type === 'number'
+              ? setFormState({ [input.key]: parseInt(e.target.value) })
+              : input.capitalize
+              ? setFormState({ [input.key]: capitalizeFirstWord(e.target.value) })
+              : setFormState({ [input.key]: e.target.value })
+
+              
+              if(input.customValidation) {
+                setFormStateValidation({[input.key]: validateFields(input, e.target.value)?.valid })
+              }
+          } }
+          onBlur={input.onBlur}
+          rows={rows}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                disableRipple={true}
+                className={classes.button}
+                aria-label="toggle password visibility"
+                onClick={(e) => setPasswordMask(!passwordMask)}
+                onMouseDown={(e) => e.preventDefault()}
+              >
+                {passwordMask ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        {nonValid || input.subTitle ? (
+          <Typography
+            className={clsx(
+              { [classes.errorText]: nonValid },
+              classes.subInputText
+            )}>
+            {nonValid ? customValidator.label ? customValidator.label :  `Please enter ${input.label}` : input.subTitle}
+          </Typography>
+        ) : null}
+    </Fragment>
+    )
   }
 
   return (

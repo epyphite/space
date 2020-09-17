@@ -1,12 +1,10 @@
-import React from 'react';
-import {Header} from 'bundles/header'
- 
-const Landing = () => (
+import React from "react";
+import { Header } from "bundles/Header";
 
-    <div style={{paddingLeft: 20, paddingRight: 20}}>
-        
-        <Header />
-    </div>
-)
+const Landing = ({ match, ...props }) => (
+  <div>
+    <Header {...props} />
+  </div>
+);
 
 export default Landing;
