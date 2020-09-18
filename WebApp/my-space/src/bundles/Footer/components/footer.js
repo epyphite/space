@@ -9,11 +9,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   footer: {
-    position: "fixed",
-    // left: 0,
-    bottom: 0,
+   // position: "sticky",
+     left: 0,
+    bottom: 2,
     backgroundColor: HEADER_COLOR,
-    height: "180px",
+    //height: "180px",
   },
 }));
 
