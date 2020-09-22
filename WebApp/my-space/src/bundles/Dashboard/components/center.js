@@ -28,6 +28,214 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
+const loses = {
+  leftTitle: "Loses",
+  rightTitle: "",
+  content: [
+    {
+      name: "rocket space",
+      left: {
+        label: "1st stage Fuel & Cycle",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      middle: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+  ],
+};
+
+const orbit = {
+  leftTitle: "Orbit",
+  rightTitle: "",
+  content: [
+    {
+      name: "rocket space",
+      left: {
+        label: "1st stage Fuel & Cycle",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      middle: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket space test",
+      left: {
+        label: "1st stage Fuel & Cycle",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      center: {
+        type: "grid",
+      },
+      right: {
+        label: "",
+        fields: ["Gas Generator", "B", "C"],
+        type: "selectComp",
+      },
+      middle: {
+        type: "label",
+        label: "370",
+      },
+      symbol: {
+        label: "%",
+      },
+    },
+  ],
+};
+
+const spaceport = {
+  leftTitle: "Space Port",
+  rightTitle: "",
+  content: [
+    {
+      name: "rocket space",
+      left: {
+        label: "1st stage Fuel & Cycle",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      middle: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket space test",
+      left: {
+        label: "1st stage Fuel & Cycle",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      center: {
+        type: "grid",
+      },
+      right: {
+        label: "",
+        fields: ["Gas Generator", "B", "C"],
+        type: "selectComp",
+      },
+      middle: {
+        type: "label",
+        label: "370",
+      },
+      symbol: {
+        label: "%",
+      },
+    },
+  ],
+};
+
 const rockedData = {
   leftTitle: "Rocket",
   rightTitle: "Fixed Design",
@@ -79,6 +287,121 @@ const rockedData = {
         type: "grid",
       },
     },
+    {
+        name: "rocket data",
+        left: {
+          label: "2nd stage Fuel & Cycle ",
+          placeholder: "Enter your email",
+          type: "label",
+        },
+        middle: {
+          label: "1st",
+          type: "textDouble",
+        },
+        right: {
+          label: "",
+          fields: ["A", "B", "C"],
+          type: "selectComp",
+        },
+        symbol: {
+          label: "",
+        },
+        center: {
+          type: "grid",
+        },
+      },
+      {
+        name: "rocket data",
+        left: {
+          label: "2nd stage Fuel & Cycle ",
+          placeholder: "Enter your email",
+          type: "label",
+        },
+        middle: {
+          label: "1st",
+          type: "textDouble",
+        },
+        right: {
+          label: "",
+          fields: ["A", "B", "C"],
+          type: "selectComp",
+        },
+        symbol: {
+          label: "",
+        },
+        center: {
+          type: "grid",
+        },
+      },
+      {
+        name: "rocket data",
+        left: {
+          label: "2nd stage Fuel & Cycle ",
+          placeholder: "Enter your email",
+          type: "label",
+        },
+        middle: {
+          label: "1st",
+          type: "textDouble",
+        },
+        right: {
+          label: "",
+          fields: ["A", "B", "C"],
+          type: "selectComp",
+        },
+        symbol: {
+          label: "",
+        },
+        center: {
+          type: "grid",
+        },
+      },
+      {
+        name: "rocket data",
+        left: {
+          label: "2nd stage Fuel & Cycle ",
+          placeholder: "Enter your email",
+          type: "label",
+        },
+        middle: {
+          label: "1st",
+          type: "textDouble",
+        },
+        right: {
+          label: "",
+          fields: ["A", "B", "C"],
+          type: "selectComp",
+        },
+        symbol: {
+          label: "",
+        },
+        center: {
+          type: "grid",
+        },
+      },
+      {
+        name: "rocket data",
+        left: {
+          label: "2nd stage Fuel & Cycle ",
+          placeholder: "Enter your email",
+          type: "label",
+        },
+        middle: {
+          label: "1st",
+          type: "textDouble",
+        },
+        right: {
+          label: "",
+          fields: ["A", "B", "C"],
+          type: "selectComp",
+        },
+        symbol: {
+          label: "",
+        },
+        center: {
+          type: "grid",
+        },
+      },
     {
       name: "rocket space test",
       left: {
@@ -167,25 +490,25 @@ const rockedData = {
       },
     },
     {
-        name: "wet ratio days",
-        left: {
-          label: "2nd stage Dry to Wet mass ratio",
-          type: "label",
-        },
-        right: {
-          type: "grid",
-        },
-        middle: {
-          label: "",
-          type: "textComp",
-        },
-        center: {
-          type: "slider",
-        },
-        symbol: {
-          label: "kg",
-        },
+      name: "wet ratio days",
+      left: {
+        label: "2nd stage Dry to Wet mass ratio",
+        type: "label",
       },
+      right: {
+        type: "grid",
+      },
+      middle: {
+        label: "",
+        type: "textComp",
+      },
+      center: {
+        type: "slider",
+      },
+      symbol: {
+        label: "kg",
+      },
+    },
   ],
 };
 
@@ -231,7 +554,7 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
         <TableBody>
           {data?.content?.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" style={{width: '50%'}} scope="row">
+              <TableCell component="th" style={{ width: "50%" }} scope="row">
                 <Grid container>
                   <Grid item md={12}>
                     <Grid
@@ -262,7 +585,7 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
                 <Grid container>
                   <Grid item md={12}>
                     <Grid container alignContent="center" alignItems="center">
-                      <Grid item md={5} style={{paddingRight: 5}}>
+                      <Grid item md={5} style={{ paddingRight: 5 }}>
                         <FormBuilder
                           formInput={{ ...row.center }}
                           setFormState={() => ""}
@@ -356,12 +679,18 @@ const CenterDashboard = () => {
         </Grid>
       </Grid>
       <Grid item xs={12} md={5}>
-        <Grid container>
-          <Grid item xs={12} md={8}>
-            <ComplexTable />
+        <Grid container spacing={2} direction="column">
+          <Grid item md={12}>
+            <SimpleTable data={spaceport} />
           </Grid>
-          <Grid item xs={12} md={4}>
-            <ComplexTable />
+          <Grid item md={12}>
+            <SimpleTable data={orbit} />
+          </Grid>
+          <Grid item md={12}>
+            <SimpleTable data={loses} />
+          </Grid>
+          <Grid item md={12}>
+            <SimpleTable data={loses} />
           </Grid>
         </Grid>
       </Grid>
