@@ -2,5 +2,5 @@ FROM ubuntu
 RUN apt update
 RUN apt install -y ca-certificates
 ADD build/dist/linux/bin/LaunchAPI /
-COPY build/dist/linux/bin/*.json /
-CMD ["./LaunchAPI"]
+COPY build/dist/linux/bin/data/*.json /data/
+CMD ["./LaunchAPI","--cleardb"]
