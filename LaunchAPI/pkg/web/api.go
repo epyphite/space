@@ -71,6 +71,11 @@ func (W *APIOne) New() http.Handler {
 
 	//Engines Section
 	api.HandleFunc("/engine/getAll", app.EngineGetALL)
+
+	api.HandleFunc("/login", app.V1Login)
+	api.HandleFunc("/logout", app.V1Logout)
+	api.HandleFunc("/register", app.V1CreateUser)
+
 	return &app
 
 }

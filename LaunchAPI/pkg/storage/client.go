@@ -8,11 +8,14 @@ import (
 	"os"
 	"time"
 
+	c "github.com/epyphite/space/LaunchAPI/pkg/crypto"
+	"github.com/epyphite/space/LaunchAPI/pkg/models"
 	modules "github.com/epyphite/space/LaunchAPI/pkg/models/modules"
 	"github.com/epyphite/ulid"
 	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
 	bolt "go.etcd.io/bbolt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Client struct {
@@ -96,6 +99,10 @@ func (bc *Client) initializeBucket() {
 		if err != nil {
 			return fmt.Errorf("could not create objectStore bucket: %v", err)
 		}
+		_, err = root.CreateBucketIfNotExists([]byte("users"))
+		if err != nil {
+			return fmt.Errorf("could not create objectStore bucket: %v", err)
+		}
 		return err
 
 	})
@@ -103,29 +110,26 @@ func (bc *Client) initializeBucket() {
 		fmt.Printf("%s", err.Error())
 	}
 
-	/*
-		var tempUser v1.ReUser
-		// or error handling
-		u2 := uuid.NewV4()
+	var tempUser models.User
+	// or error handling
+	u2, err := uuid.NewV4()
 
-		if err != nil {
-			log.Println("UserAdd -> Something went wrong: ", err)
-			return
-		}
-		tempUser.UserName = "root"
-		tempUser.Password = []byte("ResilientOne!!") //Default Password CHANGE IN PROD
-		tempUser.UserID = u2.String()
-		tempUser.Token = ""
-		tempUser.NodeID = []string{information.GetUID()}
-		tempUser.Approved = "true"
-		tempUser.Banned = "no"
-		tempUser.Role = "Admin"
-		tempUser.IsAdmin = "yes"
-		err = bc.UserAdd(tempUser)
-		if err != nil {
-			fmt.Printf("%s", err.Error())
-		}
-	*/
+	if err != nil {
+		log.Println("UserAdd -> Something went wrong: ", err)
+		return
+	}
+	tempUser.Username = "root"
+	tempUser.Password = []byte("ResilientOne!!") //Default Password CHANGE IN PROD
+	tempUser.UserID = u2.String()
+	tempUser.Token = ""
+	tempUser.Approved = true
+	tempUser.Role = "Admin"
+	tempUser.IsAdmin = true
+	err = bc.UserAdd(tempUser)
+	if err != nil {
+		fmt.Printf("%s", err.Error())
+	}
+
 }
 
 //PopulateFromDisk data from initial pre set
@@ -398,4 +402,162 @@ func (bc *Client) EngineGetAll() ([]*modules.EngineSpecs, error) {
 		return nil
 	})
 	return engines, err
+}
+
+//CheckToken for checkig validity of admin token
+func (bc *Client) CheckToken(tokenstring string) (models.Token, error) {
+	var _token models.Token
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+		// Assume bucket exists and has keys
+
+		b := tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("users"))
+
+		c := b.Cursor()
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			var token models.Token
+			json.Unmarshal(v, &token)
+			if token.TokenID == tokenstring {
+
+				_token = token
+			}
+
+		}
+		return nil
+	})
+	return _token, err
+}
+
+//TokenAdd will add a token to the tokens bucket
+func (bc *Client) TokenAdd(token models.Token) error {
+	//log.Println("UserAdd --> password ", user.Password)
+	tokenBytes, err := json.Marshal(&token)
+
+	if err != nil {
+		return fmt.Errorf("could not marshal config proto: %v", err)
+	}
+	err = bc.boltDB.Update(func(tx *bolt.Tx) error {
+		err = tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("users")).Put([]byte(token.TokenID), tokenBytes)
+		if err != nil {
+			fmt.Printf("%s", err.Error())
+			return fmt.Errorf("could not set Token: %v", err)
+		}
+		return nil
+	})
+	return nil
+}
+
+//UserAdd will add a user using models.users
+func (bc *Client) UserAdd(user models.User) error {
+	_, err := bc.CheckUserCExists(&user)
+	if err != nil {
+		return fmt.Errorf("could not marshal config proto: %v", err)
+	}
+	// or error handling
+	u2, err := uuid.NewV4()
+	if err != nil {
+		log.Println("UserAdd -> Something went wrong: ", err)
+		return err
+	}
+
+	user.UserID = u2.String()
+	user.Token = c.CreateHash(user.Email)
+
+	user.Password, _ = bcrypt.GenerateFromPassword(user.Password, bcrypt.DefaultCost)
+	//log.Println("UserAdd --> password ", user.Password)
+	userBytes, err := json.Marshal(&user)
+
+	if err != nil {
+		return fmt.Errorf("could not marshal config proto: %v", err)
+	}
+	err = bc.boltDB.Update(func(tx *bolt.Tx) error {
+		err = tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("users")).Put([]byte(user.Email), userBytes)
+		if err != nil {
+			fmt.Printf("%s", err.Error())
+			return fmt.Errorf("could not set USER: %v", err)
+		}
+		return nil
+	})
+	return nil
+}
+
+func decodeUser(data []byte) (models.User, error) {
+	var p models.User
+	err := json.Unmarshal(data, &p)
+	if err != nil {
+		return p, err
+	}
+	return p, nil
+}
+
+//CheckUserCExists usage is to check the hash of the IOC and search in the database.
+func (bc *Client) CheckUserCExists(user *models.User) (*models.User, error) {
+
+	var iuser models.User
+
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+		iochhash := tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("users")).Get([]byte(user.Email))
+		if len(iochhash) > 0 {
+			var err error
+			iuser, err = decodeUser(iochhash)
+			if err != nil {
+				return fmt.Errorf("Bucket exists 1")
+			}
+			return nil
+		}
+		return nil
+	})
+
+	return &iuser, err
+}
+
+//CheckUser usage for authentication, returns true or false.
+func (bc *Client) CheckUser(user models.User) (models.User, bool, error) {
+
+	var iuser models.User
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+		iochhash := tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("users")).Get([]byte(user.Email))
+		if len(iochhash) > 0 {
+			var err error
+			iuser, err = decodeUser(iochhash)
+			if err != nil {
+				return fmt.Errorf("Bucket exists 1")
+			}
+			return nil
+		}
+		return fmt.Errorf("Bucket exists 2	")
+	})
+	if err != nil {
+		return iuser, false, err
+	}
+
+	err = bcrypt.CompareHashAndPassword(iuser.Password, user.Password)
+
+	if err == nil {
+		return iuser, true, err
+	}
+	//log.Println("Error in compare password ", err)
+	return iuser, false, err
+}
+
+//CheckUserByID will check a user by their ID
+func (bc *Client) CheckUserByID(userID string) (models.User, error) {
+	var _user models.User
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+		// Assume bucket exists and has keys
+
+		b := tx.Bucket([]byte("EpyphiteSpace")).Bucket([]byte("users"))
+
+		c := b.Cursor()
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			var user models.User
+			json.Unmarshal(v, &user)
+			if user.UserID == userID {
+
+				_user = user
+			}
+
+		}
+		return nil
+	})
+	return _user, err
 }
