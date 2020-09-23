@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { connect } from "react-redux";
+import { rocketFilter } from "bundles/Dashboard/selectors";
 import { TitleText, FormBuilder } from "bundles/utils";
+const compose = require("lodash")?.flowRight;
 
 const Text = ({ text }) => {
   return (
@@ -11,9 +14,27 @@ const Text = ({ text }) => {
   );
 };
 
-const Rocket = () => {
+const Rocket = ({ rockets }) => {
+  const rocketData = rockets.map((item) => ({
+    label: item.Name,
+    value: item.Name,
+    description: item.Description,
+  }));
+  const [formState, setFormState] = useState({});
+  const [formDescription, setFormDescription] = useState({
+    value: rocketData.length ? rocketData[0].description : "",
+  });
+
+  const setInitialForm = (value) => {
+    setFormState({ ...formState, ...value });
+
+    const description = rockets.filter((item) => item.Name === value.rocket);
+    if (description.length)
+      setFormDescription({ value: description[0].Description });
+  };
+
   return (
-    <Grid container justify="center"   direction="column">
+    <Grid container justify="center" direction="column">
       <Grid item>
         <TitleText text={"Select Rocket"} />
       </Grid>
@@ -22,23 +43,27 @@ const Rocket = () => {
           formInput={{
             label: "Select",
             type: "select",
-            defaultValue: "",
-            fields: [],
+            defaultValue: rocketData.length ? rocketData[0].label : "",
+            fields: rocketData,
             placeholder: "",
             labelDirection: "column",
-            key: "age",
+            key: "rocket",
           }}
-          formState={{}}
-          setFormState={() => ""}
+          formState={formState}
+          setFormState={setInitialForm}
         />
       </Grid>
       <Grid item>
         <Grid container direction="row" spacing={2}>
-          <Text text={"Space X"} />
+          <Text text={formDescription.value} />
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-export default Rocket;
+const mapStateToProps = (state) => ({
+  rockets: rocketFilter.getRocket(state),
+});
+
+export default compose(connect(mapStateToProps, null))(Rocket);
