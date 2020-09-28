@@ -96,11 +96,12 @@ const fuelFields = ["Staged Combustion", "Gas-Generator", "Electric", "Pressure 
 
 let secondSetObject = (defaultValue, key) => {
   
+    console.log(key, defaultValue)
     return {
         middle: {
             label: "",
             fields: fuelFields,
-            defaultValue: defaultValue ? fuelFields[defaultValue] : '',
+            defaultValue: fuelFields[defaultValue],
             type: "selectComp",
             key: `${key}-select`,
         }
@@ -111,13 +112,14 @@ let secondSetObject = (defaultValue, key) => {
 const cycleFields = ["Lox/Kerosene", "Lox/Methane", "Lox/LH2", "Monopropellant", "Solid"]
 
 let firstSetObject = (label, title, defaultValue, key, symbol) => {
+
     return {
         key,
         right: {
             label,
             fields: cycleFields,
             type: "selectComp",
-            defaultValue: defaultValue ? cycleFields[defaultValue]: '',
+            defaultValue: cycleFields[defaultValue],
             title,
             key,
           },

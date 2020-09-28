@@ -7,8 +7,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { rocketFilter } from "bundles/Dashboard/selectors";
+import { connect } from "react-redux";
 import { TitleText, FormBuilder, mapData } from "bundles/utils";
 import { Grid, Typography } from "@material-ui/core";
+const compose = require("lodash")?.flowRight;
 
 const useStyles = makeStyles({
   table: {
@@ -27,79 +30,6 @@ const rows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
-
-/*
-[
- {
-   "name": "Custom Rocket...",
-   "thrusttoweightratioone": 1.2,
-   "thrusttoweightratio": 1.1,
-   "rocketmass": 32475,
-   "maxrocketbodydiameter": 1.7,
-   "fairingmass": 150,
-   "fairingjettisonvelocity": 3500,
-   "jettisonedbattery": 0,
-   "assumedpayloadmass": 775,
-   "secondstagetorocketmassratio": 24.86,
-   "transferorbitstagetorocketmassratio": 0,
-   "firststagedrytowetmassratio": 8,
-   "secondstagedrytowetmassratio": 10,
-   "transferorbitstagedrytowetmassratio": 20,
-   "unusedpropellantoffirststage": 2,
-   "unusedpropellantofseconstage": 2,
-   "unusedpropellantoftransferorbitstage": 1,
-   "firststageispstartaltitude": 290.5,
-   "firststageispvacuum": 327,
-   "secondstageisp": 365,
-   "transferorbitstageisp": 320,
-   "firststagefuel": 0,
-   "firststagecycle": 0,
-   "secondstagefuel": 0,
-   "secondstagecycle": 0,
-   "thirdstagefuel": 0,
-   "thirdstagecycle": 3,
-   "spaceport": "Cape Canaveral",
-   "orbit": "LEO",
-   "airlaunch": 0,
-   "description": "Designed Rocket - engine based",
- },
- {
-   "name": "NASA Saturn V",
-   "thrusttoweightratioone": 1.165,
-   "thrusttoweightratio": 0.78,
-   "rocketmass": 2909200,
-   "maxrocketbodydiameter": 10.1,
-   "fairingmass": 8000,
-   "fairingjettisonvelocity": 3500,
-   "jettisonedbattery": 0,
-   "assumedpayloadmass": 48600,
-   "secondstagetorocketmassratio": 21.284,
-   "transferorbitstagetorocketmassratio": 4.228,
-   "firststagedrytowetmassratio": 5.677,
-   "secondstagedrytowetmassratio": 8.081,
-   "transferorbitstagedrytowetmassratio": 10.976,
-   "unusedpropellantoffirststage": 2.6,
-   "unusedpropellantofseconstage": 2,
-   "unusedpropellantoftransferorbitstage": 2,
-   "firststageispstartaltitude": 263,
-   "firststageispvacuum": 304,
-   "secondstageisp": 421,
-   "transferorbitstageisp": 421,
-   "firststagefuel": 0,
-   "firststagecycle": 1,
-   "secondstagefuel": 2,
-   "secondstagecycle": 1,
-   "thirdstagefuel": 2,
-   "thirdstagecycle": 1,
-   "spaceport": "Cape Canaveral",
-   "orbit": "Moon",
-   "airlaunch": 0,
-   "description": "Apollo lunar program launcher",
- }
-]
-*/
-
-
 
 const loses = {
   leftTitle: "Loses",
@@ -739,13 +669,12 @@ const ComplexTable = ({ data = [[]] }) => {
   );
 };
 
-const CenterDashboard = () => {
+const CenterDashboard = ({rocket}) => {
   const [formState, setFormState] = useState({});
 
   const dataStore = {
     content: mapData()
   }
-
 
 
   const getInitialForm = value => {
@@ -757,7 +686,7 @@ const CenterDashboard = () => {
       <Grid item xs={12} md={7}>
         <Grid container>
           <Grid item md={12}>
-            <SimpleTable data={{ content: mapData()}} getInitialForm={getInitialForm} formState={formState}   />
+            <SimpleTable data={{ content: rocket}} getInitialForm={getInitialForm} formState={formState}   />
           </Grid>
         </Grid>
       </Grid>
@@ -781,4 +710,9 @@ const CenterDashboard = () => {
   );
 };
 
-export default CenterDashboard;
+const mapStateToProps = (state) => ({
+  rocket: rocketFilter.getSingleRocket(state),
+});
+
+export default compose(connect(mapStateToProps, null))(CenterDashboard);
+

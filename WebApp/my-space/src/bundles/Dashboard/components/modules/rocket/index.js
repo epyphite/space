@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
+import { setRocket, setCurrentRocket } from "bundles/Dashboard/actions";
 import { rocketFilter } from "bundles/Dashboard/selectors";
 import { TitleText, FormBuilder } from "bundles/utils";
 const compose = require("lodash")?.flowRight;
@@ -14,7 +15,7 @@ const Text = ({ text }) => {
   );
 };
 
-const Rocket = ({ rockets }) => {
+const Rocket = ({ rockets, setRocket, setCurrentRocket }) => {
   const rocketData = rockets.map((item) => ({
     label: item.Name,
     value: item.Name,
@@ -31,7 +32,18 @@ const Rocket = ({ rockets }) => {
     const description = rockets.filter((item) => item.Name === value.rocket);
     if (description.length)
       setFormDescription({ value: description[0].Description });
+
+
+    setRocketValue(description)
   };
+
+  const setRocketValue = (value) => {
+    setCurrentRocket(value);
+  }
+
+  useEffect(() => {
+    if(rockets.length > 0) setCurrentRocket(rockets[0]);
+  }, [])
 
   return (
     <Grid container justify="center" direction="column">
@@ -66,4 +78,8 @@ const mapStateToProps = (state) => ({
   rockets: rocketFilter.getRocket(state),
 });
 
-export default compose(connect(mapStateToProps, null))(Rocket);
+const mapDispatchToProps = dispatch => ({
+  setCurrentRocket: value => dispatch(setCurrentRocket(value))
+});
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Rocket);
