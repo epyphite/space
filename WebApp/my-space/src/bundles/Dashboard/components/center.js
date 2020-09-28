@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -598,11 +598,8 @@ const rocketDataSemi = [
   },
 ];
 
-const SimpleTable = ({ data = { title: "", content: "" } }) => {
+const SimpleTable = ( { data = { title: "", content: "" }, getInitialForm = () => '', formState = {} } ) => {
   const classes = useStyles();
-
-
-  console.log(data, '---j--- >  --- >')
 
   return (
     <TableContainer component={Paper}>
@@ -640,15 +637,15 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
                       <Grid item md={7}>
                         <FormBuilder
                           formInput={{ ...row.left }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                       <Grid item md={5}>
                         <FormBuilder
                           formInput={{ ...row.right }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                     </Grid>
@@ -662,15 +659,15 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
                       <Grid item md={5} style={{ paddingRight: 5 }}>
                         <FormBuilder
                           formInput={{ ...row.center }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                       <Grid item md={6} style={{ textAlign: "right" }}>
                         <FormBuilder
                           formInput={{ ...row.middle }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                       <Grid item md={1}>
@@ -743,19 +740,24 @@ const ComplexTable = ({ data = [[]] }) => {
 };
 
 const CenterDashboard = () => {
+  const [formState, setFormState] = useState({});
 
   const dataStore = {
     content: mapData()
   }
 
-  console.log(dataStore, '---> --> ');
+
+
+  const getInitialForm = value => {
+    setFormState({ ...formState, ...value });
+  };
   
   return (
     <Grid container spacing={4} style={{ padding: 20 }}>
       <Grid item xs={12} md={7}>
         <Grid container>
           <Grid item md={12}>
-            <SimpleTable data={{ content: mapData()}} />
+            <SimpleTable data={{ content: mapData()}} getInitialForm={getInitialForm} formState={formState}   />
           </Grid>
         </Grid>
       </Grid>

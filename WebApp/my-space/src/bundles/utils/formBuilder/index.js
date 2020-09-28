@@ -736,6 +736,7 @@ const InputSingle = ({ input, setFormState, formState }) => {
 };
 
 const SelectSingle = ({ input, setFormState, formState }) => {
+
   const classes = useStyles();
   let nonValid = false;
   if (

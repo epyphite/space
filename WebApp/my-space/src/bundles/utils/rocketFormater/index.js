@@ -17,6 +17,7 @@ const buildTextTitleObjects = (label, title, defaultValue, key, symbol) => {
       label: "",
       type: "textComp",
       defaultValue,
+      key: `${key}-${label}`,
       style: {
         textAlign: 'right'
     }
@@ -46,6 +47,7 @@ const buildSliderObjects = (label, title, defaultValue, key, symbol) => {
         label: "",
         type: "textComp",
         defaultValue,
+        key: `${key}-${label}`,
         style: {
             textAlign: 'right'
         }
@@ -73,11 +75,13 @@ const buildDropFuelStagesObjects = (label, title, defaultValue, key, symbol) => 
         label: "",
         fields: ["Staged Combustion", "Gas-Generator", "Electric", "Pressure Fed"],
         type: "selectComp",
+        key: `${key}-${label}`,
       },
       middle: {
         label: "",
         fields: ["Lox/Kerosene", "Lox/Methane", "Lox/LH2", "Monopropellant", "Solid"],
         type: "selectComp",
+        key: `${key}-${label}-grid`,
       },
       symbol: {
         label: "",
@@ -90,7 +94,7 @@ const buildDropFuelStagesObjects = (label, title, defaultValue, key, symbol) => 
 
 const fuelFields = ["Staged Combustion", "Gas-Generator", "Electric", "Pressure Fed"]
 
-let secondSetObject = (defaultValue) => {
+let secondSetObject = (defaultValue, key) => {
   
     return {
         middle: {
@@ -98,6 +102,7 @@ let secondSetObject = (defaultValue) => {
             fields: fuelFields,
             defaultValue: defaultValue ? fuelFields[defaultValue] : '',
             type: "selectComp",
+            key: `${key}-select`,
         }
     }
 
@@ -187,7 +192,7 @@ const parseKeyType = (key, value) => {
     case "firststagecycle": 
 
     return {
-        ...firstStage, ...secondSetObject(value)
+        ...firstStage, ...secondSetObject(value, "firststagecycle")
     }
         
     
@@ -202,7 +207,7 @@ const parseKeyType = (key, value) => {
     case "secondstagecycle":    {
 
         return {
-            ...secondStage, ...secondSetObject(value)
+            ...secondStage, ...secondSetObject(value, "secondstagecycle")
         }
 
     }
@@ -217,7 +222,7 @@ const parseKeyType = (key, value) => {
 
     case "thirdstagecycle": return {
         ...thirdStage, 
-        ...secondSetObject(value)
+        ...secondSetObject(value, "thirdstagecycle")
     }
 
     default:
