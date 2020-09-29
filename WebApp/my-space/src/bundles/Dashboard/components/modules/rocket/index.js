@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
+import fetch from 'fetch-hoc';
 import { setRocket, setCurrentRocket } from "bundles/Dashboard/actions";
 import { rocketFilter } from "bundles/Dashboard/selectors";
 import { TitleText, FormBuilder } from "bundles/utils";
@@ -15,12 +16,13 @@ const Text = ({ text }) => {
   );
 };
 
-const Rocket = ({ rockets, setRocket, setCurrentRocket }) => {
+const Rocket = ({ data: rockets = [], setRocket, setCurrentRocket, ...props }) => {
   const rocketData = rockets.map((item) => ({
     label: item.Name,
     value: item.Name,
     description: item.Description,
   }));
+  
   const [formState, setFormState] = useState({});
   const [formDescription, setFormDescription] = useState({
     value: rocketData.length ? rocketData[0].description : "",
@@ -41,9 +43,10 @@ const Rocket = ({ rockets, setRocket, setCurrentRocket }) => {
     setCurrentRocket(value);
   }
 
+
   useEffect(() => {
-    if(rockets.length > 0) setCurrentRocket(rockets[0]);
-  }, [])
+    if(rockets.length > 0)  setCurrentRocket(rockets);
+  }, [rockets])
 
   return (
     <Grid container justify="center" direction="column">
@@ -74,12 +77,11 @@ const Rocket = ({ rockets, setRocket, setCurrentRocket }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  rockets: rocketFilter.getRocket(state),
-});
 
 const mapDispatchToProps = dispatch => ({
   setCurrentRocket: value => dispatch(setCurrentRocket(value))
 });
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(Rocket);
+
+
+export default compose(fetch('https://space.epyphite.com/launchapi/api/v1/rocket/getAll'),connect(null, mapDispatchToProps))(Rocket);

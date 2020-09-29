@@ -289,6 +289,8 @@ const InputTextComp = (
     );
   }
 
+
+
   return (
     <Fragment>
       <OutlinedInput
@@ -296,7 +298,7 @@ const InputTextComp = (
         placeholder={input.placeholder || ""}
         inputProps={{ style: input.style || {}, ...input.inputProps }}
         defaultValue={defaultValue || ""}
-        value={formState[input.key] ||  defaultValue ||  ""}
+        value={formState[input.key] ? formState[input.key] :  formState[input.key] == '' ? '' : defaultValue }
         error={nonValid}
         disabled={input.disabled}
         ref={input.ref}
@@ -718,7 +720,7 @@ const LabelComp = ({ input, setFormState, formState }) => {
   const classes = useStyles();
 
   return (
-    <Typography className={clsx(classes.subText)}>{input.label}</Typography>
+    <Typography style={ input.style || {}} className={clsx(classes.subText)}>{input.label}</Typography>
   );
 };
 
@@ -914,16 +916,7 @@ const renderType = (
       );
 
     default:
-      return (
-        <TextTransform
-          setFormState={setFormState}
-          input={input}
-          formState={formState}
-          setFormStateValidation={setFormStateValidation}
-          setPasswordMask={setPasswordMask}
-          passwordMask={passwordMask}
-        />
-      );
+      return null
   }
 };
 

@@ -31,6 +31,38 @@ const buildTextTitleObjects = (label, title, defaultValue, key, symbol) => {
   };
 };
 
+const buildLabelObject = (label, title, defaultValue, key, symbol) => {
+  return  {
+    key,
+    left: {
+      label,
+      type: "label",
+      title,
+      key,
+    },
+    right: {
+      type: "grid",
+    },
+    middle: {
+        label: defaultValue,
+        type: "label",
+        key,
+        style: {
+          paddingRight: 5, color: 'black'
+      }
+    },
+    center: {
+      type: "grid",
+    },
+    symbol: {
+      label: symbol,
+      style: {
+       
+    }
+    },
+  };
+}
+
 const buildSliderObjects = (label, title, defaultValue, key, symbol) => {
   return  {
     key,
@@ -94,16 +126,18 @@ const buildDropFuelStagesObjects = (label, title, defaultValue, key, symbol) => 
 
 const fuelFields = ["Staged Combustion", "Gas-Generator", "Electric", "Pressure Fed"]
 
-let secondSetObject = (defaultValue, key) => {
+let secondSetObject = (defaultValue, key, keyPair) => {
+
   
-    console.log(key, defaultValue)
+    if (defaultValue == fuelFields.length) return null
+
     return {
         middle: {
             label: "",
             fields: fuelFields,
             defaultValue: fuelFields[defaultValue],
             type: "selectComp",
-            key: `${key}-select`,
+            key: `${keyPair}-select`,
         }
     }
 
@@ -111,7 +145,7 @@ let secondSetObject = (defaultValue, key) => {
 
 const cycleFields = ["Lox/Kerosene", "Lox/Methane", "Lox/LH2", "Monopropellant", "Solid"]
 
-let firstSetObject = (label, title, defaultValue, key, symbol) => {
+let firstSetObject = (label, title, defaultValue, key, symbol, keyPair) => {
 
     return {
         key,
@@ -121,7 +155,7 @@ let firstSetObject = (label, title, defaultValue, key, symbol) => {
             type: "selectComp",
             defaultValue: cycleFields[defaultValue],
             title,
-            key,
+            key: keyPair,
           },
           symbol: {
             label: "",
@@ -146,40 +180,41 @@ let secondStage = {}
 
 let thirdStage = {}
 
-const parseKeyType = (key, value) => {
+const parseKeyType = (key, value, rocketName) => {
 
+  const keyName = `${key}-${rocketName}`
    
 
   switch (key) {
     case "rocketmass":
-      return buildTextTitleObjects("Rocket mass (Lift off excluding Payload and Fairing)", "The initial mass of a rocket excluding payload and fairing", value, key, "kg")
+      return buildTextTitleObjects("Rocket mass (Lift off excluding Payload and Fairing)", "The initial mass of a rocket excluding payload and fairing", value, keyName , "kg")
     case "maxrocketbodydiameter":
-      return buildTextTitleObjects("Max Rocket Body Diameter", "", value, key, "m");
+      return buildTextTitleObjects("Max Rocket Body Diameter", "", value, keyName, "m");
 
     case "fairingmass":
-        return buildTextTitleObjects("Fairing mass", "", value, key, "kg");
+        return buildTextTitleObjects("Fairing mass", "", value, keyName, "kg");
 
     case "assumedpayloadmass": 
-        return buildTextTitleObjects("Assumed payload mass", "", value, key, "kg");
+        return buildTextTitleObjects("Assumed payload mass", "", value, keyName, "kg");
 
     case "secondstagetorocketmassratio":
-        return buildTextTitleObjects("2nd stage to Rocket mass ratio", "", value, key, "%");
+        return buildTextTitleObjects("2nd stage to Rocket mass ratio", "", value, keyName, "%");
     
-    case "firststagedrytowetmassratio": return buildSliderObjects("1st stage Dry to Wet mass ratio", "", value, key, "%");
+    case "firststagedrytowetmassratio": return buildSliderObjects("1st stage Dry to Wet mass ratio", "", value, keyName, "%");
 
-    case "secondstagedrytowetmassratio": return buildSliderObjects("2nd stage Dry to Wet mass ratio", "", value, key, "%");
+    case "secondstagedrytowetmassratio": return buildSliderObjects("2nd stage Dry to Wet mass ratio", "", value, keyName, "%");
 
-    case "unusedpropellantoffirststage": return buildSliderObjects("Unused propellant of 1st stage", "", value, key, "%");
+    case "unusedpropellantoffirststage": return buildSliderObjects("Unused propellant of 1st stage", "", value, keyName, "%");
 
-    case "unusedpropellantofseconstage": return buildSliderObjects("Unused propellant of 2nd stage", "", value, key, "%");
+    case "unusedpropellantofseconstage": return buildSliderObjects("Unused propellant of 2nd stage", "", value, keyName, "%");
 
-    case "firststageispstartaltitude": return buildSliderObjects("1st stage Isp sea level or at the start altitude", "", value, key, "%");
+    case "firststageispstartaltitude": return buildSliderObjects("1st stage Isp sea level or at the start altitude", "", value, keyName, "%");
 
-    case "firststageispvacuum": return buildSliderObjects("1st stage Isp vacuum", "", value, key, "%");
+    case "firststageispvacuum": return buildSliderObjects("1st stage Isp vacuum", "", value, keyName, "%");
 
-    case "secondstageisp": return buildSliderObjects("2nd stage Isp vacuum", "", value, key, "%");
+    case "secondstageisp": return buildSliderObjects("2nd stage Isp vacuum", "", value, keyName, "%");
 
-    case "transferorbitstagetorocketmassratio": return buildTextTitleObjects("Transfer Orbit stage to Rocket mass ratio", "", value, key, "%");
+    case "transferorbitstagetorocketmassratio": return buildTextTitleObjects("Transfer Orbit stage to Rocket mass ratio", "", value, keyName, "%");
 
     
 
@@ -187,14 +222,14 @@ const parseKeyType = (key, value) => {
 
             firstStage = {}
             firstStage = { 
-                ...firstSetObject("1st stage Fuel & Cycle", "", value, key, "")
+                ...firstSetObject("1st stage Fuel & Cycle", "", value, key, '', keyName)
             }
     }
 
     case "firststagecycle": 
 
     return {
-        ...firstStage, ...secondSetObject(value, "firststagecycle")
+        ...firstStage, ...secondSetObject(value, "firststagecycle", keyName)
     }
         
     
@@ -202,14 +237,14 @@ const parseKeyType = (key, value) => {
 
         secondStage = {}
             secondStage = { 
-                ...firstSetObject("2nd stage Fuel & Cycle", "", value, key, "")
+                ...firstSetObject("2nd stage Fuel & Cycle", "", value, key, '', keyName)
             }
     }
 
     case "secondstagecycle":    {
 
         return {
-            ...secondStage, ...secondSetObject(value, "secondstagecycle")
+            ...secondStage, ...secondSetObject(value, "secondstagecycle", keyName)
         }
 
     }
@@ -218,13 +253,13 @@ const parseKeyType = (key, value) => {
     case "thirdstagefuel":  {
         thirdStage = {}
             thirdStage = { 
-                ...firstSetObject("3rd stage Fuel & Cycle", "", value, key, "")
+                ...firstSetObject("3rd stage Fuel & Cycle", "", value, key, "", keyName)
             }
     }
 
     case "thirdstagecycle": return {
         ...thirdStage, 
-        ...secondSetObject(value, "thirdstagecycle")
+        ...secondSetObject(value, "thirdstagecycle", keyName)
     }
 
     default:
@@ -284,6 +319,58 @@ const generateOrder = (key) => {
       }
 }
 
+
+const generateOrbitOrder = (key) => {
+  switch (key) {
+    case "orbitperigee": return 1;
+
+    case "orbitapogee": return 2;
+
+    case "orbitinclination": return 3;
+
+    case "orbitalperiod": return 4;
+
+    case "deltav": return 5;
+
+    case "extravelocity": return 6;
+
+
+  }
+}
+const reorderOrbitRender =(orbit) => {
+  const orbitOrder = orbit.map((data) => ({...data, order: generateOrbitOrder(data.key)}));
+  const ordered = _.orderBy(orbitOrder, ['order']);
+
+  return _.uniqBy(ordered, 'key');
+}
+
+const parseObitKeyType = (key, value, rocketName) => {
+  const keyName = `${key}-${rocketName}`
+  switch (key) {
+    case "orbitperigee": return buildTextTitleObjects("Orbit Perigee", "", value, keyName, "km");
+
+    case "orbitapogee": return buildTextTitleObjects("Orbit Apogee (0 means a circular orbit)", "", value, keyName, "km");
+
+    case "orbitinclination": return buildTextTitleObjects("Orbit Inclination", "", value, keyName, "deg");
+
+    case "orbitalperiod": return buildLabelObject("Orbit Period", "", value, keyName, "min");
+
+    case "deltav": return buildLabelObject("Delta-v for target orbit (ideal)", "", value, keyName, "m/s");
+
+    case "extravelocity": return buildTextTitleObjects("Extra velocity for flight to the planets", "", value, keyName, "m/s");
+
+  }
+  
+}
+
+export const mapOrbitData = (orbits = {}, orbitType) => {
+  const dataKeys = Object.keys(orbits);
+
+  const mappedData = dataKeys.map((key) => parseObitKeyType(key, orbits[key], orbitType)).filter((item) => item);
+
+  return reorderOrbitRender(mappedData);
+}
+
 const reorderRocket = (rockets) => {
   const rocketOrder = rockets.map((data) => ({...data, order: generateOrder(data.key)}));
   const ordered = _.orderBy(rocketOrder, ['order']);
@@ -291,43 +378,13 @@ const reorderRocket = (rockets) => {
   return _.uniqBy(ordered, 'key');
 }
 
-export const mapData = (rockets = {
-    "ID": "0626e09c-64a8-4aa2-b516-e602d8fd7f68",
-    "Name": "Blue Origin New Glenn 3st",
-    "Description": "Blue Origin 3-Stages (Superceded) (project)",
-    "thrusttoweightratioone": 1.2,
-    "thrusttoweightratio": 0.83,
-    "rocketmass": 1435000,
-    "maxrocketbodydiameter": 7,
-    "fairingmass": 4000,
-    "fairingjettisonvelocity": 3500,
-    "jettisonedbattery": 0,
-    "assumedpayloadmass": 20000,
-    "secondstagetorocketmassratio": 22.647,
-    "transferorbitstagetorocketmassratio": 5.761,
-    "firststagedrytowetmassratio": 9.91,
-    "secondstagedrytowetmassratio": 7.037,
-    "transferorbitstagedrytowetmassratio": 10.909,
-    "unusedpropellantoffirststage": 1,
-    "unusedpropellantofsecondstage": 0,
-    "unusedpropellantoftransferorbitstage": 1,
-    "firststageispstartaltitude": 310,
-    "firststageispvacuum": 335,
-    "secondstageisp": 358,
-    "transferorbitstageisp": 440,
-    "firststagefuel": 1,
-    "firststagecycle": 0,
-    "secondstagefuel": 1,
-    "secondstagecycle": 0,
-    "thirdstagefuel": 2,
-    "thirdstagecycle": 1}) => {
+export const mapData = (rockets = {}, rocketType) => {
   const dataKeys = Object.keys(rockets);
-  const mappedData = dataKeys.map((key) => parseKeyType(key, rockets[key])).filter((item) => item);
+  const mappedData = dataKeys.map((key) => parseKeyType(key, rockets[key], rocketType)).filter((item) => item);
 
   return  reorderRocket(mappedData)
-
-
 };
+
 
 const loses = {
   leftTitle: "Loses",

@@ -11,6 +11,7 @@ import { rocketFilter } from "bundles/Dashboard/selectors";
 import { connect } from "react-redux";
 import { TitleText, FormBuilder, mapData } from "bundles/utils";
 import { Grid, Typography } from "@material-ui/core";
+import Orbit from "bundles/Dashboard/components/orbit";
 const compose = require("lodash")?.flowRight;
 
 const useStyles = makeStyles({
@@ -289,120 +290,120 @@ const rockedData = {
       },
     },
     {
-        name: "rocket data",
-        left: {
-          label: "2nd stage Fuel & Cycle ",
-          placeholder: "Enter your email",
-          type: "label",
-        },
-        middle: {
-          label: "1st",
-          type: "textDouble",
-        },
-        right: {
-          label: "",
-          fields: ["A", "B", "C"],
-          type: "selectComp",
-        },
-        symbol: {
-          label: "",
-        },
-        center: {
-          type: "grid",
-        },
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
       },
-      {
-        name: "rocket data",
-        left: {
-          label: "2nd stage Fuel & Cycle ",
-          placeholder: "Enter your email",
-          type: "label",
-        },
-        middle: {
-          label: "1st",
-          type: "textDouble",
-        },
-        right: {
-          label: "",
-          fields: ["A", "B", "C"],
-          type: "selectComp",
-        },
-        symbol: {
-          label: "",
-        },
-        center: {
-          type: "grid",
-        },
+      middle: {
+        label: "1st",
+        type: "textDouble",
       },
-      {
-        name: "rocket data",
-        left: {
-          label: "2nd stage Fuel & Cycle ",
-          placeholder: "Enter your email",
-          type: "label",
-        },
-        middle: {
-          label: "1st",
-          type: "textDouble",
-        },
-        right: {
-          label: "",
-          fields: ["A", "B", "C"],
-          type: "selectComp",
-        },
-        symbol: {
-          label: "",
-        },
-        center: {
-          type: "grid",
-        },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
       },
-      {
-        name: "rocket data",
-        left: {
-          label: "2nd stage Fuel & Cycle ",
-          placeholder: "Enter your email",
-          type: "label",
-        },
-        middle: {
-          label: "1st",
-          type: "textDouble",
-        },
-        right: {
-          label: "",
-          fields: ["A", "B", "C"],
-          type: "selectComp",
-        },
-        symbol: {
-          label: "",
-        },
-        center: {
-          type: "grid",
-        },
+      symbol: {
+        label: "",
       },
-      {
-        name: "rocket data",
-        left: {
-          label: "2nd stage Fuel & Cycle ",
-          placeholder: "Enter your email",
-          type: "label",
-        },
-        middle: {
-          label: "1st",
-          type: "textDouble",
-        },
-        right: {
-          label: "",
-          fields: ["A", "B", "C"],
-          type: "selectComp",
-        },
-        symbol: {
-          label: "",
-        },
-        center: {
-          type: "grid",
-        },
+      center: {
+        type: "grid",
       },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
+    {
+      name: "rocket data",
+      left: {
+        label: "2nd stage Fuel & Cycle ",
+        placeholder: "Enter your email",
+        type: "label",
+      },
+      middle: {
+        label: "1st",
+        type: "textDouble",
+      },
+      right: {
+        label: "",
+        fields: ["A", "B", "C"],
+        type: "selectComp",
+      },
+      symbol: {
+        label: "",
+      },
+      center: {
+        type: "grid",
+      },
+    },
     {
       name: "rocket space test",
       left: {
@@ -528,7 +529,15 @@ const rocketDataSemi = [
   },
 ];
 
-const SimpleTable = ( { data = { title: "", content: "" }, getInitialForm = () => '', formState = {} } ) => {
+export const SimpleTable = ({
+  data = { title: "", content: "" },
+  getInitialForm = () => "",
+  formState = {},
+  text,
+  values,
+  defaultValue = "",
+  description,
+}) => {
   const classes = useStyles();
 
   return (
@@ -539,8 +548,29 @@ const SimpleTable = ( { data = { title: "", content: "" }, getInitialForm = () =
             <TableCell>
               <Grid container>
                 <Grid item xs>
-                  <TitleText text={data.leftTitle} />
+                  <TitleText text={data.leftTitle || text} />
                 </Grid>
+
+                {values && (
+                  <Grid item xs>
+                    <FormBuilder
+                      formInput={{
+                        label: "Select",
+                        type: "select",
+                        defaultValue,
+                        fields: values,
+                        placeholder: "",
+                        labelDirection: "column",
+                        key: "rocket",
+                      }}
+                      formState={formState}
+                      setFormState={getInitialForm}
+                    />
+                  </Grid>
+                )}
+                 <Grid item xs={12}>
+                    {description}
+                  </Grid>
               </Grid>
             </TableCell>
             <TableCell align="right">
@@ -669,24 +699,24 @@ const ComplexTable = ({ data = [[]] }) => {
   );
 };
 
-const CenterDashboard = ({rocket}) => {
+const WrapComp = ({ rocket }) => {
   const [formState, setFormState] = useState({});
 
-  const dataStore = {
-    content: mapData()
-  }
-
-
-  const getInitialForm = value => {
+  const getInitialForm = (value) => {
     setFormState({ ...formState, ...value });
   };
-  
+
   return (
     <Grid container spacing={4} style={{ padding: 20 }}>
       <Grid item xs={12} md={7}>
         <Grid container>
           <Grid item md={12}>
-            <SimpleTable data={{ content: rocket}} getInitialForm={getInitialForm} formState={formState}   />
+            <SimpleTable
+              text={"Rocket"}
+              data={{ content: rocket }}
+              getInitialForm={getInitialForm}
+              formState={formState}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -696,7 +726,8 @@ const CenterDashboard = ({rocket}) => {
             <SimpleTable data={spaceport} />
           </Grid>
           <Grid item md={12}>
-            <SimpleTable data={orbit} />
+            {/* <SimpleTable data={orbit} /> */}
+            <Orbit />
           </Grid>
           <Grid item md={12}>
             <SimpleTable data={loses} />
@@ -710,9 +741,12 @@ const CenterDashboard = ({rocket}) => {
   );
 };
 
+const CenterDashboard = ({ rocket }) => {
+  return <WrapComp rocket={rocket} />;
+};
+
 const mapStateToProps = (state) => ({
   rocket: rocketFilter.getSingleRocket(state),
 });
 
 export default compose(connect(mapStateToProps, null))(CenterDashboard);
-
