@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { TitleText, FormBuilder, mapData } from "bundles/utils";
 import { Grid, Typography } from "@material-ui/core";
 import Orbit from "bundles/Dashboard/components/orbit";
+import SpacePort from 'bundles/Dashboard/components/spaceport';
 const compose = require("lodash")?.flowRight;
 
 const useStyles = makeStyles({
@@ -723,10 +724,9 @@ const WrapComp = ({ rocket }) => {
       <Grid item xs={12} md={5}>
         <Grid container spacing={2} direction="column">
           <Grid item md={12}>
-            <SimpleTable data={spaceport} />
+            <SpacePort />
           </Grid>
           <Grid item md={12}>
-            {/* <SimpleTable data={orbit} /> */}
             <Orbit />
           </Grid>
           <Grid item md={12}>

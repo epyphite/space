@@ -337,12 +337,7 @@ const generateOrbitOrder = (key) => {
 
   }
 }
-const reorderOrbitRender =(orbit) => {
-  const orbitOrder = orbit.map((data) => ({...data, order: generateOrbitOrder(data.key)}));
-  const ordered = _.orderBy(orbitOrder, ['order']);
 
-  return _.uniqBy(ordered, 'key');
-}
 
 const parseObitKeyType = (key, value, rocketName) => {
   const keyName = `${key}-${rocketName}`
@@ -366,17 +361,43 @@ const parseObitKeyType = (key, value, rocketName) => {
 const parseSpacePortType = (key, value, portName) => {
   const keyName = `${key}-${portName}`;
 
+
+  console.log(key, value)
+
   switch(key) {
-  case "launchpointaltitude": 1.23
-  case "additionalvelocity": 0
-  case "spaceportlatitude": 31.42
-  case "spaceportlongitude": -104.76
-  case "launchazimuth": 31.42
-  case "earthrotationvelocity": 0
-  case "auxiliaryangle": 0
-  case "launchpointaltitudeorbitalvelocity": 0
-  case "absoluteorbitalvelocity": 0
+    case "launchpointaltitude": return buildTextTitleObjects("Launch point Altitude", "". keyName, value, "km");
+
+    case "additionalvelocity": return buildTextTitleObjects("Additional velocity (Air Launch)", "". keyName, value, "m/s");
+
+    case "spaceportlatitude": return buildTextTitleObjects("Spaceport Latitude", "",value, keyName, "deg");
+    // case "spaceportlongitude": -104.76
+     case "launchazimuth": return buildLabelObject("Launch Azimuth", "", value, keyName, "deg");
+     case "earthrotationvelocity": return buildLabelObject("Earth rotation velocity", "", value, keyName, "m/s");
+    // case "auxiliaryangle": 0
+    // case "launchpointaltitudeorbitalvelocity": 0
+    // case "absoluteorbitalvelocity": 0
   }
+}
+
+const generateSpacePortOrder = (key) => {
+  switch (key) {
+    case "launchpointaltitude": return 1;
+
+    case "additionalvelocity": return 2;
+
+    case "spaceportlatitude": return 3;
+
+    case "launchazimuth": return 4;
+
+    case "earthrotationvelocity": return 5;
+
+  }
+}
+const reorderOrbitRender =(orbit) => {
+  const orbitOrder = orbit.map((data) => ({...data, order: generateOrbitOrder(data.key)}));
+  const ordered = _.orderBy(orbitOrder, ['order']);
+
+  return _.uniqBy(ordered, 'key');
 }
 
 export const mapOrbitData = (orbits = {}, orbitType) => {
@@ -401,7 +422,19 @@ export const mapData = (rockets = {}, rocketType) => {
   return  reorderRocket(mappedData)
 };
 
-export const mapSpacePortData = (space ={}, spaceportType) => {
+const reOrderSpace = (space) => {
+  const spacePortOrder = space.map((data) => ({...data, order: generateSpacePortOrder(data.key)}));
+  const ordered = _.orderBy(spacePortOrder, ['order']);
 
+  return _.uniqBy(ordered, 'key');
+}
+
+export const mapSpacePortData = (space ={}, spaceportType) => {
+  const dataKeys = Object.keys(space);
+
+
+  const mappedData = dataKeys.map((key) => parseSpacePortType(key, space[key], spaceportType)).filter((item) => item);
+
+  return reOrderSpace(mappedData);
 }
 
