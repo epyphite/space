@@ -824,7 +824,8 @@ const renderType = (
   passwordMask
 ) => {
   switch (input.type) {
-    case "text" || "password" || "email" || "number":
+    
+    case "text":
       return (
         <TextTransform
           setFormState={setFormState}
@@ -835,6 +836,42 @@ const renderType = (
           passwordMask={passwordMask}
         />
       );
+
+    case "email": 
+      return (
+        <TextTransform
+          setFormState={setFormState}
+          input={input}
+          formState={formState}
+          setFormStateValidation={setFormStateValidation}
+          setPasswordMask={setPasswordMask}
+          passwordMask={passwordMask}
+        />
+      )
+
+    case "password": 
+      return (
+        <TextTransform
+          setFormState={setFormState}
+          input={input}
+          formState={formState}
+          setFormStateValidation={setFormStateValidation}
+          setPasswordMask={setPasswordMask}
+          passwordMask={passwordMask}
+        />
+      )
+
+    case "number": 
+      return (
+        <TextTransform
+          setFormState={setFormState}
+          input={input}
+          formState={formState}
+          setFormStateValidation={setFormStateValidation}
+          setPasswordMask={setPasswordMask}
+          passwordMask={passwordMask}
+        />
+      )
 
     case "label":
       return (

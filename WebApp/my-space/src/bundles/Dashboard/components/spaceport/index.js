@@ -5,7 +5,7 @@ import { mapSpacePortData } from "bundles/utils";
 import { SimpleTable } from "bundles/Dashboard/components/center";
 const compose = require("lodash")?.flowRight;
 
-const SpacePort = ({ data = [] }) => {
+const SpacePort = ({ data = [{}] }) => {
   const spacePortData = data.map((item) => ({
     label: item.Name,
     value: item.Name,

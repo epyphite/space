@@ -361,9 +361,6 @@ const parseObitKeyType = (key, value, rocketName) => {
 const parseSpacePortType = (key, value, portName) => {
   const keyName = `${key}-${portName}`;
 
-
-  console.log(key, value)
-
   switch(key) {
     case "launchpointaltitude": return buildTextTitleObjects("Launch point Altitude", "". keyName, value, "km");
 
@@ -393,6 +390,34 @@ const generateSpacePortOrder = (key) => {
 
   }
 }
+
+const lossPortType = (key, value, losesName) => {
+  const keyName = `${key}-${losesName}`;
+
+  switch(key) {
+    case "gravityloses": return buildLabelObject("Gravity Losses", "", value, keyName, "m/s");
+
+    case "aerodynamicloses": return buildLabelObject("Aerodynamic Losses", "", value, keyName, "m/s");
+
+    case "assummedloses": return buildLabelObject("Assumed Losses", "", value, keyName, "%");
+
+    case "requiredeltaloses": return buildLabelObject("Required delta-v with Losses", "", value, keyName, "m/s");
+  }
+}
+
+const generateLosesPortOrder = (key) => {
+  switch(key) {
+    case "gravityloses": return 1;
+
+    case "aerodynamicloses": return 2;
+
+    case "assummedloses": return 3;
+
+    case "requiredeltaloses": return 4;
+
+  }
+}
+
 const reorderOrbitRender =(orbit) => {
   const orbitOrder = orbit.map((data) => ({...data, order: generateOrbitOrder(data.key)}));
   const ordered = _.orderBy(orbitOrder, ['order']);
@@ -431,10 +456,22 @@ const reOrderSpace = (space) => {
 
 export const mapSpacePortData = (space ={}, spaceportType) => {
   const dataKeys = Object.keys(space);
-
-
   const mappedData = dataKeys.map((key) => parseSpacePortType(key, space[key], spaceportType)).filter((item) => item);
 
   return reOrderSpace(mappedData);
+}
+
+const reOrderLoses = (loses) => {
+  const losesPortOrder = loses.map((data) => ({...data, order: generateLosesPortOrder(data.key)}));
+  const ordered = _.orderBy(losesPortOrder, ['order']);
+
+  return _.uniqBy(ordered, 'key');
+}
+
+export const mapLosesSpaceData = (loses = {}, losesPortType) => {
+  const dataKeys = Object.keys(loses);
+  const mappedData = dataKeys.map((key) => lossPortType(key, loses[key], losesPortType)).filter((item) => item);
+
+  return reOrderLoses(mappedData)
 }
 

@@ -17,6 +17,7 @@ const Text = ({ text }) => {
 };
 
 const Rocket = ({ data: rockets = [], setRocket, setCurrentRocket, ...props }) => {
+  
   const rocketData = rockets.map((item) => ({
     label: item.Name,
     value: item.Name,
