@@ -10,11 +10,12 @@ import Paper from "@material-ui/core/Paper";
 import { rocketFilter } from "bundles/Dashboard/selectors";
 import { connect } from "react-redux";
 import { TitleText, FormBuilder, mapData } from "bundles/utils";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Box, Button } from "@material-ui/core";
 import Orbit from "bundles/Dashboard/components/orbit";
-import SpacePort from 'bundles/Dashboard/components/spaceport';
-import Loses from 'bundles/Dashboard/components/loses';
-import Output from 'bundles/Dashboard/components/output';
+import SpacePort from "bundles/Dashboard/components/spaceport";
+import Loses from "bundles/Dashboard/components/loses";
+import Output from "bundles/Dashboard/components/output";
+import Advanced from "bundles/Dashboard/components/advanced";
 const compose = require("lodash")?.flowRight;
 
 const useStyles = makeStyles({
@@ -128,9 +129,9 @@ export const SimpleTable = ({
                     />
                   </Grid>
                 )}
-                 <Grid item xs={12}>
-                    {description}
-                  </Grid>
+                <Grid item xs={12}>
+                  {description}
+                </Grid>
               </Grid>
             </TableCell>
             <TableCell align="right">
@@ -147,7 +148,7 @@ export const SimpleTable = ({
             <TableRow key={row.name}>
               <TableCell component="th" style={{ width: "50%" }} scope="row">
                 <Grid container>
-                  <Grid item md={12}>
+                  <Grid item md={12} >
                     <Grid
                       container
                       justify="space-between"
@@ -267,10 +268,12 @@ const WrapComp = ({ rocket }) => {
   };
 
   return (
-    <Grid container spacing={4} style={{ padding: 20 }}>
+    <>
+     <Advanced />
+    <Grid container spacing={4} style={{ padding: '1%' }}>
       <Grid item xs={12} md={7}>
         <Grid container>
-          <Grid item md={12}>
+          <Grid item xs={12} md={12}>
             <SimpleTable
               text={"Rocket"}
               data={{ content: rocket }}
@@ -282,10 +285,19 @@ const WrapComp = ({ rocket }) => {
       </Grid>
       <Grid item xs={12} md={5}>
         <Grid container spacing={2} direction="column">
-          <Grid item md={12}>
+          <Grid item xs={12} md={12}>
             <SpacePort />
+            <div style={{ marginTop: 15 }}>
+              <Orbit />
+            </div>
+            <div style={{ marginTop: 15 }}>
+              <Loses />
+            </div>
+            <div style={{ marginTop: 15 }}>
+              <Output />
+            </div>
           </Grid>
-          <Grid item md={12}>
+          {/* <Grid  item md={12}>
             <Orbit />
           </Grid>
           <Grid item md={12}>
@@ -293,10 +305,12 @@ const WrapComp = ({ rocket }) => {
           </Grid>
           <Grid item md={12}>
             <Output />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
+     
     </Grid>
+    </>
   );
 };
 
