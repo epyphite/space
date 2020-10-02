@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,8 +7,16 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { TitleText, FormBuilder } from "bundles/utils";
-import { Grid, Typography } from "@material-ui/core";
+import { rocketFilter } from "bundles/Dashboard/selectors";
+import { connect } from "react-redux";
+import { TitleText, FormBuilder, mapData } from "bundles/utils";
+import { Grid, Typography, Box, Button } from "@material-ui/core";
+import Orbit from "bundles/Dashboard/components/orbit";
+import SpacePort from "bundles/Dashboard/components/spaceport";
+import Loses from "bundles/Dashboard/components/loses";
+import Output from "bundles/Dashboard/components/output";
+import Advanced from "bundles/Dashboard/components/advanced";
+const compose = require("lodash")?.flowRight;
 
 const useStyles = makeStyles({
   table: {
@@ -28,9 +36,9 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-const rockedData = {
-  leftTitle: "Rocket",
-  rightTitle: "Fixed Design",
+const loses = {
+  leftTitle: "Loses",
+  rightTitle: "",
   content: [
     {
       name: "rocket space",
@@ -79,132 +87,18 @@ const rockedData = {
         type: "grid",
       },
     },
-    {
-      name: "rocket space test",
-      left: {
-        label: "1st stage Fuel & Cycle",
-        placeholder: "Enter your email",
-        type: "label",
-      },
-      center: {
-        type: "grid",
-      },
-      right: {
-        label: "",
-        fields: ["Gas Generator", "B", "C"],
-        type: "selectComp",
-      },
-      middle: {
-        type: "label",
-        label: "370",
-      },
-      symbol: {
-        label: "%",
-      },
-    },
-    {
-      name: "rocket space thrust",
-      left: {
-        label: "Thrust to weight ration",
-        placeholder: "Enter your email",
-        type: "label",
-      },
-      right: {
-        type: "grid",
-      },
-      middle: {
-        label: "",
-        fields: ["A", "B", "C"],
-        type: "selectComp",
-      },
-      center: {
-        type: "grid",
-      },
-      symbol: {
-        label: "",
-      },
-    },
-    {
-      name: "rocket space machine",
-      left: {
-        label: "Stages",
-        placeholder: "",
-        type: "label",
-      },
-      right: {
-        type: "grid",
-      },
-      middle: {
-        label: "Limit to reasonable",
-        type: "checkbox",
-      },
-      center: {
-        type: "grid",
-      },
-      symbol: {
-        label: "",
-      },
-    },
-    {
-      name: "wet ratio",
-      left: {
-        label: "1st stage Dry to Wet mass ratio",
-        type: "label",
-      },
-      right: {
-        type: "grid",
-      },
-      middle: {
-        label: "",
-        fields: ["A", "B", "C"],
-        type: "selectComp",
-      },
-      center: {
-        type: "slider",
-      },
-      symbol: {
-        label: "kg",
-      },
-    },
-    {
-        name: "wet ratio days",
-        left: {
-          label: "2nd stage Dry to Wet mass ratio",
-          type: "label",
-        },
-        right: {
-          type: "grid",
-        },
-        middle: {
-          label: "",
-          type: "textComp",
-        },
-        center: {
-          type: "slider",
-        },
-        symbol: {
-          label: "kg",
-        },
-      },
   ],
 };
 
-const rocketDataSemi = [
-  {
-    left: {
-      label: "1st stage Fuel & Cycle",
-      placeholder: "",
-      type: "label",
-    },
-    right: {
-      label: "",
-      fields: ["A", "B", "C"],
-      type: "selectComp",
-    },
-  },
-];
-
-const SimpleTable = ({ data = { title: "", content: "" } }) => {
+export const SimpleTable = ({
+  data = { title: "", content: "" },
+  getInitialForm = () => "",
+  formState = {},
+  text,
+  values,
+  defaultValue = "",
+  description,
+}) => {
   const classes = useStyles();
 
   return (
@@ -215,7 +109,28 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
             <TableCell>
               <Grid container>
                 <Grid item xs>
-                  <TitleText text={data.leftTitle} />
+                  <TitleText text={data.leftTitle || text} />
+                </Grid>
+
+                {values && (
+                  <Grid item xs>
+                    <FormBuilder
+                      formInput={{
+                        label: "Select",
+                        type: "select",
+                        defaultValue,
+                        fields: values,
+                        placeholder: "",
+                        labelDirection: "column",
+                        key: "rocket",
+                      }}
+                      formState={formState}
+                      setFormState={getInitialForm}
+                    />
+                  </Grid>
+                )}
+                <Grid item xs={12}>
+                  {description}
                 </Grid>
               </Grid>
             </TableCell>
@@ -231,9 +146,9 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
         <TableBody>
           {data?.content?.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" style={{width: '50%'}} scope="row">
+              <TableCell component="th" style={{ width: "50%" }} scope="row">
                 <Grid container>
-                  <Grid item md={12}>
+                  <Grid item md={12} >
                     <Grid
                       container
                       justify="space-between"
@@ -243,15 +158,15 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
                       <Grid item md={7}>
                         <FormBuilder
                           formInput={{ ...row.left }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                       <Grid item md={5}>
                         <FormBuilder
                           formInput={{ ...row.right }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                     </Grid>
@@ -262,18 +177,18 @@ const SimpleTable = ({ data = { title: "", content: "" } }) => {
                 <Grid container>
                   <Grid item md={12}>
                     <Grid container alignContent="center" alignItems="center">
-                      <Grid item md={5} style={{paddingRight: 5}}>
+                      <Grid item md={5} style={{ paddingRight: 5 }}>
                         <FormBuilder
                           formInput={{ ...row.center }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                       <Grid item md={6} style={{ textAlign: "right" }}>
                         <FormBuilder
                           formInput={{ ...row.middle }}
-                          setFormState={() => ""}
-                          formState={{}}
+                          setFormState={getInitialForm}
+                          formState={formState}
                         />
                       </Grid>
                       <Grid item md={1}>
@@ -345,28 +260,66 @@ const ComplexTable = ({ data = [[]] }) => {
   );
 };
 
-const CenterDashboard = () => {
+const WrapComp = ({ rocket }) => {
+  const [formState, setFormState] = useState({});
+
+  const getInitialForm = (value) => {
+    setFormState({ ...formState, ...value });
+  };
+
   return (
-    <Grid container spacing={4} style={{ padding: 20 }}>
+    <>
+     <Advanced />
+    <Grid container spacing={4} style={{ padding: '1%' }}>
       <Grid item xs={12} md={7}>
         <Grid container>
-          <Grid item md={12}>
-            <SimpleTable data={rockedData} />
+          <Grid item xs={12} md={12}>
+            <SimpleTable
+              text={"Rocket"}
+              data={{ content: rocket }}
+              getInitialForm={getInitialForm}
+              formState={formState}
+            />
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12} md={5}>
-        <Grid container>
-          <Grid item xs={12} md={8}>
-            <ComplexTable />
+        <Grid container spacing={2} direction="column">
+          <Grid item xs={12} md={12}>
+            <SpacePort />
+            <div style={{ marginTop: 15 }}>
+              <Orbit />
+            </div>
+            <div style={{ marginTop: 15 }}>
+              <Loses />
+            </div>
+            <div style={{ marginTop: 15 }}>
+              <Output />
+            </div>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <ComplexTable />
+          {/* <Grid  item md={12}>
+            <Orbit />
           </Grid>
+          <Grid item md={12}>
+            <Loses />
+          </Grid>
+          <Grid item md={12}>
+            <Output />
+          </Grid> */}
         </Grid>
       </Grid>
+     
     </Grid>
+    </>
   );
 };
 
-export default CenterDashboard;
+const CenterDashboard = ({ rocket }) => {
+  return <WrapComp rocket={rocket} />;
+};
+
+const mapStateToProps = (state) => ({
+  rocket: rocketFilter.getSingleRocket(state),
+});
+
+export default compose(connect(mapStateToProps, null))(CenterDashboard);

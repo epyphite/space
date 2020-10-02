@@ -101,7 +101,7 @@ const Routes = () => {
                   variants={pageVariants}
                   transition={pageTransition}
                 > 
-                <div style={{padding: 45}}>
+                <div style={{padding: '2%'}}>
                   <Route path="/Rocket" component={Rocket} />
                 </div>
                  

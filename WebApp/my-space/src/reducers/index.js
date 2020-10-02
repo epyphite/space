@@ -1,5 +1,8 @@
 import { combineReducers } from "redux";
-const formReducers = {};
+import rocket from "bundles/Dashboard/reducer";
+const formReducers = {
+  rocket,
+};
 
 const rootReducer = combineReducers({
   ...formReducers,

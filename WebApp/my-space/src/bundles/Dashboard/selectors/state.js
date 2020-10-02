@@ -1,0 +1,1 @@
+export const getRocketState = state => state.rocket || state
