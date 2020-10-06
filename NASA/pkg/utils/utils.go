@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/epyphite/space/NASA/pkg/models"
+	"epyphite/space/v1/NASA/pkg/models"
 )
 
 //GetVarURL will return the value of a URL Parameter

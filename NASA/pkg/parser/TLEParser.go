@@ -5,7 +5,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/epyphite/space/NASA/pkg/models/modules"
+	"epyphite/space/v1/NASA/pkg/models/modules"
 )
 
 /*

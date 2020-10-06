@@ -1,0 +1,308 @@
+[
+    {
+      "Name": "Launcher E-2",
+      "FirstStageEngineThrust": "10000.",
+      "firststageispsealevel": 290.5,
+      "firststageispvac": "327.",
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 4
+    },
+    {
+      "Name": "Launcher E-2 vac",
+      "FirstStageEngineThrust": "12600.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "365.",
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Ursa Ripley",
+      "FirstStageEngineThrust": "15900.",
+      "firststageispsealevel": 262,
+      "firststageispvac": "308.",
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Ursa Hadley",
+      "FirstStageEngineThrust": "2900.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "345.",
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "RL Rutherford",
+      "FirstStageEngineThrust": "1800.",
+      "firststageispsealevel": 256,
+      "firststageispvac": "303.",
+      "fueltype": 0,
+      "fuelcycle": 2,
+      "firststageenginenumber": 9
+    },
+    {
+      "Name": "RL Rutherford vac",
+      "FirstStageEngineThrust": "2500.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "333.",
+      "fueltype": 0,
+      "fuelcycle": 2,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Virgin Newton III",
+      "FirstStageEngineThrust": "33600.",
+      "firststageispsealevel": 290,
+      "firststageispvac": "308.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Virgin Newton IV",
+      "FirstStageEngineThrust": "2200.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "328.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Firefly Reaver",
+      "FirstStageEngineThrust": "16900.",
+      "firststageispsealevel": 265,
+      "firststageispvac": 295.6,
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 4
+    },
+    {
+      "Name": "Firefly Lightning",
+      "FirstStageEngineThrust": "7100.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "322.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Relativity Aeon-1",
+      "FirstStageEngineThrust": "7620.",
+      "firststageispsealevel": 267,
+      "firststageispvac": "310.",
+      "fueltype": 1,
+      "fuelcycle": 1,
+      "firststageenginenumber": 9
+    },
+    {
+      "Name": "Relativity Aeon-1 vac",
+      "FirstStageEngineThrust": "10200.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "360.",
+      "fueltype": 1,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Isar Aqula SL",
+      "FirstStageEngineThrust": "7650.",
+      "firststageispsealevel": 256,
+      "firststageispvac": "303.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 9
+    },
+    {
+      "Name": "Isar Aqula VAC",
+      "FirstStageEngineThrust": "9580.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "333.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "SpaceX Merlin 1C",
+      "FirstStageEngineThrust": "56700.",
+      "firststageispsealevel": 263,
+      "firststageispvac": "304.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "SpaceX Kerstel 2",
+      "FirstStageEngineThrust": "3100.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "317.",
+      "fueltype": 0,
+      "fuelcycle": 3,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "SpaceX Merlin 1D+",
+      "FirstStageEngineThrust": "86200.",
+      "firststageispsealevel": 282,
+      "firststageispvac": "311.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 9
+    },
+    {
+      "Name": "SpaceX Merlin 1D+v",
+      "FirstStageEngineThrust": "95300.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "348.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Energomash RD-170",
+      "FirstStageEngineThrust": 740000,
+      "firststageispsealevel": 309.5,
+      "firststageispvac": 337.2,
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Energomash RD-120",
+      "FirstStageEngineThrust": "93000.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "349.",
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Energomash RD-180",
+      "FirstStageEngineThrust": 390000,
+      "firststageispsealevel": 311.9,
+      "firststageispvac": 338.4,
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "AR RL-10C",
+      "FirstStageEngineThrust": "10400.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "450.",
+      "fueltype": 2,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Energomash RD-181",
+      "FirstStageEngineThrust": 196000,
+      "firststageispsealevel": 311.9,
+      "firststageispvac": 339.2,
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 2
+    },
+    {
+      "Name": "NG Castor 30XL",
+      "FirstStageEngineThrust": "48300.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "304.",
+      "fueltype": 4,
+      "fuelcycle": 3,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "AR F-1",
+      "FirstStageEngineThrust": 690000,
+      "firststageispsealevel": 263,
+      "firststageispvac": "304.",
+      "fueltype": 0,
+      "fuelcycle": 1,
+      "firststageenginenumber": 5
+    },
+    {
+      "Name": "AR J-2",
+      "FirstStageEngineThrust": 104000,
+      "firststageispsealevel": 0,
+      "firststageispvac": "421.",
+      "fueltype": 2,
+      "fuelcycle": 1,
+      "firststageenginenumber": 5
+    },
+    {
+      "Name": "AR RS-68A",
+      "FirstStageEngineThrust": 320000,
+      "firststageispsealevel": 360,
+      "firststageispvac": "412.",
+      "fueltype": 2,
+      "fuelcycle": 1,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "AR RL-10B",
+      "FirstStageEngineThrust": "11300.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "462.",
+      "fueltype": 2,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "AR AJ-26",
+      "FirstStageEngineThrust": 166000,
+      "firststageispsealevel": 297,
+      "firststageispvac": "331.",
+      "fueltype": 0,
+      "fuelcycle": 0,
+      "firststageenginenumber": 2
+    },
+    {
+      "Name": "NG Castor 30A",
+      "FirstStageEngineThrust": "30000.",
+      "firststageispsealevel": 0,
+      "firststageispvac": "301.",
+      "fueltype": 4,
+      "fuelcycle": 3,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "Blue Origin BE-4",
+      "FirstStageEngineThrust": 250000,
+      "firststageispsealevel": 310,
+      "firststageispvac": "335.",
+      "fueltype": 1,
+      "fuelcycle": 0,
+      "firststageenginenumber": 7
+    },
+    {
+      "Name": "BLue Origin BE-4U",
+      "FirstStageEngineThrust": 290000,
+      "firststageispsealevel": 0,
+      "firststageispvac": "358.",
+      "fueltype": 1,
+      "fuelcycle": 0,
+      "firststageenginenumber": 1
+    },
+    {
+      "Name": "SpaceX Raptor",
+      "FirstStageEngineThrust": 200000,
+      "firststageispsealevel": 330,
+      "firststageispvac": "356.",
+      "fueltype": 1,
+      "fuelcycle": 0,
+      "firststageenginenumber": 37
+    },
+    {
+      "Name": "SpaceX Raptor vac",
+      "FirstStageEngineThrust": 230000,
+      "firststageispsealevel": 0,
+      "firststageispvac": "380.",
+      "fueltype": 1,
+      "fuelcycle": 0,
+      "firststageenginenumber": 3
+    }
+  ]

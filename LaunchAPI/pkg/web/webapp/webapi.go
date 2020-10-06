@@ -12,9 +12,9 @@ import (
 
 	"github.com/gorilla/sessions"
 
-	models "github.com/epyphite/space/LaunchAPI/pkg/models"
-	"github.com/epyphite/space/LaunchAPI/pkg/storage"
-	c1 "github.com/epyphite/space/LaunchAPI/pkg/web/constants"
+	models "epyphite/space/v1/LaunchAPI/pkg/models"
+	"epyphite/space/v1/LaunchAPI/pkg/storage"
+	c1 "epyphite/space/v1/LaunchAPI/pkg/web/constants"
 )
 
 //JResponse create a trscture to respond json
@@ -382,7 +382,7 @@ func (a *MainWebAPI) V1CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	var tempUser models.User
 	// or error handling
-	u2, err := uuid.NewV4()
+	u2 := uuid.NewV4()
 	if err != nil {
 		response.ResponseCode = "401"
 		response.Message = "Error Creating user "

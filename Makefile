@@ -19,7 +19,7 @@ GOFLAGS_WINDOWS = -ldflags -H=windowsgui
 
 
 clean:
-	rm -rvf build/dist/
+	rm -rvf build/
 
 ## Make linux packages
 package-linux:
@@ -44,10 +44,10 @@ distribute:
 
 
 build/launchapi-container:
-	docker build -t launchapi -f Dockerfile-LaunchApi .
+	docker build -t launchapi -f Dockerfile-LaunchApiBuild .
 
 build/nasaapi-container:
-	docker build -t nasaapi -f Dockerfile-NasaApi .
+	docker build -t nasaapi -f Dockerfile-NasaApiBuild .
 
 build/launchweb-container:
-	docker build -t lalaunchwebunchapi -f Dockerfile-LaunchWeb .
+	docker build -t lalaunchwebunchapi -f Dockerfile-LaunchWebBuild .

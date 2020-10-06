@@ -1,0 +1,74 @@
+[
+    {
+      "name": "LEO",
+      "orbitperigee": 200,
+      "orbitapogee": 0,
+      "orbitinclination": -1,
+      "extraspeedforflighttotheplanets": 0,
+      "description": "Low Earth orbit"
+    },
+    {
+      "name": "ISS",
+      "orbitperigee": 409,
+      "orbitapogee": 418,
+      "orbitinclination": 51.6,
+      "extraspeedforflighttotheplanets": 0,
+      "description": "International Space Station orbit"
+    },
+    {
+      "name": "SSO",
+      "orbitperigee": 500,
+      "orbitapogee": 0,
+      "orbitinclination": 98,
+      "extraspeedforflighttotheplanets": 0,
+      "description": "Sun-synchronous orbit"
+    },
+    {
+      "name": "MEO",
+      "orbitperigee": 20200,
+      "orbitapogee": 0,
+      "orbitinclination": 55,
+      "extraspeedforflighttotheplanets": 0,
+      "description": "Medium Earth orbit (GPS satellites)"
+    },
+    {
+      "name": "GTO",
+      "orbitperigee": 200,
+      "orbitapogee": 35786,
+      "orbitinclination": -1,
+      "extraspeedforflighttotheplanets": 0,
+      "description": "Geosynchronous transfer orbit"
+    },
+    {
+      "name": "GEO",
+      "orbitperigee": 35786,
+      "orbitapogee": 0,
+      "orbitinclination": -1,
+      "extraspeedforflighttotheplanets": 0,
+      "description": "Geosynchronous equatorial orbit"
+    },
+    {
+      "name": "Moon",
+      "orbitperigee": 200,
+      "orbitapogee": 0,
+      "orbitinclination": -1,
+      "extraspeedforflighttotheplanets": 3100,
+      "description": "Trans-Lunar injection orbit"
+    },
+    {
+      "name": "Mars",
+      "orbitperigee": 200,
+      "orbitapogee": 0,
+      "orbitinclination": -1,
+      "extraspeedforflighttotheplanets": 3613,
+      "description": "Trans-Mars injection orbit"
+    },
+    {
+      "name": "Venus",
+      "orbitperigee": 200,
+      "orbitapogee": 0,
+      "orbitinclination": -1,
+      "extraspeedforflighttotheplanets": 3506,
+      "description": "Trans-Venus injection orbit"
+    }
+  ]

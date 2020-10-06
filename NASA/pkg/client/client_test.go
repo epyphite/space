@@ -9,8 +9,8 @@ import (
 	"os"
 	"testing"
 
-	models "github.com/epyphite/space/NASA/pkg/models"
-	modules "github.com/epyphite/space/NASA/pkg/models/modules"
+	models "epyphite/space/v1/NASA/pkg/models"
+	modules "epyphite/space/v1/NASA/pkg/models/modules"
 	"github.com/stretchr/testify/assert"
 )
 
