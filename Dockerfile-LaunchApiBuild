@@ -1,0 +1,11 @@
+FROM golang:latest
+LABEL maintainer="Juan Ramirez <jramirez@epyphite.com>"
+RUN apt update
+RUN apt install -y ca-certificates
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN make build/LaunchAPI-linux
+WORKDIR /app/build/dist/linux/bin/
+CMD ["./LaunchAPI", "--cleardb"]

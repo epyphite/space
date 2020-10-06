@@ -13,8 +13,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 
-	"github.com/epyphite/space/LaunchWeb/pkg/models"
-	c1 "github.com/epyphite/space/LaunchWeb/pkg/web/constants"
+	"epyphite/space/v1/LaunchWeb/pkg/models"
+	c1 "epyphite/space/v1/LaunchWeb/pkg/web/constants"
 	"github.com/mailgun/mailgun-go"
 
 	"github.com/gorilla/sessions"

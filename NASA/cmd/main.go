@@ -5,7 +5,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/epyphite/space/NASA/cmd/commands"
+	"epyphite/space/v1/NASA/cmd/commands"
 )
 
 func main() {

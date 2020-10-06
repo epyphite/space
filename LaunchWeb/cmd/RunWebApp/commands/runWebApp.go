@@ -6,11 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/epyphite/space/LaunchWeb/pkg/models"
-	"github.com/epyphite/space/LaunchWeb/pkg/web"
+	"epyphite/space/v1/LaunchWeb/pkg/models"
+	"epyphite/space/v1/LaunchWeb/pkg/web"
 	"github.com/spf13/cobra"
 
-	utils "github.com/epyphite/space/LaunchWeb/pkg/utils"
+	utils "epyphite/space/v1/LaunchWeb/pkg/utils"
 )
 
 var rootCmd = &cobra.Command{
