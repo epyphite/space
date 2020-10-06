@@ -97,9 +97,9 @@ const SignUp = () => {
       console.log("Valid");
 
       console.log(formState)
-      const data = await postData(`${process.env.REACT_APP_URL}/register`, formState);
+      const data = await postData(`${process.env.REACT_APP_URL}/launchapi/api/v1/register`, formState);
 
-      debugger
+  
       
     } else {
       console.log("Not Valid");

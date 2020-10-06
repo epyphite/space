@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FormBuilder } from "bundles/utils";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { postData } from "utils";
 import {
   SECONDARY_COLOR,
 } from "bundles/utils/color";
@@ -57,6 +58,14 @@ const Login = () => {
     setLoginData({ ...loginData, ...value });
   };
 
+  const submitLogin = async() => {
+    console.log('Hello boy')
+
+    const data = await postData(`${process.env.REACT_APP_URL}/launchapi/api/v1/login `, loginData);
+
+  
+  }
+
   return (
     <div>
       <form onKeyUp={submitForm}>
@@ -72,7 +81,7 @@ const Login = () => {
             />
           </>
         ))}
-        <Button fullWidth variant="contained" className={classes.button}>
+        <Button onClick={submitLogin} fullWidth variant="contained" className={classes.button}>
           <Typography className={classes.text}> Login </Typography>
         </Button>
         <Button

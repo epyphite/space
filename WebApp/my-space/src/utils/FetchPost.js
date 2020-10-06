@@ -1,5 +1,6 @@
 const postData = async (url = "", data = {}) => {
   // Default options are marked with *
+  console.log(url)
   const response = await fetch(url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "no-cors", // no-cors, *cors, same-origin
@@ -15,7 +16,9 @@ const postData = async (url = "", data = {}) => {
   });
 
   debugger
-  return response.json(); // parses JSON response into native JavaScript objects
+ // return response.json(); // parses JSON response into native JavaScript objects
+
+
 };
 
 export { postData };
