@@ -58,6 +58,6 @@ const SpacePort = ({ data = [{}] }) => {
 };
 
 export default compose(
-  fetch("https://space.epyphite.com/launchapi/api/v1/spaceport/getAll"),
+  fetch(`${process.env.REACT_APP_URL}/launchapi/api/v1/spaceport/getAll`),
   connect(null, null)
 )(SpacePort);

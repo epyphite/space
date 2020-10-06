@@ -3,4 +3,5 @@ RUN apt update
 RUN apt install -y ca-certificates
 ADD build/dist/linux/bin/LaunchAPI /
 COPY build/dist/linux/bin/*.json /
+EXPOSE 8010
 CMD ["./LaunchAPI"]

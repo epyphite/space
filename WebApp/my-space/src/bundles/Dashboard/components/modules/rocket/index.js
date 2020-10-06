@@ -85,4 +85,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 
-export default compose(fetch('https://space.epyphite.com/launchapi/api/v1/rocket/getAll'),connect(null, mapDispatchToProps))(Rocket);
+export default compose(fetch(`${process.env.REACT_APP_URL}/launchapi/api/v1/rocket/getAll`),connect(null, mapDispatchToProps))(Rocket);

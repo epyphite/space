@@ -58,6 +58,6 @@ const Orbit = ({ data = [] }) => {
 };
 
 export default compose(
-  fetch("https://space.epyphite.com/launchapi/api/v1/orbit/getAll"),
+  fetch(`${process.env.REACT_APP_URL}/launchapi/api/v1/orbit/getAll`),
   connect(null, null)
 )(Orbit);

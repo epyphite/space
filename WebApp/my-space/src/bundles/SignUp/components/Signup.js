@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from "@material-ui/core/Button";
 import { SECONDARY_COLOR } from "bundles/utils/color";
+import { postData } from "utils";
 import Typography from "@material-ui/core/Typography";
 
 const signUpQuestions = [
@@ -90,13 +91,21 @@ const SignUp = () => {
   const [passwordStrength, setPasswordStrength] = useState({});
   const classes = useStyles();
 
-  const submitForm = () => {
+  const submitForm = async() => {
+    setLoading(true)
     if (isValidState(signUpQuestions, setFormState, formState)) {
       console.log("Valid");
+
+      console.log(formState)
+      const data = await postData(`${process.env.REACT_APP_URL}/register`, formState);
+
+      debugger
       
     } else {
       console.log("Not Valid");
     }
+
+    setLoading(false);
   };
 
   const handleVerificationChange = (value) => {
@@ -176,7 +185,7 @@ const SignUp = () => {
           fullWidth
           variant="contained"
           startIcon={
-            true ? (
+            loading ? (
               <CircularProgress size={15} disableShrink />
             ) : null
           }
