@@ -8,9 +8,10 @@ import (
 	"os"
 	"time"
 
-	c "github.com/epyphite/space/LaunchAPI/pkg/crypto"
-	"github.com/epyphite/space/LaunchAPI/pkg/models"
-	modules "github.com/epyphite/space/LaunchAPI/pkg/models/modules"
+	c "epyphite/space/v1/LaunchAPI/pkg/crypto"
+	"epyphite/space/v1/LaunchAPI/pkg/models"
+	modules "epyphite/space/v1/LaunchAPI/pkg/models/modules"
+
 	"github.com/epyphite/ulid"
 	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
@@ -112,7 +113,7 @@ func (bc *Client) initializeBucket() {
 
 	var tempUser models.User
 	// or error handling
-	u2, err := uuid.NewV4()
+	u2 := uuid.NewV4()
 
 	if err != nil {
 		log.Println("UserAdd -> Something went wrong: ", err)
@@ -165,7 +166,7 @@ func (bc *Client) importOrbitDataFromDisk() {
 	json.Unmarshal(byteValue, &orbits)
 
 	for _, orbit := range orbits {
-		u2, err := uuid.NewV4()
+		u2 := uuid.NewV4()
 		orbit.ID = u2.String()
 		err = bc.OrbitDataAdd(orbit)
 		if err != nil {
@@ -187,7 +188,7 @@ func (bc *Client) importSpacePortFromDisk() {
 	json.Unmarshal(byteValue, &ports)
 
 	for _, port := range ports {
-		u2, err := uuid.NewV4()
+		u2 := uuid.NewV4()
 		port.ID = u2.String()
 		err = bc.SpacePortAdd(port)
 		if err != nil {
@@ -208,7 +209,7 @@ func (bc *Client) importRocketFromDisk() {
 	json.Unmarshal(byteValue, &RocketData)
 
 	for _, rocket := range RocketData {
-		u2, err := uuid.NewV4()
+		u2 := uuid.NewV4()
 
 		if err != nil {
 			log.Errorf("Could not Generate UUID for %s \n", rocket.Name)
@@ -234,7 +235,7 @@ func (bc *Client) importEngineDataFromDisk() {
 	json.Unmarshal(byteValue, &EngineData)
 
 	for _, engine := range EngineData {
-		u2, err := uuid.NewV4()
+		u2 := uuid.NewV4()
 
 		if err != nil {
 			log.Errorf("Could not Generate UUID for %s \n", engine.Name)
@@ -453,7 +454,7 @@ func (bc *Client) UserAdd(user models.User) error {
 		return fmt.Errorf("could not marshal config proto: %v", err)
 	}
 	// or error handling
-	u2, err := uuid.NewV4()
+	u2 := uuid.NewV4()
 	if err != nil {
 		log.Println("UserAdd -> Something went wrong: ", err)
 		return err

@@ -1,6 +1,6 @@
 package constants
 
-import "github.com/epyphite/space/NASA/pkg/utils"
+import "epyphite/space/v1/NASA/pkg/utils"
 
 var (
 	_Kilo  = 1000

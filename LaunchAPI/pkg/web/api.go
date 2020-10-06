@@ -7,10 +7,10 @@ import (
 
 	"github.com/gorilla/handlers"
 
-	constants "github.com/epyphite/space/LaunchAPI/pkg/constants"
-	models "github.com/epyphite/space/LaunchAPI/pkg/models"
-	"github.com/epyphite/space/LaunchAPI/pkg/storage"
-	webapi "github.com/epyphite/space/LaunchAPI/pkg/web/webapp"
+	constants "epyphite/space/v1/LaunchAPI/pkg/constants"
+	models "epyphite/space/v1/LaunchAPI/pkg/models"
+	"epyphite/space/v1/LaunchAPI/pkg/storage"
+	webapi "epyphite/space/v1/LaunchAPI/pkg/web/webapp"
 )
 
 //APIOne main structure

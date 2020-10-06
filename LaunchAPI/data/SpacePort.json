@@ -1,0 +1,138 @@
+[
+    {
+      "name": "Cape Canaveral",
+      "spaceportlatitude": 28.5,
+      "spaceportlongitude": -80.33,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": 28.5,
+      "description": "USA East Coast"
+    },
+    {
+      "name": "Vandenberg",
+      "spaceportlatitude": 34.72,
+      "spaceportlongitude": -120.62,
+      "launchpointaltitude": 0.11,
+      "launchazimuth": 34.72,
+      "description": "USA West Coast (basically polar orbit)"
+    },
+    {
+      "name": "Wallops",
+      "spaceportlatitude": 37.94,
+      "spaceportlongitude": -75.47,
+      "launchpointaltitude": 0,
+      "launchazimuth": 37.94,
+      "description": "Wallops Island USA"
+    },
+    {
+      "name": "Kodiak",
+      "spaceportlatitude": 57.43,
+      "spaceportlongitude": -152.33,
+      "launchpointaltitude": 0,
+      "launchazimuth": 57.43,
+      "description": "Kodiak Island Alaska"
+    },
+    {
+      "name": "Mojave",
+      "spaceportlatitude": 35,
+      "spaceportlongitude": -118,
+      "launchpointaltitude": 0,
+      "launchazimuth": "35.",
+      "description": "California USA"
+    },
+    {
+      "name": "Rocket Lab LC-1",
+      "spaceportlatitude": -39.26,
+      "spaceportlongitude": 177.86,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": 39.25,
+      "description": "New Zealand's Mahia Peninsula"
+    },
+    {
+      "name": "Omelek Island",
+      "spaceportlatitude": 9.3,
+      "spaceportlongitude": 167.73,
+      "launchpointaltitude": 0,
+      "launchazimuth": 9.3,
+      "description": "Republic of the Marshall Islands"
+    },
+    {
+      "name": "Puerto Rico",
+      "spaceportlatitude": 18.26,
+      "spaceportlongitude": 65.61,
+      "launchpointaltitude": 0,
+      "launchazimuth": 18.26,
+      "description": "USA (access to all orbital inclinations)"
+    },
+    {
+      "name": "BO Corn Ranch",
+      "spaceportlatitude": 31.42,
+      "spaceportlongitude": -104.76,
+      "launchpointaltitude": 1.23,
+      "launchazimuth": 31.42,
+      "description": "Blue Origin spaceport USA"
+    },
+    {
+      "name": "SpaceX Boca Chica",
+      "spaceportlatitude": "26.",
+      "spaceportlongitude": -97.15,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": 26,
+      "description": "SpaceX South Texas Launch Site"
+    },
+    {
+      "name": "Baikonur",
+      "spaceportlatitude": 45.96,
+      "spaceportlongitude": 63.3,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": 51.6,
+      "description": "Kazakhstan (former USSR)"
+    },
+    {
+      "name": "Sea Launch (Equator)",
+      "spaceportlatitude": "0.",
+      "spaceportlongitude": -154,
+      "launchpointaltitude": 0.02,
+      "launchazimuth": 0,
+      "description": "Best way to reach geosynchronous orbit"
+    },
+    {
+      "name": "Kuru (ESA)",
+      "spaceportlatitude": 5.23,
+      "spaceportlongitude": -52.77,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": 5.23,
+      "description": "French Guiana"
+    },
+    {
+      "name": "Jiuquan (China)",
+      "spaceportlatitude": 41.95,
+      "spaceportlongitude": 100.28,
+      "launchpointaltitude": "1.",
+      "launchazimuth": 40.95,
+      "description": "China"
+    },
+    {
+      "name": "Shriharikota (India)",
+      "spaceportlatitude": 13.79,
+      "spaceportlongitude": 80.25,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": "44.",
+      "description": "India"
+    },
+    {
+      "name": "Alcantara (Brazil)",
+      "spaceportlatitude": -2.28,
+      "spaceportlongitude": -44.38,
+      "launchpointaltitude": ".05",
+      "launchazimuth": 2.28,
+      "description": "Brazil"
+    },
+    {
+      "name": "Tanegashima (Japan)",
+      "spaceportlatitude": 30.4,
+      "spaceportlongitude": 131.7,
+      "launchpointaltitude": 0.1,
+      "launchazimuth": 30.4,
+      "description": "Japan"
+    }
+  ]

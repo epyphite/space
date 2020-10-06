@@ -15,7 +15,7 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/epyphite/space/LaunchWeb/pkg/models"
+	"epyphite/space/v1/LaunchWeb/pkg/models"
 )
 
 //LoadConfiguration returns the read Configuration and error while reading.

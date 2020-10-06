@@ -10,11 +10,11 @@ import (
 
 	"github.com/gorilla/sessions"
 
-	explorer "github.com/epyphite/space/NASA"
-	models "github.com/epyphite/space/NASA/pkg/models"
-	"github.com/epyphite/space/NASA/pkg/models/modules"
-	"github.com/epyphite/space/NASA/pkg/storage"
-	c1 "github.com/epyphite/space/NASA/pkg/web/constants"
+	explorer "epyphite/space/v1/NASA"
+	models "epyphite/space/v1/NASA/pkg/models"
+	"epyphite/space/v1/NASA/pkg/models/modules"
+	"epyphite/space/v1/NASA/pkg/storage"
+	c1 "epyphite/space/v1/NASA/pkg/web/constants"
 )
 
 //JResponseNEO create a trscture to respond json

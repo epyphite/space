@@ -4,12 +4,12 @@ import (
 	"log"
 	"net/http"
 
-	models "github.com/epyphite/space/LaunchWeb/pkg/models"
+	models "epyphite/space/v1/LaunchWeb/pkg/models"
 	"github.com/gorilla/handlers"
 
-	constants "github.com/epyphite/space/LaunchWeb/pkg/constants"
-	webapp "github.com/epyphite/space/LaunchWeb/pkg/web/app"
-	"github.com/epyphite/space/LaunchWeb/pkg/web/ui"
+	constants "epyphite/space/v1/LaunchWeb/pkg/constants"
+	webapp "epyphite/space/v1/LaunchWeb/pkg/web/app"
+	"epyphite/space/v1/LaunchWeb/pkg/web/ui"
 )
 
 type WebOne struct {

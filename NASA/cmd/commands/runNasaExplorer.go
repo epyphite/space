@@ -10,11 +10,11 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	explorer "github.com/epyphite/space/NASA"
-	"github.com/epyphite/space/NASA/pkg/constants"
-	"github.com/epyphite/space/NASA/pkg/models"
-	"github.com/epyphite/space/NASA/pkg/utils"
-	webapi "github.com/epyphite/space/NASA/pkg/web"
+	explorer "epyphite/space/v1/NASA"
+	"epyphite/space/v1/NASA/pkg/constants"
+	"epyphite/space/v1/NASA/pkg/models"
+	"epyphite/space/v1/NASA/pkg/utils"
+	webapi "epyphite/space/v1/NASA/pkg/web"
 	"github.com/spf13/cobra"
 )
 

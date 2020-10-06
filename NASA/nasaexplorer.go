@@ -9,13 +9,13 @@ import (
 	"os"
 	"strconv"
 
-	client "github.com/epyphite/space/NASA/pkg/client"
-	models "github.com/epyphite/space/NASA/pkg/models"
-	modules "github.com/epyphite/space/NASA/pkg/models/modules"
-	parser "github.com/epyphite/space/NASA/pkg/parser"
-	"github.com/epyphite/space/NASA/pkg/srv"
+	client "epyphite/space/v1/NASA/pkg/client"
+	models "epyphite/space/v1/NASA/pkg/models"
+	modules "epyphite/space/v1/NASA/pkg/models/modules"
+	parser "epyphite/space/v1/NASA/pkg/parser"
+	"epyphite/space/v1/NASA/pkg/srv"
 
-	"github.com/epyphite/space/NASA/pkg/utils"
+	"epyphite/space/v1/NASA/pkg/utils"
 )
 
 //GetLatestApod Get Picture of the day from nasa, API key is required

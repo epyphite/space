@@ -7,10 +7,11 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/epyphite/space/LaunchAPI/pkg/constants"
-	"github.com/epyphite/space/LaunchAPI/pkg/models"
-	"github.com/epyphite/space/LaunchAPI/pkg/utils"
-	web "github.com/epyphite/space/LaunchAPI/pkg/web"
+	"epyphite/space/v1/LaunchAPI/pkg/constants"
+	"epyphite/space/v1/LaunchAPI/pkg/models"
+	"epyphite/space/v1/LaunchAPI/pkg/utils"
+	web "epyphite/space/v1/LaunchAPI/pkg/web"
+
 	"github.com/spf13/cobra"
 )
 
@@ -25,11 +26,13 @@ var services []string
 var tleSatelite int
 var clearDB bool
 var webServer bool
+var datafilesPath string
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "Define a configuration file location")
 	rootCmd.PersistentFlags().StringArrayVar(&services, "services", nil, "Define the services you wish to run")
 	rootCmd.PersistentFlags().BoolVar(&clearDB, "cleardb", false, "Clear db will clear the DB upon start")
+	rootCmd.PersistentFlags().StringVar(&datafilesPath, "datafile", "", "Path to initial load of data")
 }
 
 //Execute will run the desire module command.
