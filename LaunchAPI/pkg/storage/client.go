@@ -525,7 +525,7 @@ func (bc *Client) CheckUser(user models.User) (models.User, bool, error) {
 			}
 			return nil
 		}
-		return fmt.Errorf("Bucket exists 2	")
+		return fmt.Errorf("User Not Found")
 	})
 	if err != nil {
 		return iuser, false, err

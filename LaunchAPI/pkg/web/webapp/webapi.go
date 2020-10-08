@@ -24,6 +24,12 @@ type JResponse struct {
 	ResponseData []byte
 }
 
+//JResponseToken create a trscture to respond json
+type JResponseToken struct {
+	ResponseCode string
+	Token        string
+}
+
 //MainWebAPI PHASE
 type MainWebAPI struct {
 	Mux     *mux.Router
@@ -193,7 +199,6 @@ func (a *MainWebAPI) EngineGetALL(w http.ResponseWriter, r *http.Request) {
 }
 
 /// System Calls
-
 //V1Login main login function to keep also store
 func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 	log.Println("Getting response before options")
@@ -211,7 +216,7 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 	}
 	var err error
 
-	session, err := a.Store.Get(r, "qplace-go-session")
+	//session, err := c1.Store.Get(r, "spaceLaunch-session")
 
 	var _user models.JSONLogin
 	var user models.User
@@ -228,13 +233,6 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 	user, auth, err := a.storage.CheckUser(user)
 
 	if err != nil {
-		/*
-			var response JResponse
-			response.ResponseCode = "201"
-			response.Message = "incorrect Username or Password "
-			response.ResponseData = []byte("")
-			jresponse, err := json.Marshal(response)
-		*/
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusForbidden)
 			return
@@ -246,6 +244,7 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if auth {
+
 		if user.Banned == true {
 			w.Header().Set("Content-Type", "Application/json")
 			//w.Write(jresponse)
@@ -257,10 +256,11 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 		if user.Approved == false {
 			w.Header().Set("Content-Type", "Application/json")
 			//w.Write(jresponse)
-			http.Error(w, "Not authorized", 401)
+			http.Error(w, "User not Approved", 401)
 
 			return
 		}
+
 		user.Password = []byte("") // We empty the password
 		var usersResponse []models.User
 		var response models.JSONResponseUsers
@@ -270,43 +270,42 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 		response.Message = "logged in Succesfully"
 		response.ResponseData = usersResponse
 
-		jresponse, err := json.Marshal(response)
+		resp, err := a.TokenHandler(user)
 
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusForbidden)
-			return
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				return
+			}
 		}
-		w.Header().Set("Content-Type", "Application/json")
-		session.Options.Path = "/"
-		session.Options.MaxAge = 3600
-		session.Options.HttpOnly = true
-		session.Values["user"] = user.UserID
-		err = session.Save(r, w)
-		if err != nil {
-			http.Error(w, err.Error(), 500)
-			return
-		}
+		jresponse, err := json.Marshal(resp)
+
 		w.Write(jresponse)
-		return
-	} else {
 
 		/*
-			var response JResponse
-			response.ResponseCode = "201"
-			response.Message = "incorrect Username or Password "
-			response.ResponseData = []byte("")
 			jresponse, err := json.Marshal(response)
 
 			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+				http.Error(w, err.Error(), http.StatusForbidden)
 				return
 			}
-
 			w.Header().Set("Content-Type", "Application/json")
+			session.Options.Path = "/"
+			session.Options.MaxAge = 3600
+			session.Options.HttpOnly = true
+			session.Values["user"] = user.UserID
+			err = session.Save(r, w)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				return
+			}
 			w.Write(jresponse)
-		*/
-		http.Error(w, err.Error(), http.StatusForbidden)
+			return
 
+		*/
+	} else {
+
+		http.Error(w, err.Error(), http.StatusForbidden)
 		return
 	}
 
@@ -393,7 +392,7 @@ func (a *MainWebAPI) V1CreateUser(w http.ResponseWriter, r *http.Request) {
 	tempUser.Password = []byte(_user.Password) //Default Password CHANGE IN PROD
 	tempUser.UserID = u2.String()
 	tempUser.Token = ""
-	tempUser.Approved = false
+	tempUser.Approved = true
 	tempUser.Banned = false
 	tempUser.Role = "Admin"
 	err = a.storage.UserAdd(tempUser)
