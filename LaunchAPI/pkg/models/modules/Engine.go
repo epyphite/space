@@ -2,9 +2,9 @@ package models
 
 //EngineSpecs for calculating
 type EngineSpecs struct {
-	ID                     string
-	Name                   string
-	Description            string
+	ID                     string    `json:"id"`
+	Name                   string    `json:"name"`
+	Description            string    `json:"description"`
 	FirstStageEngineThrust float64   `json:"firststageenginethrust"`
 	FirstStageIspSeaLevel  float64   `json:"firststageispsealevel"`
 	FirstStageISPVac       float64   `json:"firststageispvac"`

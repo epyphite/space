@@ -1,0 +1,1100 @@
+{
+ "title": "EONET Events",
+ "description": "Natural events from EONET.",
+ "link": "https://eonet.sci.gsfc.nasa.gov//api/v2.1/events",
+ "events": [
+  {
+   "id": "EONET_5220",
+   "title": "Wildfire - Tirua Commune, Chile",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5220",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118854"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-22T16:15:00Z",
+     "type": "Point",
+     "coordinates": [
+      -73.47985,
+      -38.34503
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5221",
+   "title": "Wildfire - Alto Biobio Commune, Chile",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5221",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118853"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-22T16:13:00Z",
+     "type": "Point",
+     "coordinates": [
+      -71.63889,
+      -37.89241
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5219",
+   "title": "Tropical Cyclone 14S",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5219",
+   "categories": [
+    {
+     "id": 10,
+     "title": "Severe Storms",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "GDACS",
+     "url": "https://www.gdacs.org/Cyclones/report.aspx?eventid=1000762\u0026amp;eventtype=TC"
+    },
+    {
+     "id": "JTWC",
+     "url": "https://www.metoc.navy.mil/jtwc/products/sh1421.tcw"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-21T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      120.4,
+      -18.8
+     ]
+    },
+    {
+     "date": "2021-01-22T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      120.6,
+      -19.7
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5216",
+   "title": "Tropical Cyclone 13S",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5216",
+   "categories": [
+    {
+     "id": 10,
+     "title": "Severe Storms",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "GDACS",
+     "url": "https://www.gdacs.org/Cyclones/report.aspx?eventid=1000761\u0026amp;eventtype=TC"
+    },
+    {
+     "id": "JTWC",
+     "url": "https://www.metoc.navy.mil/jtwc/products/sh1321.tcw"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-21T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.2,
+      -12.4
+     ]
+    },
+    {
+     "date": "2021-01-21T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.4,
+      -12.6
+     ]
+    },
+    {
+     "date": "2021-01-21T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.3,
+      -12.8
+     ]
+    },
+    {
+     "date": "2021-01-21T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.5,
+      -13.1
+     ]
+    },
+    {
+     "date": "2021-01-22T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.5,
+      -13.3
+     ]
+    },
+    {
+     "date": "2021-01-22T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.3,
+      -13.2
+     ]
+    },
+    {
+     "date": "2021-01-22T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.3,
+      -13.3
+     ]
+    },
+    {
+     "date": "2021-01-22T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.3,
+      -13.7
+     ]
+    },
+    {
+     "date": "2021-01-23T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.2,
+      -14.1
+     ]
+    },
+    {
+     "date": "2021-01-23T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.5,
+      -14.4
+     ]
+    },
+    {
+     "date": "2021-01-23T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.6,
+      -15.1
+     ]
+    },
+    {
+     "date": "2021-01-23T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.7,
+      -15.3
+     ]
+    },
+    {
+     "date": "2021-01-24T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      97.6,
+      -16
+     ]
+    },
+    {
+     "date": "2021-01-24T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      96.6,
+      -16.1
+     ]
+    },
+    {
+     "date": "2021-01-24T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      96.2,
+      -16.1
+     ]
+    },
+    {
+     "date": "2021-01-24T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      96,
+      -16.3
+     ]
+    },
+    {
+     "date": "2021-01-25T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      95.7,
+      -16.5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5218",
+   "title": "Wildfire - Santa Cruz (Panther Ridge Fire), California, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5218",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118799"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-20T15:38:00Z",
+     "type": "Point",
+     "coordinates": [
+      -122.04039,
+      37.01086
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5217",
+   "title": "Wildfire - Santa Cruz (Freedom Fire), California, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5217",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118798"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-20T15:34:00Z",
+     "type": "Point",
+     "coordinates": [
+      -121.83875,
+      36.98384
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5212",
+   "title": "Wildfire - Santa Cruz (China Grade Fire), California, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5212",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118750"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-19T19:18:00Z",
+     "type": "Point",
+     "coordinates": [
+      -122.2107,
+      37.13868
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5213",
+   "title": "Wildfire - Santa Cruz (Fanning Fire), California, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5213",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118749"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-19T19:15:00Z",
+     "type": "Point",
+     "coordinates": [
+      -122.13795,
+      37.07553
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5214",
+   "title": "Wildfire - San Mateo (North Butano Fire), California, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5214",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118748"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-19T19:07:00Z",
+     "type": "Point",
+     "coordinates": [
+      -122.29054,
+      37.1337
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5215",
+   "title": "Wildfires - Nacimiento and Santa Juana (Membrillar Fire), Chile",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5215",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118739"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-19T18:41:00Z",
+     "type": "Point",
+     "coordinates": [
+      -72.81177,
+      -37.32931
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5211",
+   "title": "Wildfire - NE of Fresno, California - United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5211",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118729"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-19T09:29:00Z",
+     "type": "Point",
+     "coordinates": [
+      -119.500162776,
+      37.242071677
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5222",
+   "title": "Yasur Volcano, Vanuatu",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5222",
+   "categories": [
+    {
+     "id": 12,
+     "title": "Volcanoes",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "SIVolcano",
+     "url": "http://volcano.si.edu/volcano.cfm?vn=257100"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-18T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      169.447,
+      -19.532
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5208",
+   "title": "Tropical Cyclone Eloise",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5208",
+   "categories": [
+    {
+     "id": 10,
+     "title": "Severe Storms",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "EO",
+     "url": "https://earthobservatory.nasa.gov/images/147828/tropical-cyclone-eloise"
+    },
+    {
+     "id": "GDACS",
+     "url": "https://www.gdacs.org/Cyclones/report.aspx?eventid=1000760\u0026amp;eventtype=TC"
+    },
+    {
+     "id": "JTWC",
+     "url": "https://www.metoc.navy.mil/jtwc/products/sh1221.tcw"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-17T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      62.1,
+      -12.6
+     ]
+    },
+    {
+     "date": "2021-01-17T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      61.2,
+      -13
+     ]
+    },
+    {
+     "date": "2021-01-17T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      59.6,
+      -13.2
+     ]
+    },
+    {
+     "date": "2021-01-18T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      58.1,
+      -13.5
+     ]
+    },
+    {
+     "date": "2021-01-18T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      56.6,
+      -13.7
+     ]
+    },
+    {
+     "date": "2021-01-18T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      55,
+      -13.9
+     ]
+    },
+    {
+     "date": "2021-01-18T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      53,
+      -14.1
+     ]
+    },
+    {
+     "date": "2021-01-19T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      52,
+      -14.3
+     ]
+    },
+    {
+     "date": "2021-01-19T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      51.7,
+      -14.5
+     ]
+    },
+    {
+     "date": "2021-01-19T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      51,
+      -15.2
+     ]
+    },
+    {
+     "date": "2021-01-19T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      50.1,
+      -15.3
+     ]
+    },
+    {
+     "date": "2021-01-20T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      49.6,
+      -15.5
+     ]
+    },
+    {
+     "date": "2021-01-20T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      48,
+      -15.6
+     ]
+    },
+    {
+     "date": "2021-01-20T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      46.5,
+      -15.3
+     ]
+    },
+    {
+     "date": "2021-01-20T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      44.8,
+      -15.7
+     ]
+    },
+    {
+     "date": "2021-01-21T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      43.7,
+      -16.1
+     ]
+    },
+    {
+     "date": "2021-01-21T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      42.7,
+      -16.6
+     ]
+    },
+    {
+     "date": "2021-01-21T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      41.9,
+      -17.2
+     ]
+    },
+    {
+     "date": "2021-01-21T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      40.7,
+      -17.8
+     ]
+    },
+    {
+     "date": "2021-01-22T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      39.5,
+      -18.4
+     ]
+    },
+    {
+     "date": "2021-01-22T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      38.3,
+      -18.8
+     ]
+    },
+    {
+     "date": "2021-01-22T12:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      36.8,
+      -19.2
+     ]
+    },
+    {
+     "date": "2021-01-22T18:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      35.9,
+      -19.5
+     ]
+    },
+    {
+     "date": "2021-01-23T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      34.9,
+      -20.1
+     ]
+    },
+    {
+     "date": "2021-01-23T06:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      34,
+      -20.4
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5204",
+   "title": "Wildfire - Riverside County (Bonita Fire), California, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5204",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118617"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-15T18:44:00Z",
+     "type": "Point",
+     "coordinates": [
+      -116.6939,
+      33.70115
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5205",
+   "title": "Wildfire - Randall County (East Fire Fire), Texas, United States",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5205",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118616"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-15T18:42:00Z",
+     "type": "Point",
+     "coordinates": [
+      -101.69217,
+      35.12097
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5206",
+   "title": "Wildfires - Tome (Cerro Estanque Fire), Chile",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5206",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118608"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-15T18:26:00Z",
+     "type": "Point",
+     "coordinates": [
+      -72.95366,
+      -36.60922
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5203",
+   "title": "Wildfire - SE of Vina del Mar, Valparaso - Chile",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5203",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118604"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-15T18:12:00Z",
+     "type": "Point",
+     "coordinates": [
+      -71.433,
+      -33.12257
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5201",
+   "title": "Langila Volcano, Papua New Guinea",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5201",
+   "categories": [
+    {
+     "id": 12,
+     "title": "Volcanoes",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "SIVolcano",
+     "url": "https://volcano.si.edu/volcano.cfm?vn=252010"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-09T11:27:02Z",
+     "type": "Point",
+     "coordinates": [
+      148.42,
+      -5.525
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5199",
+   "title": "Iceberg A70",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5199",
+   "categories": [
+    {
+     "id": 15,
+     "title": "Sea and Lake Ice",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "NATICE",
+     "url": "https://usicecenter.gov/pub/Iceberg_Tabular.csv"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-09T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -59.64,
+      -72.35
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5200",
+   "title": "Iceberg A71",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5200",
+   "categories": [
+    {
+     "id": 15,
+     "title": "Sea and Lake Ice",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "NATICE",
+     "url": "https://usicecenter.gov/pub/Iceberg_Tabular.csv"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-09T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -59.51,
+      -72.51
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5198",
+   "title": "Wildfires - Nacimiento Commune (Malloa Fire), Chile",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5198",
+   "categories": [
+    {
+     "id": 8,
+     "title": "Wildfires",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "PDC",
+     "url": "http://emops.pdc.org/emops/?hazard_id=118373"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-08T16:45:00Z",
+     "type": "Point",
+     "coordinates": [
+      -72.79902,
+      -37.47497
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5210",
+   "title": "Iceberg A68D",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5210",
+   "categories": [
+    {
+     "id": 15,
+     "title": "Sea and Lake Ice",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "EO",
+     "url": "https://earthobservatory.nasa.gov/images/147785/pieces-of-iceberg-a-68a"
+    },
+    {
+     "id": "NATICE",
+     "url": "https://usicecenter.gov/Products/AntarcIcebergs"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2020-12-18T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -37.38,
+      -55.09
+     ]
+    },
+    {
+     "date": "2020-12-25T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -36.88,
+      -55.49
+     ]
+    },
+    {
+     "date": "2020-12-31T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -36.38,
+      -55.52
+     ]
+    },
+    {
+     "date": "2021-01-08T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -36.61,
+      -55.4
+     ]
+    },
+    {
+     "date": "2021-01-15T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      -36.36,
+      -55.24
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EONET_5202",
+   "title": "Merapi Volcano, Indonesia",
+   "description": "",
+   "link": "https://eonet.sci.gsfc.nasa.gov/api/v2.1/events/EONET_5202",
+   "categories": [
+    {
+     "id": 12,
+     "title": "Volcanoes",
+     "link": "",
+     "description": "",
+     "layers": ""
+    }
+   ],
+   "sources": [
+    {
+     "id": "SIVolcano",
+     "url": "http://volcano.si.edu/volcano.cfm?vn=263250"
+    }
+   ],
+   "geometries": [
+    {
+     "date": "2021-01-07T00:00:00Z",
+     "type": "Point",
+     "coordinates": [
+      110.446,
+      -7.54
+     ]
+    }
+   ]
+  }
+ ]
+}

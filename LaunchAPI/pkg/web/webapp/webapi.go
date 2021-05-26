@@ -2,9 +2,14 @@ package webapp
 
 import (
 	"encoding/json"
+	"os"
+
+	//Importing dependencies
+	_ "epyphite/space/v1/LaunchAPI/pkg/models/modules"
 	"fmt"
 	"net/http"
 
+	"github.com/go-redis/redis"
 	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
 
@@ -30,12 +35,23 @@ type JResponseToken struct {
 	Token        string
 }
 
+//TokenDetails for token information
+type TokenDetails struct {
+	AccessToken  string
+	RefreshToken string
+	AccessUUID   string
+	RefreshUUID  string
+	AtExpires    int64
+	RtExpires    int64
+}
+
 //MainWebAPI PHASE
 type MainWebAPI struct {
-	Mux     *mux.Router
-	Config  models.Config
-	storage *storage.Client
-	Store   *sessions.CookieStore
+	Mux         *mux.Router
+	Config      models.Config
+	storage     *storage.Client
+	Store       *sessions.CookieStore
+	RedisClient *redis.Client
 }
 
 //GetFileContentType will get the mime type of the file by reading its first 512 bytes (according to the standard)
@@ -56,11 +72,27 @@ func NewApp(config models.Config, db *storage.Client) (MainWebAPI, error) {
 
 	wapp.Mux = mux
 	wapp.Config = config
+	wapp.initRedis()
 
 	if err != nil {
 		log.Println(err)
 	}
 	return wapp, err
+}
+
+func (a *MainWebAPI) initRedis() {
+	//Initializing redis
+	dsn := os.Getenv("REDIS_DSN")
+	if len(dsn) == 0 {
+		dsn = "localhost:6379"
+	}
+	a.RedisClient = redis.NewClient(&redis.Options{
+		Addr: dsn, //redis port
+	})
+	_, err := a.RedisClient.Ping().Result()
+	if err != nil {
+		log.Debugln(err)
+	}
 }
 
 func (a *MainWebAPI) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -76,7 +108,11 @@ func (a *MainWebAPI) getSession(w http.ResponseWriter, r *http.Request) *session
 	return session
 }
 
-//Liveness just keeps the connection alive
+// Liveness just keeps the connection alive
+// @Summary check alive function
+// @Produce json
+// @Success 200 {object} JResponse
+// @Router /api/v1/liveness [get]
 func (a *MainWebAPI) Liveness(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
@@ -85,7 +121,6 @@ func (a *MainWebAPI) Liveness(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var response JResponse
-
 	response.Message = "Process Alive"
 	response.ResponseCode = "200"
 	response.ResponseData = []byte("")
@@ -100,6 +135,10 @@ func (a *MainWebAPI) Liveness(w http.ResponseWriter, r *http.Request) {
 }
 
 //About just keeps the connection alive
+// @Summary Print about this api information
+// @Produce json
+// @Success 200 {object} JResponse
+// @Router /api/v1/about [get]
 func (a *MainWebAPI) About(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
@@ -123,6 +162,10 @@ func (a *MainWebAPI) About(w http.ResponseWriter, r *http.Request) {
 }
 
 //RocketGetALL will get all Rocket data loaded
+// @Summary Provides Access to all Rocket information
+// @Produce json
+// @Success 200 {object} modules.Rocket
+// @Router /api/v1/rocket/getAll [get]
 func (a *MainWebAPI) RocketGetALL(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
@@ -141,7 +184,11 @@ func (a *MainWebAPI) RocketGetALL(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-//SpacePortGetALL will get all Rocket data loaded
+//SpacePortGetALL will get all Space Port information data loaded
+// @Summary Provides access to all space ports stable and stored.
+// @Produce json
+// @Success 200 {object} SpacePort
+// @Router /api/v1/spaceport/getAll [get]
 func (a *MainWebAPI) SpacePortGetALL(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
@@ -160,7 +207,11 @@ func (a *MainWebAPI) SpacePortGetALL(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-//OrbitGetALL will get all Rocket data loaded
+//OrbitGetALL will get all Orbits data loaded
+// @Summary Provides access to all Orbit information stable and stored.
+// @Produce json
+// @Success 200 {object} model.Orbit
+// @Router /api/v1/orbit/getAll [get]
 func (a *MainWebAPI) OrbitGetALL(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
@@ -179,7 +230,11 @@ func (a *MainWebAPI) OrbitGetALL(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-//EngineGetALL will get all Rocket data loaded
+//EngineGetALL will get all Engines Specifications
+// @Summary Provides access to all Engines Specifications stable and stored.
+// @Produce json
+// @Success 200 {object} model.Orbit
+// @Router /api/v1/engine/getAll [get]
 func (a *MainWebAPI) EngineGetALL(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		w.Header().Set("Allow", "GET")
@@ -199,13 +254,25 @@ func (a *MainWebAPI) EngineGetALL(w http.ResponseWriter, r *http.Request) {
 }
 
 /// System Calls
+
 //V1Login main login function to keep also store
+// @Summary login
+// @Description Login sessions
+// @Tags accounts
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} JResponseToken
+// @Failure 400 {object} httputil.HTTPError
+// @Failure 401 {object} httputil.HTTPError
+// @Failure 404 {object} httputil.HTTPError
+// @Failure 500 {object} httputil.HTTPError
+// @Router /login [post]
 func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
-	log.Println("Getting response before options")
+	log.Infoln("Getting response before options")
 
 	setupResponse(&w, r)
 
-	log.Println("Getting response before options")
+	log.Infoln("Getting response before options")
 	if r.Method == "OPTIONS" {
 		return
 	}
@@ -225,7 +292,7 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("User ", _user.Email)
+	log.Infoln("User ", _user.Email)
 
 	user.Email = _user.Email
 	user.Password = []byte(_user.Password)
@@ -270,7 +337,7 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 		response.Message = "logged in Succesfully"
 		response.ResponseData = usersResponse
 
-		resp, err := a.TokenHandler(user)
+		ts, err := a.CreateToken(user)
 
 		if err != nil {
 			if err != nil {
@@ -278,7 +345,17 @@ func (a *MainWebAPI) V1Login(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-		jresponse, err := json.Marshal(resp)
+
+		saveErr := a.CreateAuth(user, ts)
+		if saveErr != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+		tokens := map[string]string{
+			"access_token":  ts.AccessToken,
+			"refresh_token": ts.RefreshToken,
+		}
+		jresponse, err := json.Marshal(tokens)
 
 		w.Write(jresponse)
 
@@ -319,15 +396,25 @@ func (a *MainWebAPI) V1Logout(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	session := a.getSession(w, r)
-	w.Header().Set("Content-Type", "Application/json")
-	session.Options.Path = "/"
-	session.Options.MaxAge = -1 //We remove the session completely
-	session.Options.HttpOnly = true
-	a.Store.Save(r, w, session)
-	w.Header().Set("Content-Type", "Application/json")
-	http.Redirect(w, r, "/", 301)
+	au, err := a.ExtractTokenMetadata(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
+	deleted, delErr := a.DeleteAuth(au.AccessUUID)
+	if delErr != nil || deleted == 0 { //if any goes wrong
+
+		http.Error(w, "Session not found", http.StatusInternalServerError)
+		return
+	}
+
+	tokens := map[string]string{
+		"session": "deleted",
+	}
+	jresponse, err := json.Marshal(tokens)
+
+	w.Write(jresponse)
 }
 
 //CheckSession validates that user has a session active

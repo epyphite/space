@@ -2,9 +2,9 @@ package models
 
 //Rocket Characteristics and Payload
 type Rocket struct {
-	ID                                   string
-	Name                                 string
-	Description                          string
+	ID                                   string        `json:"id"`
+	Name                                 string        `json:"name"`
+	Description                          string        `json:"description"`
 	ThrustToWeightRatioOne               float64       `json:"thrusttoweightratioone"`
 	ThrustToWeightRatio                  float64       `json:"thrusttoweightratio"`
 	RocketMass                           float64       `json:"rocketmass"`

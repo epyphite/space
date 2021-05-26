@@ -60,22 +60,17 @@ func (W *APIOne) New() http.Handler {
 	api.HandleFunc("/liveness", app.Liveness)
 	api.HandleFunc("/about", app.About)
 
-	//Rocket Section
-	api.Handle("/rocket/getAll", app.AuthMiddleware(http.HandlerFunc(app.RocketGetALL)))
-
-	//Orbit Section
-	api.Handle("/orbit/getAll", app.AuthMiddleware(http.HandlerFunc(app.OrbitGetALL)))
-
-	//SpacePorts Section
-	api.Handle("/spaceport/getAll", app.AuthMiddleware(http.HandlerFunc(app.SpacePortGetALL)))
-
-	//Engines Section
-	api.Handle("/engine/getAll", app.AuthMiddleware(http.HandlerFunc(app.EngineGetALL)))
-
 	api.HandleFunc("/login", app.V1Login)
 	api.HandleFunc("/logout", app.V1Logout)
 	api.HandleFunc("/register", app.V1CreateUser)
 
+	//Rocket Section
+	api.Handle("/rocket/getAll", app.TokenAuthMiddleware(http.HandlerFunc(app.RocketGetALL)))
+	//Orbit Section
+	api.Handle("/orbit/getAll", app.TokenAuthMiddleware(http.HandlerFunc(app.OrbitGetALL)))
+	//SpacePorts Section
+	api.Handle("/spaceport/getAll", app.TokenAuthMiddleware(http.HandlerFunc(app.SpacePortGetALL)))
+	//Engines Section
+	api.Handle("/engine/getAll", app.TokenAuthMiddleware(http.HandlerFunc(app.EngineGetALL)))
 	return &app
-
 }

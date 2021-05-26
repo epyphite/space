@@ -119,13 +119,18 @@ func (bc *Client) initializeBucket() {
 		log.Println("UserAdd -> Something went wrong: ", err)
 		return
 	}
+
 	tempUser.Username = "root"
-	tempUser.Password = []byte("ResilientOne!!") //Default Password CHANGE IN PROD
+	tempUser.Email = "root@spacelaunch.com"
+	tempUser.Password = []byte("space@bound") //Default Password CHANGE IN PROD
 	tempUser.UserID = u2.String()
 	tempUser.Token = ""
 	tempUser.Approved = true
 	tempUser.Role = "Admin"
 	tempUser.IsAdmin = true
+
+	log.Debugln("Creating User ", tempUser.Username)
+
 	err = bc.UserAdd(tempUser)
 	if err != nil {
 		fmt.Printf("%s", err.Error())
@@ -525,7 +530,7 @@ func (bc *Client) CheckUser(user models.User) (models.User, bool, error) {
 			}
 			return nil
 		}
-		return fmt.Errorf("User Not Found")
+		return fmt.Errorf("User %v Not Found ", user.Email)
 	})
 	if err != nil {
 		return iuser, false, err

@@ -1,0 +1,3 @@
+[submodule "SatCom/pkg/icd"]
+	path = SatCom/pkg/icd
+	url = https://github.com/shackbus/icd.git

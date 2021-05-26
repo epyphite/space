@@ -1,5 +1,7 @@
 package modules
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type TLECollectionRequest struct {
 	Search   string `json:"search"`
 	PM       string `json:"pm"`
@@ -16,6 +18,7 @@ type TLERecordRequest struct {
 }
 
 type TLECollectionResponse struct {
+	_ID        primitive.ObjectID  `bson:"_id,omitempty"`
 	Context    string              `json:"@context"`
 	ID         string              `json:"@id"`
 	Type       string              `json:"@type"`
@@ -26,22 +29,24 @@ type TLECollectionResponse struct {
 }
 
 type TLEView struct {
-	ID       string `json:"@id"`
-	Type     string `json:"@type"`
-	First    string `json:"first"`
-	Previous string `json:"previous"`
-	Next     string `json:"next"`
-	Last     string `json:"last"`
+	_ID      primitive.ObjectID `bson:"_id,omitempty"`
+	ID       string             `json:"@id"`
+	Type     string             `json:"@type"`
+	First    string             `json:"first"`
+	Previous string             `json:"previous"`
+	Next     string             `json:"next"`
+	Last     string             `json:"last"`
 }
 
 type TLEMember struct {
-	ID          string `json:"@id"`
-	Type        string `json:"@type"`
-	SatelitteID int64  `json:"satelliteId"`
-	Name        string `json:"name"`
-	Date        string `json:"date"`
-	Line1       string `json:"line1"`
-	Line2       string `json:"line2"`
+	_ID         primitive.ObjectID `bson:"_id,omitempty"`
+	ID          string             `json:"@id"`
+	Type        string             `json:"@type"`
+	SatelitteID int64              `json:"satelliteId"`
+	Name        string             `json:"name"`
+	Date        string             `json:"date"`
+	Line1       string             `json:"line1"`
+	Line2       string             `json:"line2"`
 }
 
 type TLESearchParameters struct {
